@@ -1,0 +1,22 @@
+<ion-header>
+
+  <ion-navbar>
+  	<ion-buttons><button ion-button menuToggle><ion-icon name="menu"></ion-icon></button></ion-buttons>
+    <ion-title>Cài Đặt</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+	<ion-list>
+		<ion-item>
+			<ion-label>Thông báo khi có phiếu</ion-label>
+			<ion-toggle (ionChange)="changeStatusNotify()" [(ngModel)]="enableNotify" color="secondary"></ion-toggle>
+		</ion-item>
+		<ion-item>
+			<ion-label>Rung</ion-label>
+			<ion-toggle (ionChange)="changeVibrate()" [disabled]="enableNotify==false" [(ngModel)]="enableVibrate" color="secondary"></ion-toggle>
+		</ion-item>
+	</ion-list>
+</ion-content>

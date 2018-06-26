@@ -1,0 +1,93 @@
+popover-sort{
+	.checkbox-icon{
+		width:16px!important;
+		height:16px!important;
+		border-radius: 0!important;
+	}
+	.checkbox-ios{
+		margin: 8px 8px 8px 2px!important;
+	}	
+	.item-inner{
+		border:none!important;
+	}
+	.item-checkbox{
+		margin:-10px 0px!important
+	}
+	.button-popover{
+		height:2.3em!important;
+		font-size:1.2rem!important;
+		padding:0;
+	}
+	ion-badge{
+		border-radius:2px!important;
+		//margin:0 0 15px 7px!important;
+		padding:2px 5px!important;
+		color:white!important;
+	}
+	.list-ios{
+		margin:0!important;
+	}
+	// .checkbox-icon{
+	// 	left:5px!important;
+	// 	top:3px!important;
+	// }
+	.item.item-md .checkbox-md{
+		margin:9px 10px 9px 15px!important;
+		.checkbox-icon{
+			border-width: 1px !important;
+		}
+	}
+	.button-md,.button-ios{
+		text-transform: none!important;
+		border-radius: 15px!important;
+		height:2.6rem!important;
+		font-size:1.3rem!important;
+	}
+}
+popover-channel{
+	.checkbox-icon{
+		width:16px!important;
+		height:16px!important;
+		border-radius: 0!important;
+	}
+	.checkbox-ios{
+		margin: 8px 8px 8px 2px!important;
+	}	
+	.item-inner{
+		border:none!important;
+	}
+	.item-checkbox{
+		margin:-10px 0px!important
+	}
+	.button-popover{
+		height:2.3em!important;
+		font-size:1.2rem!important;
+		padding:0;
+	}
+	ion-badge{
+		border-radius:2px!important;
+		//margin:0 0 15px 7px!important;
+		padding:2px 5px!important;
+		color:white!important;
+	}
+	.list-ios{
+		margin:0!important;
+	}
+	.popover-page{
+		.item-md{
+			padding:0 8px 0 14px!important;
+		}
+		.label-md{
+			margin:8px 0!important;
+		}
+		.list-md{
+			margin:0!important;
+		}
+	}
+	.button-md,.button-ios{
+		text-transform: none!important;
+		border-radius: 15px!important;
+		height:2.6rem!important;
+		font-size:1.3rem!important;
+	}
+}

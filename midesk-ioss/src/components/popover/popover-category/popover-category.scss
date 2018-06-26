@@ -1,0 +1,29 @@
+popover-category{
+	.button-md,.button-ios{
+		text-transform: none!important;
+		border-radius: 15px!important;
+		height:2.6rem!important;
+		font-size:1.3rem!important;
+	}
+	.list-ios{
+		margin:0!important;
+	}
+	.item-md,.item-ios{
+		font-size:1.4rem!important;
+	}
+	.item-block{
+		max-height:2.4rem!important;
+	}
+	.list-ios > .item-block:first-child{
+		border:none!important;
+	}
+	.navbar-category{
+		min-height: 40px!important;
+		.toolbar-background-md{
+			background:white;
+		}
+	}
+	.text-input-md{
+		margin:8px!important;
+	}
+}

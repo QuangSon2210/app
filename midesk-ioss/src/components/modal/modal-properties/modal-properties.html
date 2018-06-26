@@ -1,0 +1,67 @@
+<ion-header>
+	<ion-navbar no-padding>
+		<ion-row no-padding>
+			<ion-col col-2><ion-buttons><button ion-button (click)="closeModal()"><ion-icon style="font-size:1.5em" name="arrow-back"></ion-icon></button></ion-buttons></ion-col>
+			<ion-col col-10 class="header-title"><span>Properties</span></ion-col>
+		</ion-row>
+
+	</ion-navbar>
+</ion-header>
+<ion-content no-padding>
+	<!-- <ion-row style="padding:10px"(click)="openPopoverCategory()">
+		<ion-col col-4>Chủ đề</ion-col>
+		<ion-col col-7 text-right padding-right><p no-margin>{{categoryName|convertLength}}</p></ion-col>
+		<ion-col col-1 no-padding text-right><ion-buttons end><img src="../assets/imgs/caret-down.png" style="width:25px"></ion-buttons></ion-col> 
+	</ion-row> -->
+	<ion-list>
+		<ion-item>
+			<ion-row class="item-inner" style="border:0!important;padding-right:0px;" no-padding>
+				<ion-col no-padding col-12>Tiêu đề</ion-col>
+				<ion-col no-padding col-12>
+					<input class="text-input text-input-md input-edit" type="text" (keyup)="changeTitle($event)" [value]="titleDefault"/>
+					<!-- <ion-input type="text" [(ngModel)]="titleDefault" ></ion-input> -->
+				</ion-col>
+			</ion-row>
+		</ion-item>
+		<ion-item (click)="changeStatus()">
+			<ion-row class="item-inner" style="border:0!important;padding-right:0px;" no-padding>
+				<ion-col no-padding col-6>Trạng thái</ion-col>
+				<ion-col *ngIf="statusDefault!=''" no-padding col-6 text-right><p><ion-badge color="{{statusDefault.value}}" >{{statusDefault.alias}}</ion-badge><span style="padding-left:5px;font-size:1.5rem">{{statusDefault.name}}</span></p></ion-col>
+			</ion-row>
+		</ion-item>
+		<ion-item (click)="changePriority()">
+			<ion-row class="item-inner" style="border:0!important;padding-right:0px;" no-padding>
+				<ion-col no-padding col-6>Độ ưu tiên</ion-col>
+				<ion-col *ngIf="priorityDefault!=''" no-padding col-6 text-right><p><ion-badge [ngStyle]="{'background-color':priorityDefault.color}" >{{priorityDefault.name}}</ion-badge></p></ion-col>
+			</ion-row>
+		</ion-item>
+		<ion-item (click)="openModalAssign()">
+			<ion-row class="item-inner" style="border:0!important;padding-right:0px;" no-padding>
+				<ion-col no-padding col-6>
+					<ion-row no-padding><ion-col col-12 no-padding>Người xử lý</ion-col><ion-col col-12 no-padding class="content">{{name}}</ion-col></ion-row>
+				</ion-col>
+				<ion-col no-padding text-right col-6><ion-avatar float-right class="box-avatar" *ngIf="name!==''"  >{{name|charAt}}</ion-avatar></ion-col>
+			</ion-row>
+		</ion-item>
+		<ion-item (click)="openModalRequester()">
+			<ion-row class="item-inner" style="border:0!important;padding-right:0px;" no-padding>
+				<ion-col no-padding col-6>
+					<ion-row no-padding>
+						<ion-col col-12 no-padding>Người yêu cầu</ion-col>
+						<ion-col *ngIf="requesterName!=''" col-12 no-padding class="content">{{requesterName}}</ion-col>
+						<ion-col *ngIf="customerName!=''"col-12 no-padding class="content">({{customerName}})</ion-col>
+					</ion-row>
+				</ion-col>
+				<ion-col no-padding text-right col-6><ion-avatar float-right class="box-avatar" *ngIf="requesterName!==''" >{{requesterName|firstNlast}}</ion-avatar></ion-col>
+			</ion-row>
+		</ion-item>
+		<ion-item (click)="openPopoverCategory()">
+			<ion-row class="item-inner" style="border:0!important;padding-right:0px;" no-padding>
+				<ion-col no-padding col-6>Chủ đề</ion-col>
+				<ion-col no-padding col-6 >
+					<ion-row no-padding *ngFor="let item of category"><p class="content">- {{item.name}}</p></ion-row>
+				</ion-col>
+			</ion-row>
+		</ion-item>
+	</ion-list>
+</ion-content>

@@ -1,0 +1,40 @@
+page-contact {
+	.customer-avatar{
+		width:40px;
+		height:40px;
+		border-radius: 50%;
+		background: #CCC;
+		text-align: center;
+		line-height:40px;
+		font-size: 18px;
+		color:#FFF;
+		margin:8px 0;
+	}
+	.btn-add-customer{
+		color:#FFF;
+		width:40px;
+		height:40px;
+		border-radius: 50%;
+		background:#2cd094;
+		font-size:20px;
+		line-height: 40px;
+	}
+	.name{
+		font-weight:500;
+		color:#000;
+	}
+	.phone{
+		font-size:1.2rem;
+	}
+	.relation{
+		padding:5px;
+		font-size:10px;
+		margin:0!important;
+		span{
+			border-radius: 2px;
+			padding:3px;
+			color:#fff;
+			font-weight: 500;
+		}
+	}
+}

@@ -1,0 +1,23 @@
+page-popover-status {
+	.popover-page{
+		.item-md{
+			padding:0 8px 0 14px!important;
+			.checkbox-md,.checkbox-ios{
+				margin: 9px 16px 9px 4px;
+			}
+		}
+		.label-md{
+			margin:8px 0!important;
+		}
+		.list-md{
+			margin:0!important;
+		}
+	}
+	ion-badge{
+		border-radius:2px!important;
+		//margin:0 0 15px 7px!important;
+		padding:2px 5px!important;
+		color:white!important;
+	}
+
+}
