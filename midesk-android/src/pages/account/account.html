@@ -1,0 +1,75 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Tài Khoản</ion-title>
+    <ion-buttons end *ngIf="edit && (countEdit > 0 || enableToggle)"><button ion-button (click)="submitEdit()"><ion-icon name="checkmark"></ion-icon></button></ion-buttons>
+    <ion-buttons end *ngIf="!edit" item-end><button ion-button (click)="editAccount()"><ion-icon name="create"></ion-icon></button></ion-buttons>
+    <ion-buttons end *ngIf="edit" item-end><button ion-button (click)="closeEdit()"><ion-icon name="close"></ion-icon></button></ion-buttons>
+  </ion-navbar>
+  <ion-grid no-padding class="background-midesk">
+		<ion-row>
+			<ion-col col-12 text-center><ion-avatar text-center [ngStyle]="{'background':colorAvatar}" class="customer-avatar">{{nameAvatar}}</ion-avatar></ion-col>
+			<ion-col col-12 text-center><p class="name" margin-bottom>{{modelUser.firstname+' '+modelUser.lastname}}</p></ion-col>
+		</ion-row>
+		<!-- <ion-row>
+			<ion-segment color="whitee" [(ngModel)]="section">
+			    <ion-segment-button value="segment1">
+			      Thông tin cá nhân
+			    </ion-segment-button>
+			    <ion-segment-button [disabled]="edit" value="segment2">
+			      Phiếu liên quan
+			    </ion-segment-button>
+			  </ion-segment>
+		</ion-row> -->
+	</ion-grid>
+
+</ion-header>
+
+<ion-content >
+  <ion-list no-lines>
+    <ion-item class="customer-info">
+      <ion-avatar item-start><ion-icon color="midesk" name="text"></ion-icon></ion-avatar>
+      <p class="title">Họ</p>
+      <p *ngIf="!edit">{{modelUser.firstname}}</p>
+      <input *ngIf="edit" no-margin class="text-input text-input-md input-edit" (keyup)="onInsertData($event,$type='firstname')" [value]="modelEdit.firstname">
+    </ion-item>
+
+    <ion-item class="customer-info">
+      <ion-avatar item-start><ion-icon color="midesk" name="text"></ion-icon></ion-avatar>
+      <p class="title">Tên</p>
+      <p *ngIf="!edit">{{modelUser.lastname}}</p>
+      <input *ngIf="edit" no-margin class="text-input text-input-md input-edit" (keyup)="onInsertData($event,$type='lastname')" [value]="modelEdit.lastname">
+    </ion-item>
+
+    <ion-item class="customer-info">
+      <ion-avatar item-start><ion-icon color="midesk" name="call"></ion-icon></ion-avatar>
+      <p class="title">Điện thoại</p>
+      <p *ngIf="!edit">{{modelUser.phone}}</p>
+      <input *ngIf="edit" no-margin class="text-input text-input-md input-edit" (keyup)="onInsertData($event,$type='phone')" [value]="modelEdit.phone">
+    </ion-item>
+
+    <ion-item class="customer-info">
+      <ion-avatar item-start><ion-icon color="midesk" name="mail"></ion-icon></ion-avatar>
+      <p class="title">Email</p>
+      <p >{{modelUser.email}}</p>
+    </ion-item>
+
+    <ion-item class="customer-info" *ngIf="edit">
+      <ion-avatar item-start><ion-icon color="midesk" name="key"></ion-icon></ion-avatar>
+      <ion-label class="title">Đổi mật khẩu</ion-label>
+      <ion-toggle color="secondary" (ionChange)="changePassword()" [(ngModel)]="enableToggle"></ion-toggle>
+    </ion-item>
+
+    <ion-item class="customer-info" *ngIf="enableToggle">
+      <ion-avatar item-start><ion-icon color="midesk" name="lock"></ion-icon></ion-avatar>
+      <p class="title">Mật khẩu mới</p>
+      <input type="password" no-margin class="text-input text-input-md input-edit" [(ngModel)]="password">
+    </ion-item>
+
+    <ion-item class="customer-info" *ngIf="enableToggle">
+      <ion-avatar item-start><ion-icon color="midesk" name="lock"></ion-icon></ion-avatar>
+      <p class="title">Xác nhận mật khẩu</p>
+      <input type="password" no-margin class="text-input text-input-md input-edit" [(ngModel)]="confirmPassword">
+    </ion-item>
+  </ion-list>
+</ion-content>

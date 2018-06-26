@@ -1,0 +1,178 @@
+page-ticket-detail{
+	.title{
+		color:#FFFFFF;
+		font-weight: 500;
+	}
+	.date{
+		color:#EEEEEE;
+		font-size:0.8em;
+	}
+	.edit_order_info{
+		.date{
+			color:#000;
+			font-weight: 500;
+		}
+	}
+	.requester{
+		color:#FFFFFF;
+		font-weight:100;
+	}
+	.more-icon{
+		width:20px;
+		margin:0 auto;
+	}
+	.ticket-info{
+		width:100%;
+		margin:0;
+		padding:0;
+		.item-inner{
+			border-bottom:0!important;
+		}
+		#detail{
+			border-top:0.55px solid #CCC;
+		}
+	}
+	.box-avatar{
+		width:45px;
+		height:45px;
+		background:#4F4F4F;
+		color:#fff;
+		text-align: center;
+		line-height: 45px;
+		font-size:22px;
+		font-weight:100;
+		border-radius: 50%;
+	}
+	// .box-assign{
+	// 	width:22px;
+	// 	height:22px;
+	// 	background:#4F4F4F;
+	// 	color:#fff;
+	// 	text-align: center;
+	// 	line-height: 31px;
+	// 	font-size:21px;
+	// 	font-weight:100;
+	// 	border-radius: 50%;
+	// }
+	#send-btn{
+		position: relative;
+	}
+	#send-badge{
+		position: absolute;
+   		bottom: 0px;
+   		right: -5px;
+   		padding:2px 5px;
+   		font-size:1.1rem;
+   		background-color: #EEAD0E;
+	}
+	// .badge-md{
+	// 	border-radius: 10px!important;
+	// }
+	.badge-count{
+		border-radius: 10px!important;
+	}
+	.icon-size{
+		font-size:25px;
+	}
+	.bg-transparent{
+		background:transparent;
+	}
+	.no-border{
+		border:none!important;
+	}
+	.assign-button{
+		height: 1.8em;
+		font-size: 1.5rem;
+		max-width:100%;
+	}
+	.button-md{
+		text-transform: none!important;
+	}
+	.chip-assign{
+		ion-chip{
+			margin:0;
+			height: 27px;
+			line-height: 27px;
+			font-size: 13px;
+			color:#FFF;
+			ion-avatar{
+				width:27px;
+				height: 27px;
+				line-height: 27px;
+				font-size:16px;
+				text-align: center;
+				min-width: 27px;
+				min-height: 27px;
+			}
+			.button{
+				width:27px!important;
+				height: 27px!important;
+			}
+		}
+	}
+	.note{
+		padding-left:1px;
+		max-width: 25%;
+	}
+	.note .select-icon{
+		width:15px!important;
+	}
+	.background-note{
+		background-color: #FFF6D9!important;
+	}
+	ion-badge{
+		border-radius:2px!important;
+		//margin:0 0 15px 7px!important;
+		padding:2px 5px!important;
+		color:white!important;
+	}
+	.private-notee{
+		background: #F4A460;
+	}
+	.private-note {
+		color: #000;
+		font-weight: 500;
+	}
+	.status_pending{
+		color: #15BDE9;
+		font-weight: 500;
+	}
+	.status_new {
+		color: #C8C800;
+		font-weight: 500;
+	}
+	.status_solved, .status_closed {
+		color: #ccc;
+		font-weight: 500;
+	}
+	.status_open {
+		color: #C80000;
+		font-weight: 500;
+	}
+	.send-icon{
+		font-size:2.5rem;
+	}
+	.padding-button{
+		padding-right:5px;
+	}
+	.item-md{
+		.create-by{
+			margin: 2px 0;
+			font-size: 1.4rem;
+			font-weight: bold;
+		}
+		.create-time{
+			font-size: 1.2rem;
+			font-style: italic;
+		}
+	}
+	.content-detail{
+		font-size:1.2rem;
+		overflow:auto;
+		padding:0 8px 0 16px!important;
+		ion-col{
+			padding:0 0 5px 5px;
+		}
+	}
+	
+}

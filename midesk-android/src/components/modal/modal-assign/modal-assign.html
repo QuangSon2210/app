@@ -1,0 +1,103 @@
+<ion-header style="background: transparent!important">
+
+  <ion-navbar>
+  	<!-- <ion-grid no-padding>
+  		<ion-row>
+  			<ion-col col-1 >
+  				<ion-icon color="dark" padding-left name="arrow-round-back" style="font-size:40px" *ngIf="members.length>0" (click)="clearMember()"></ion-icon>
+  			</ion-col>
+  			<ion-col col-8 >
+  				<ion-buttons>
+  					<ion-input  *ngIf="!members.length>0" [(ngModel)]="modelSearchAssigner.text" (keyup)="onSearchAssigner($event)" type="text" placeholder="Search"></ion-input>
+  				</ion-buttons>
+  			</ion-col>
+  			<ion-col col-1>
+  				<ion-buttons>
+  					<button *ngIf="modelSearchAssigner.text!=''" block ion-button (click)="clearSearch()"><ion-icon name="close" style="padding:10px 0"></ion-icon></button>
+  				</ion-buttons>
+  			</ion-col>
+  			<ion-col col-2>
+  				<ion-buttons end><button block ion-button color="dark" (click)="closeModal()">Close</button></ion-buttons>
+  			</ion-col>
+  		</ion-row>
+  	</ion-grid> -->
+  	<ion-grid no-padding>
+        <ion-row no-padding>
+          <ion-col col-1><ion-buttons style="margin: 6px 0.2rem;"><button ion-button (click)="closeModal()"><ion-icon class="width-icon" color="dark" name="arrow-back"></ion-icon></button></ion-buttons></ion-col>
+          <ion-col col-11>
+          <ion-searchbar 
+            [(ngModel)]="modelSearchAssigner.text"
+            (keyup)="onSearchAssigner($event)"
+            (ionClear)="onCancel($event)">
+            [animated]="true"
+          </ion-searchbar>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content >
+	<!-- <ion-card *ngIf="!loading" no-padding>
+		<ion-buttons><ion-input [(ngModel)]="modelSearchAssigner.text" (keyup)="onSearchAssigner($event)" padding-left type="text" placeholder="Search"></ion-input></ion-buttons>
+		
+	</ion-card> -->
+	<ion-spinner padding margin class="loading-search" *ngIf="loading"  name="crescent"></ion-spinner>
+	<ion-list *ngIf="!loading" padding-horizital>
+		<ion-card >
+		<ion-item *ngIf="members.length>0" (click)="selectMember(selected_team,$type='checkTeam')">
+			<ion-avatar class="box-avatar" item-start [ngStyle]="{'background':selected_team.color}">{{selected_team.team_name|charAt}}</ion-avatar>
+	      	<h2>{{selected_team.team_name}}</h2>
+	      	<p>{{selected_team.team_member}} thành viên</p>
+	      	<ion-icon *ngIf="selected_teamId===selected_team.id" item-end name="checkmark" color="checked"></ion-icon>
+		</ion-item>
+		</ion-card>
+		<span *ngIf="members.length===0 && modelSearchAssigner.text===''">
+		<ion-card *ngFor=" let item of teams" (click)="selectTeam(item)">
+		<ion-item >
+			<ion-avatar class="box-avatar" item-start [ngStyle]="{'background':item.color}">{{item.team_name|charAt}}</ion-avatar>
+	      	<h2>{{item.team_name}}</h2>
+	      	<p><span *ngIf="item.team_member>0">{{item.team_member}}</span><span *ngIf="item.team_member<=0">Chưa có</span> thành viên</p>
+	      	<ion-icon *ngIf="selected_teamId===item.team_id" item-end name="checkmark" color="checked"></ion-icon>
+		  <!-- <ion-buttons item-end><input type="radio" name="team" value="{{item.team_id}}" [(ngModel)]="model"></ion-buttons> -->
+		</ion-item>
+		</ion-card>
+		</span>
+		<span *ngIf="members.length>0" >
+		<ion-card *ngFor=" let item of members" (click)="selectMember(item,$type='checkMember')">
+		<ion-item >
+			<ion-avatar class="box-avatar" [ngStyle]="{'background':item.color}" item-start>{{item.name|charAt}}</ion-avatar>
+	      	<h2>{{item.name}}</h2>
+	      	<p>{{item.email}}</p>
+	      	<ion-icon *ngIf="selected_memberId===item.id" item-end name="checkmark" color="checked"></ion-icon>
+		</ion-item>
+		</ion-card>
+		</span>
+		<span *ngIf="modelSearchAssigner.dataItems.length>0 && modelSearchAssigner.text!==''">
+		<ion-card *ngFor=" let item of modelSearchAssigner.dataItems" (click)="selectMember(item,$type='checkMember')">
+		<ion-item >
+			<ion-avatar item-start><img src="../assets/imgs/user-icon.png"></ion-avatar>
+	      	<h2>{{item.name}}</h2>
+	      	<p>{{item.email}}</p>
+	      	<!-- <ion-icon *ngIf="selected_memberId===item.id" item-end name="checkmark" color="checked"></ion-icon> -->
+		</ion-item>
+		</ion-card>
+		</span>
+	</ion-list>
+	
+</ion-content>
+<!-- <ion-footer>
+	<ion-navbar>
+    	<ion-icon padding-left name="arrow-round-back" color="light" style="font-size:40px" *ngIf="members.length>0" (click)="clearMember()"></ion-icon>
+    	<ion-buttons end>
+	  		<button ion-button (click)="closeModal()">Close</button>
+	  	</ion-buttons>
+	  	<ion-grid>
+	  		<ion-row>
+	  			<ion-col><ion-buttons><button block ion-button color="dark" >OK</button></ion-buttons></ion-col>
+	  			<ion-col><ion-buttons><button block ion-button color="dark">Đóng</button></ion-buttons></ion-col>
+	  		</ion-row>
+	  	</ion-grid>
+  </ion-navbar>
+</ion-footer>  -->

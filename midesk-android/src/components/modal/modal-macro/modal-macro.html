@@ -1,0 +1,18 @@
+<ion-header>
+		<ion-navbar no-padding>
+			<ion-row no-padding>
+				<ion-col col-2><ion-buttons><button ion-button (click)="closeModal()"><ion-icon style="font-size:1.5em" name="arrow-back"></ion-icon></button></ion-buttons></ion-col>
+				<ion-col col-10 class="header-title"><span>Macro</span></ion-col>
+			</ion-row>
+	
+		</ion-navbar>
+	</ion-header>
+	<ion-content>
+		<ion-list>
+			<ion-item class="customer-ticket" *ngFor="let item of macro">
+				<ion-avatar class="box-ticket" item-start><ion-icon color="midesk" name="flash"></ion-icon></ion-avatar>
+				<p class="title" color="midesk" (click)="actionMacro(item)">{{item.description}}</p>
+			</ion-item>
+		</ion-list>
+		
+	</ion-content>

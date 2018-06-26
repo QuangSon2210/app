@@ -1,0 +1,46 @@
+<ion-menu [content]="content">
+  <!-- <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+
+  <ion-content>
+      <!-- <ion-list *ngIf="logged" style="background-color: #CCC"> -->
+      <ion-grid class="background-midesk">
+        <!-- <img class="img-loaded" width="100" height="100" padding src="assets/imgs/user-icon.png"/> -->
+        <ion-item padding-horizital no-lines class="background-midesk">
+        <ion-avatar item-start class="user-avatar">{{ avatarName }}</ion-avatar> 
+        <h4 no-padding style="color:white;font-weight: bold">{{loggedInUser.firstname+' '+loggedInUser.lastname}}</h4>
+        <p no-padding style="color:white">{{loggedInUser.email}}</p>
+        </ion-item>
+      <!-- </ion-list> -->
+      </ion-grid>
+    <ion-list>
+      <button class="no-border" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+         <!-- <ion-icon ios="ios-{{p.icon}}" md="md-{{p.icon}}" padding-right></ion-icon>{{p.title}} -->
+         <ion-grid no-padding>
+            <ion-row>
+              <ion-col col-2><ion-icon name={{p.icon}}></ion-icon></ion-col>
+              <ion-col col-8>{{p.title}}</ion-col>
+              <ion-col col-2 *ngIf="p.title=='Thông Báo'"><ion-badge *ngIf="countNotify>0" style="background: #EEAD0E">{{countNotify}}</ion-badge></ion-col>
+            </ion-row>
+         </ion-grid>
+      </button>
+    </ion-list>
+    
+      <button class="no-border" menuClose ion-item (click)="logOut()">
+        <ion-grid no-padding>
+            <ion-row>
+              <ion-col col-2><ion-icon ios="ios-log-out" md="md-log-out"></ion-icon></ion-col>
+              <ion-col col-8>Đăng Xuất</ion-col>
+            </ion-row>
+        </ion-grid>
+      </button>
+   
+  </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

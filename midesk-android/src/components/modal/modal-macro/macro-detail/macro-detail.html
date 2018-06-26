@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-navbar no-padding>
+    <ion-title>{{macro.description}}</ion-title>
+    <ion-buttons end><button ion-button (click)="actionDetail()"><ion-icon class="send-icon" color="light" name="checkmark"></ion-icon></button></ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>    
+    <ion-item *ngFor="let item of arrCheck">
+      <ion-row no-padding *ngIf="item.type=='content'">
+        <ion-col no-padding col-12>
+          <h4 class="title">Nội dung</h4>
+        </ion-col>
+        <ion-col no-padding col-12>
+          <p>{{dataMacro.content}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row no-padding *ngIf="item.type=='status'"> 
+        <ion-col no-padding col-6>
+          <h4 class="title">Trạng thái</h4>
+        </ion-col>
+        <ion-col no-padding text-right col-6>
+          <p><ion-badge color="{{status.value}}">{{status.alias}}</ion-badge><span style="padding-left:5px;font-size:1.5rem">{{status.name}}</span></p>          
+        </ion-col>
+      </ion-row>
+      <ion-row no-padding *ngIf="item.type=='priority'">
+        <ion-col no-padding col-6>
+          <h4 class="title">Độ ưu tiên</h4>
+        </ion-col>
+        <ion-col no-padding text-right col-6>
+          <p><ion-badge [ngStyle]="{'background-color':priority.color}">{{priority.name}}</ion-badge></p>          
+        </ion-col>
+      </ion-row>
+      <ion-row no-padding *ngIf="item.type=='assign_agent'">
+        <ion-col no-padding col-6>
+          <h4 class="title">Người xử lý</h4>
+        </ion-col>
+        <ion-col no-padding text-right col-6>
+          <p>{{assignName}}</p>          
+        </ion-col>
+      </ion-row>
+      <ion-row no-padding *ngIf="item.type=='assign_team'">
+        <ion-col no-padding col-6>
+          <h4 class="title">Nhóm xử lý</h4>
+        </ion-col>
+        <ion-col no-padding text-right col-6>
+          <p>{{teamName}}</p>          
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <!-- <ion-item>
+      <ion-row no-padding *ngIf="item.type=='status'"> 
+        <ion-col no-padding col-6>
+          <h4 class="title">Trạng thái</h4>
+        </ion-col>
+        <ion-col no-padding text-right col-6>
+          <p><ion-badge color="{{status.value}}">{{status.alias}}</ion-badge><span style="padding-left:5px;font-size:1.5rem">{{status.name}}</span></p>          
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <ion-row no-padding *ngIf="item.type=='priority'">
+        <ion-col no-padding col-6>
+          <h4 class="title">Độ ưu tiên</h4>
+        </ion-col>
+        <ion-col no-padding text-right col-6>
+          <p><ion-badge [ngStyle]="{'background-color':priority.color}">{{priority.name}}</ion-badge></p>          
+        </ion-col>
+      </ion-row>
+    </ion-item> -->
+    
+    <!-- <ion-item>
+      <h4>Người yêu cầu</h4>
+      <p>Đang cập nhật</p>
+    </ion-item>
+    <ion-item>
+      <h4>Người xử lý</h4>
+      <p>Đang cập nhật</p>
+    </ion-item> -->
+  </ion-list>
+  
+</ion-content>

@@ -1,0 +1,84 @@
+<ion-header style="background: transparent!important">
+
+  <ion-navbar>
+  	<!-- <ion-grid no-padding>
+  		<ion-row>
+  			<ion-col col-1 >
+  				
+  			</ion-col>
+  			<ion-col col-8 >
+  				<ion-buttons>
+  					<ion-input type="text" placeholder="Search" [(ngModel)]="modelRequester.searchText" (keyup)="onSearchRequester($event)"></ion-input>
+  				</ion-buttons>
+  			</ion-col>
+  			<ion-col col-1>
+  				<ion-buttons>
+  					<button *ngIf="modelRequester.searchText!==''" block ion-button (click)="clearSearch()"><ion-icon color="dark" name="close" style="padding:10px 0"></ion-icon></button>
+  				</ion-buttons>
+  			</ion-col>
+  			<ion-col col-2>
+  				<ion-buttons end><button block ion-button color="dark" ion-button (click)="closeModal()">Close</button></ion-buttons>
+  			</ion-col>
+  		</ion-row>
+  	</ion-grid> -->
+      
+      <!-- <ion-buttons >
+        <ion-item padding-horizital>
+        <ion-input type="text" clearInput placeholder="Search" [(ngModel)]="modelRequester.searchText" (keyup)="onSearchRequester($event)"></ion-input>
+        </ion-item>
+      </ion-buttons> -->
+      
+      <ion-grid no-padding>
+        <ion-row no-padding>
+          <ion-col col-1><ion-buttons style="margin: 6px 0.2rem;"><button ion-button (click)="closeModal()"><ion-icon class="width-icon" color="dark" name="arrow-back"></ion-icon></button></ion-buttons></ion-col>
+          <ion-col col-11>
+          <ion-searchbar 
+            [(ngModel)]="modelRequester.searchText"
+            (keyup)="onSearchRequester($event)"
+            (ionClear)="onCancel($event)">
+            [animated]="true"
+          </ion-searchbar>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-spinner padding margin class="loading-search" *ngIf="loading"  name="crescent"></ion-spinner>
+  <ion-list *ngIf="!loading">
+    
+    <span *ngIf="modelCustomer.length == 0">
+      <ion-card *ngFor=" let item of modelRequester.dataItems" (click)="selectRequester(item)">
+        <ion-item>
+          <ion-avatar class="box-avatar" item-start [ngStyle]="{'background':item.color}">{{item.name|charAt}}</ion-avatar>
+          <p class="name-item">{{item.name}}</p>
+          <p>{{item.email}}</p>
+          <ion-icon item-end *ngIf="selected_requesterId===item.id" name="checkmark" color="checked"></ion-icon>
+        </ion-item>
+      </ion-card>
+    </span>
+    <ion-card *ngIf="modelCustomer.length > 0" (click)="selectCustomer(selected_requester,$type='checkContact')">
+        <ion-item>
+          <ion-avatar class="box-avatar" item-start [ngStyle]="{'background':selected_requester.color}">{{selected_requester.name|charAt}}</ion-avatar>
+          <p class="name-item">{{selected_requester.name}}</p>
+          <p>{{selected_requester.email}}</p>
+          <ion-icon item-end *ngIf="selected_requesterId===selected_requester.id" name="checkmark" color="checked"></ion-icon>
+        </ion-item>
+    </ion-card>
+    <span *ngIf="modelCustomer.length > 0">
+      <ion-card *ngFor=" let item of modelCustomer" (click)="selectCustomer(item,$type='checkCustomer')" >
+        <ion-item>
+          <ion-avatar class="box-avatar" item-start [ngStyle]="{'background':item.color}">{{item.customer_name|charAt}}</ion-avatar>
+          <p class="name-item">{{item.customer_name}}</p>
+          <p>{{item.email}}</p>
+          <ion-icon item-end *ngIf="selected_requesterId===item.customer_id" name="checkmark" color="checked"></ion-icon>
+        </ion-item>
+      </ion-card>
+    </span>
+  </ion-list>
+  
+  <ion-infinite-scroll *ngIf="modelRequester.loadMore" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
