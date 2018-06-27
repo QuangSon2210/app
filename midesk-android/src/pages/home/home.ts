@@ -76,6 +76,10 @@ export class HomePage {
     private _dataService: DataService,
     private _platform: Platform
     ) {
+   
+    //console.log(1);
+  }
+  ionViewWillEnter(){
     this.initApp();
   }
   initApp(){
@@ -206,7 +210,7 @@ export class HomePage {
     });
   }
   listenEventNewNotifi(){
-    console.log(JSON.parse(this._authService.getLoggedInRoom()).array_agent.split(','));
+    //console.log(JSON.parse(this._authService.getLoggedInRoom()).array_agent.split(','));
     let userId = this._authService.getLoggedInUser().id;
     let teamId = JSON.parse(this._authService.getLoggedInRoom()).array_team.split(',');
     this._socketService.listenEvent('NEW NOTIFI').subscribe(res=>{
