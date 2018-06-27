@@ -80,12 +80,12 @@ export class HomePage {
   }
   initApp(){
     this._platform.ready().then(()=>{
-      this.room=JSON.parse(this._authService.getLoggedInRoom());
-      let self = this;
-      setTimeout(function(){
-        self._socketService.connect();
-        self._socketService.emitData('room',self.room);
-      },2000);
+      // this.room=JSON.parse(this._authService.getLoggedInRoom());
+      // let self = this;
+      // setTimeout(function(){
+      //   self._socketService.connect();
+      //   self._socketService.emitData('room',self.room);
+      // },2000);
       this.listenEventNewNotifi();
       this.listenEventUpdate();
       this._notifyService.countNewNotifications().subscribe(res=>{ this.countNotify = res;});
@@ -93,6 +93,14 @@ export class HomePage {
       this.initListTicket();
       this.priority = this._authService.getPriority();
     })
+  }
+  connectSocket(){
+    this.room=JSON.parse(this._authService.getLoggedInRoom());
+    let self = this;
+    setTimeout(function(){
+      self._socketService.connect();
+      self._socketService.emitData('room',self.room);
+    },2000);
   }
   loadCountTicket(){
     this._ticketService.countTicket().subscribe(res=>{
