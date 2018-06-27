@@ -15,11 +15,11 @@ export class AuthService {
     private loggedInUser: any; //User
     constructor(
         public _cookieService: CookieService,
-        private _fcm: FCM,
+        _fcm: FCM,
         ) {
-        // _fcm.getToken().then(token=>{
-        //     this.fcm_token = token;
-        // })
+        _fcm.getToken().then(token=>{
+            this.fcm_token = token;
+        })
     }
     getToken(): string {
         return this._cookieService.get(TOKEN_NAME);
