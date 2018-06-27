@@ -64,10 +64,10 @@ export class MyApp {
   initializeApp() {
     this.platform.ready().then(() => {
       if(this._authService.isUserLoggedIn()){
+        //this.connectSocket();
         this.listenEventNewNotifi();
         this.listenEventUpdate();
         this.receiveNotification();
-        this.connectSocket();
         this._notifyService.countNewNotifications().subscribe(res=>{ this.countNotify = res;});
         this.loggedInUser = this._authService.getLoggedInUser();
         this.avatarName = this._authService.getLoggedInUser().lastname;
