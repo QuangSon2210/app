@@ -178,6 +178,7 @@ export class TicketDetailPage {
                 }
                 break;
               case 'content':
+                console.log(content['createby']['id']+'----'+self._authService.getLoggedInUser().id);
                 if(content['createby']['id'] != self._authService.getLoggedInUser().id){
                   var tmp =  new Date().toString();
                   var now = Date.parse(tmp)/1000;
