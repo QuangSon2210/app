@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, NavController, ModalController, PopoverController, AlertController, ActionSheetController, Platform } from 'ionic-angular';
+import { NavParams, NavController, ModalController, PopoverController, AlertController, ActionSheetController, Platform, Nav } from 'ionic-angular';
 import { TicketService } from './../../../services/ticket.service';
 import { ModalAssign } from'./../../../components/modal/modal-assign/modal-assign';
 import { SettingService } from './../../../common/setting.service';
@@ -73,7 +73,7 @@ export class TicketDetailPage {
   urlFile ='';
   contentCompact = ''; 
   constructor(
-  	public navCtrl: NavController,
+    private navCtrl: NavController,
   	private _ticketService: TicketService,
     private _settingService: SettingService,
   	private modalCtrl : ModalController,
@@ -90,6 +90,7 @@ export class TicketDetailPage {
     this.urlFile = this._settingService._baseUrl+'/public/upload/';
     _dataService.createLoading({duration:100}).present();
     this.initApp();
+    console.log(this.navCtrl.getActive().name);
   }
   initApp(){
     // if(this._platform.ready()){
@@ -105,7 +106,6 @@ export class TicketDetailPage {
     this.initTicketDetail();
   }
   listenEventUpdateTicket(){
-      //let flag = false;
       this._socketService.listenEvent('NEW_UPDATE_TICKET').subscribe(data=>{
       console.log(data);
       let arr:any = data;
@@ -201,7 +201,7 @@ export class TicketDetailPage {
         }
       }
       //if(this.navCtrl.getActive().name == 'TicketDetailPage' && data[0]['ticket_id'] == this.navParamsCtrl.get('data').id && JSON.parse(data[0].content)['createby']['id'] != this._authService.getLoggedInUser().id){
-      if(this.navCtrl.getActive().name === 'TicketDetailPage'){
+      if(this.navParamsCtrl.get('component') == TicketDetailPage.name){
         this.ticketUpdate = this.ticketUpdateDetail = [];
         this.countChange = Object.keys(this.ticketUpdateDetail).length + Object.keys(this.ticketUpdate).length;
         this._dataService.createToast('Thông tin phiếu vừa được thay đổi bởi ' + JSON.parse(data[0].content)['createby']['name']+'.',3000,'fail-toast');

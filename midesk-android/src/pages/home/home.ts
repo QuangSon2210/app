@@ -66,7 +66,7 @@ export class HomePage {
   countNotify:any;
   room:any={};
   constructor(
-    public navCtrl: NavController,
+    private navCtrl: NavController,
     public popoverCtrl: PopoverController,
     private _ticketService: TicketService,
     private modalCtrl: ModalController,
@@ -83,6 +83,7 @@ export class HomePage {
   // }
   initApp(){
     this._platform.ready().then(()=>{
+      
       // this.room=JSON.parse(this._authService.getLoggedInRoom());
       // let self = this;
       // setTimeout(function(){
@@ -164,8 +165,8 @@ export class HomePage {
   	this.sectionSelect.open();
   }
   clickTicket(index){
-  	console.log(index);
-    this.navCtrl.push(TicketDetailPage,{data:index});
+    console.log(index);
+    this.navCtrl.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
   }
   doFilter(){
     this.modelTicket.dataItems=[];
