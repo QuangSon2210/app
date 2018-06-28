@@ -109,101 +109,102 @@ export class TicketDetailPage {
       this._socketService.listenEvent('NEW_UPDATE_TICKET').subscribe(data=>{
       console.log(data);
       let arr:any = data;
-      if(this.navCtrl.getActive().name == 'TicketDetailPage' && data[0]['ticket_id'] == this.navParamsCtrl.get('data').id && JSON.parse(data[0].content)['createby']['id'] != this._authService.getLoggedInUser().id){
-        this.countChange = Object.keys(this.ticketUpdateDetail).length + Object.keys(this.ticketUpdate).length;
-        this._dataService.createToast('Thông tin phiếu vừa được thay đổi bởi ' + JSON.parse(data[0].content)['createby']['name']+'.',3000,'fail-toast');
-        for(let i=0;i<arr.length;i++){
-          //console.log(this.navParamsCtrl.get('data'));
-          if(data[i].ticket_id==this.navParamsCtrl.get('data').id){
-            let content =JSON.parse(data[i].content);
-            let self = this;
-            Object.keys(content).forEach(function(key){
-              switch(key){
-                case 'assign_agent':
-                  if(content[key]['id'] != null && content[key]['id'] != self.ticketInfo.assign_agent){
-                    self.ticketInfo.assign_agent = content[key]['id'];
-                    self.ticketInfo.agent_name = content[key]['name'];
-                    self.ticketDefault.assign_agent = content[key]['id'];
-                    if(typeof self.ticketUpdate[key] !== 'undefined'){
-                      delete self.ticketUpdate[key];
-                      delete self.ticketUpdate['assign_team'];
-                    }
-                    //flag = true;
+      for(let i=0;i<arr.length;i++){
+        //console.log(this.navParamsCtrl.get('data'));
+        if(data[i].ticket_id==this.navParamsCtrl.get('data').id){
+          let content =JSON.parse(data[i].content);
+          let self = this;
+          Object.keys(content).forEach(function(key){
+            switch(key){
+              case 'assign_agent':
+                if(content[key]['id'] != null && content[key]['id'] != self.ticketInfo.assign_agent){
+                  self.ticketInfo.assign_agent = content[key]['id'];
+                  self.ticketInfo.agent_name = content[key]['name'];
+                  self.ticketDefault.assign_agent = content[key]['id'];
+                  if(typeof self.ticketUpdate[key] !== 'undefined'){
+                    delete self.ticketUpdate[key];
+                    delete self.ticketUpdate['assign_team'];
                   }
-                  break;
-                case 'assign_team':
-                  if(content[key]['id'] != null && content[key]['id'] != self.ticketInfo.assign_team){
-                    self.ticketInfo.assign_team = content[key]['id'];
-                    self.ticketInfo.team_name = content[key]['name'];
-                    self.ticketDefault.assign_team = content[key]['id'];
-                    if(typeof self.ticketUpdate[key] !== 'undefined'){
-                      delete self.ticketUpdate[key];
-                      self.reChoose = true;
-                    }
-                    //flag = true;
-                  }
-                  break;
-                case 'priority':
-                  if(content[key]['id'] != self.ticketInfo.priority){
-                    self.priorityDefault = content[key];
-                    self.ticketDefault.priority = content[key];
-                    self.ticketInfo.priority = content[key]['id'];
-                    if(typeof self.ticketUpdate[key] !== 'undefined'){
-                      delete self.ticketUpdate[key];
-                    }
-                    //flag = true;
-                  }
-                  break;
-                case 'status':
-                  if(content[key]!=self.ticketInfo.status){
-                    self.ticketInfo.status = content[key];
-                    self.statusDefault = self.checkStatus[content[key]];
-                    //flag = true;
-                    if(typeof self.ticketUpdate[key] !== 'undefined'){
-                      delete self.ticketUpdate[key];
-                    }
-                  }
-                  break;
-                case 'title':
-                  if(content[key] != self.ticketInfo.title){
-                    self.ticketInfo.title = content[key];
-                    //flag = true;
-                  }
-                  break;
-                case 'category':
-                  self.ticketDefault.category = content[key]['id'];
-                  self.ticketDefault.parent2 = content[key]['parent2'];
-                  self.ticketInfo.category = content[key]['id'];
-                  self.ticketInfo.parent2 = content[key]['parent2'];
                   //flag = true;
-                  if(typeof self.ticketUpdate[key]!== 'undefined'){
+                }
+                break;
+              case 'assign_team':
+                if(content[key]['id'] != null && content[key]['id'] != self.ticketInfo.assign_team){
+                  self.ticketInfo.assign_team = content[key]['id'];
+                  self.ticketInfo.team_name = content[key]['name'];
+                  self.ticketDefault.assign_team = content[key]['id'];
+                  if(typeof self.ticketUpdate[key] !== 'undefined'){
+                    delete self.ticketUpdate[key];
+                    self.reChoose = true;
+                  }
+                  //flag = true;
+                }
+                break;
+              case 'priority':
+                if(content[key]['id'] != self.ticketInfo.priority){
+                  self.priorityDefault = content[key];
+                  self.ticketDefault.priority = content[key];
+                  self.ticketInfo.priority = content[key]['id'];
+                  if(typeof self.ticketUpdate[key] !== 'undefined'){
                     delete self.ticketUpdate[key];
                   }
-                  break;
-                case 'content':
-                  console.log(content['createby']['id']+'----'+self._authService.getLoggedInUser().id);
-                  if(content['createby']['id'] != self._authService.getLoggedInUser().id){
-                    var tmp =  new Date().toString();
-                    var now = Date.parse(tmp)/1000;
-                    let detail = {
-                      content:content[key],
-                      compactContent:"",
-                      create_name: content['createby']['name'],
-                      date:'100164',
-                      datecreate:now,
-                      file_original:null,
-                      private:content['private'],
-                      type:'text'
-                    }
-                    self.ticketDetail.unshift(detail);
-                    //flag = true;
+                  //flag = true;
+                }
+                break;
+              case 'status':
+                if(content[key]!=self.ticketInfo.status){
+                  self.ticketInfo.status = content[key];
+                  self.statusDefault = self.checkStatus[content[key]];
+                  //flag = true;
+                  if(typeof self.ticketUpdate[key] !== 'undefined'){
+                    delete self.ticketUpdate[key];
                   }
-                  break;
-              }
-            })
-          }
+                }
+                break;
+              case 'title':
+                if(content[key] != self.ticketInfo.title){
+                  self.ticketInfo.title = content[key];
+                  //flag = true;
+                }
+                break;
+              case 'category':
+                self.ticketDefault.category = content[key]['id'];
+                self.ticketDefault.parent2 = content[key]['parent2'];
+                self.ticketInfo.category = content[key]['id'];
+                self.ticketInfo.parent2 = content[key]['parent2'];
+                //flag = true;
+                if(typeof self.ticketUpdate[key]!== 'undefined'){
+                  delete self.ticketUpdate[key];
+                }
+                break;
+              case 'content':
+                console.log(content['createby']['id']+'----'+self._authService.getLoggedInUser().id);
+                if(content['createby']['id'] != self._authService.getLoggedInUser().id){
+                  var tmp =  new Date().toString();
+                  var now = Date.parse(tmp)/1000;
+                  let detail = {
+                    content:content[key],
+                    compactContent:"",
+                    create_name: content['createby']['name'],
+                    date:'100164',
+                    datecreate:now,
+                    file_original:null,
+                    private:content['private'],
+                    type:'text'
+                  }
+                  self.ticketDetail.unshift(detail);
+                  //flag = true;
+                }
+                break;
+            }
+          })
         }
       }
+      //if(this.navCtrl.getActive().name == 'TicketDetailPage' && data[0]['ticket_id'] == this.navParamsCtrl.get('data').id && JSON.parse(data[0].content)['createby']['id'] != this._authService.getLoggedInUser().id){
+        this.ticketUpdate = this.ticketUpdateDetail = [];
+        this.countChange = Object.keys(this.ticketUpdateDetail).length + Object.keys(this.ticketUpdate).length;
+        this._dataService.createToast('Thông tin phiếu vừa được thay đổi bởi ' + JSON.parse(data[0].content)['createby']['name']+'.',3000,'fail-toast');
+      //}
       this.assign = (this.ticketInfo.assign_agent==0)?this.ticketInfo.team_name:this.ticketInfo.agent_name;
     })
   }
