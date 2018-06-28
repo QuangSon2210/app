@@ -201,10 +201,11 @@ export class TicketDetailPage {
         }
       }
       //if(this.navCtrl.getActive().name == 'TicketDetailPage' && data[0]['ticket_id'] == this.navParamsCtrl.get('data').id && JSON.parse(data[0].content)['createby']['id'] != this._authService.getLoggedInUser().id){
+      if(this.navCtrl.getActive().name === 'TicketDetailPage'){
         this.ticketUpdate = this.ticketUpdateDetail = [];
         this.countChange = Object.keys(this.ticketUpdateDetail).length + Object.keys(this.ticketUpdate).length;
         this._dataService.createToast('Thông tin phiếu vừa được thay đổi bởi ' + JSON.parse(data[0].content)['createby']['name']+'.',3000,'fail-toast');
-      //}
+      }
       this.assign = (this.ticketInfo.assign_agent==0)?this.ticketInfo.team_name:this.ticketInfo.agent_name;
     })
   }
