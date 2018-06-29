@@ -186,7 +186,7 @@ export class MyApp {
   }
   handleNotification(){
     this._localNotification.on('click').subscribe(res=>{
-      this.nav.push(TicketDetailPage,{data:res.data.id});
+      this.nav.push(TicketDetailPage,{data:{data:res.data.id}});
     })
   }
   listenEventUpdate(){
