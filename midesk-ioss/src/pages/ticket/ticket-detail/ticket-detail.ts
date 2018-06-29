@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, NavController, ModalController, PopoverController, AlertController, ActionSheetController, Platform } from 'ionic-angular';
+import { NavParams, NavController, ModalController, PopoverController, AlertController, ActionSheetController, Platform, Nav } from 'ionic-angular';
 import { TicketService } from './../../../services/ticket.service';
 import { ModalAssign } from'./../../../components/modal/modal-assign/modal-assign';
 import { SettingService } from './../../../common/setting.service';
@@ -73,7 +73,7 @@ export class TicketDetailPage {
   urlFile ='';
   contentCompact = ''; 
   constructor(
-  	public navCtrl: NavController,
+    private navCtrl: NavController,
   	private _ticketService: TicketService,
     private _settingService: SettingService,
   	private modalCtrl : ModalController,
@@ -90,11 +90,15 @@ export class TicketDetailPage {
     this.urlFile = this._settingService._baseUrl+'/public/upload/';
     _dataService.createLoading({duration:100}).present();
     this.initApp();
+    console.log(this.navCtrl.getActive().name);
   }
   initApp(){
-    if(this._platform.ready()){
+    // if(this._platform.ready()){
+    //   this.listenEventUpdateTicket();
+    // }
+    this._platform.ready().then(()=>{
       this.listenEventUpdateTicket();
-    }
+    })
   }
   ionViewWillLoad() {
     this.priority = this._authService.getPriority();
@@ -102,9 +106,9 @@ export class TicketDetailPage {
     this.initTicketDetail();
   }
   listenEventUpdateTicket(){
-      let flag = false;
       this._socketService.listenEvent('NEW_UPDATE_TICKET').subscribe(data=>{
       console.log(data);
+      let pageName = this.navCtrl.getActive().name;
       let arr:any = data;
       for(let i=0;i<arr.length;i++){
         //console.log(this.navParamsCtrl.get('data'));
@@ -122,7 +126,7 @@ export class TicketDetailPage {
                     delete self.ticketUpdate[key];
                     delete self.ticketUpdate['assign_team'];
                   }
-                  flag = true;
+                  //flag = true;
                 }
                 break;
               case 'assign_team':
@@ -134,7 +138,7 @@ export class TicketDetailPage {
                     delete self.ticketUpdate[key];
                     self.reChoose = true;
                   }
-                  flag = true;
+                  //flag = true;
                 }
                 break;
               case 'priority':
@@ -145,14 +149,14 @@ export class TicketDetailPage {
                   if(typeof self.ticketUpdate[key] !== 'undefined'){
                     delete self.ticketUpdate[key];
                   }
-                  flag = true;
+                  //flag = true;
                 }
                 break;
               case 'status':
                 if(content[key]!=self.ticketInfo.status){
                   self.ticketInfo.status = content[key];
                   self.statusDefault = self.checkStatus[content[key]];
-                  flag = true;
+                  //flag = true;
                   if(typeof self.ticketUpdate[key] !== 'undefined'){
                     delete self.ticketUpdate[key];
                   }
@@ -161,7 +165,7 @@ export class TicketDetailPage {
               case 'title':
                 if(content[key] != self.ticketInfo.title){
                   self.ticketInfo.title = content[key];
-                  flag = true;
+                  //flag = true;
                 }
                 break;
               case 'category':
@@ -169,12 +173,13 @@ export class TicketDetailPage {
                 self.ticketDefault.parent2 = content[key]['parent2'];
                 self.ticketInfo.category = content[key]['id'];
                 self.ticketInfo.parent2 = content[key]['parent2'];
-                flag = true;
+                //flag = true;
                 if(typeof self.ticketUpdate[key]!== 'undefined'){
                   delete self.ticketUpdate[key];
                 }
                 break;
               case 'content':
+                console.log(content['createby']['id']+'----'+self._authService.getLoggedInUser().id);
                 if(content['createby']['id'] != self._authService.getLoggedInUser().id){
                   var tmp =  new Date().toString();
                   var now = Date.parse(tmp)/1000;
@@ -189,18 +194,21 @@ export class TicketDetailPage {
                     type:'text'
                   }
                   self.ticketDetail.unshift(detail);
-                  flag = true;
+                  //flag = true;
                 }
                 break;
             }
           })
         }
-        if(this.navCtrl.getActive().name == 'TicketDetailPage' && flag && data[0]['ticket_id'] == this.navParamsCtrl.get('data').id && JSON.parse(data[0].content)['createby']['id'] != this._authService.getLoggedInUser().id){
-          this.countChange = Object.keys(this.ticketUpdateDetail).length + Object.keys(this.ticketUpdate).length;
-          this._dataService.createToast('Thông tin phiếu vừa được thay đổi bởi ' + JSON.parse(data[0].content)['createby']['name']+'.',3000,'fail-toast');
-        }
       }
-      
+      //console.log(data[0]['ticket_id']+'------'+this.navParamsCtrl.get('data').id);
+      //if(this.navCtrl.getActive().name == 'TicketDetailPage' && data[0]['ticket_id'] == this.navParamsCtrl.get('data').id && JSON.parse(data[0].content)['createby']['id'] != this._authService.getLoggedInUser().id){
+      //if(pageName == 'TicketDetailPage' && data[0]['ticket_id'] == this.navParamsCtrl.get('data').id && JSON.parse(data[0].content)['createby']['id'] != this._authService.getLoggedInUser().id){
+      if(pageName == 'TicketDetailPage'){
+        this.ticketUpdate = this.ticketUpdateDetail = [];
+        this.countChange = Object.keys(this.ticketUpdateDetail).length + Object.keys(this.ticketUpdate).length;
+        this._dataService.createToast('Thông tin phiếu vừa được thay đổi bởi ' + JSON.parse(data[0].content)['createby']['name']+'.',3000,'fail-toast');
+      }
       this.assign = (this.ticketInfo.assign_agent==0)?this.ticketInfo.team_name:this.ticketInfo.agent_name;
     })
   }

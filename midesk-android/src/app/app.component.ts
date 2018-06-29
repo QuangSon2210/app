@@ -67,7 +67,7 @@ export class MyApp {
         this.connectSocket();
         this.listenEventNewNotifi();
         this.listenEventUpdate();
-        this.receiveNotification();
+        //this.receiveNotification();
         this._notifyService.countNewNotifications().subscribe(res=>{ this.countNotify = res;});
         this.loggedInUser = this._authService.getLoggedInUser();
         this.avatarName = this._authService.getLoggedInUser().lastname;
@@ -137,7 +137,9 @@ export class MyApp {
       var regex = /(<([^>]+)>)/ig;
       let custom = JSON.parse(data[0]['custom']);
       title = title.replace(regex, "");
+      let content = data['content'];
       let array = {
+        content:content,
         title: title,
         id:custom.id,
         ticket_id: custom.ticket_id,
@@ -145,8 +147,8 @@ export class MyApp {
       }
       let body={
         "notification":{
-          "title":"Bạn có thông báo mới!",
-          "body":title,
+          "title":title,
+          "body":content,
           "sound":"default",
           "click_action":"FCM_PLUGIN_ACTIVITY",
           "icon":"fcm_push_icon",
@@ -163,8 +165,8 @@ export class MyApp {
     
     this._localNotification.schedule({
       id:2,
-      title:'Bạn có thông báo mới!',
-      text:data.title,
+      title:data.title,
+      text:data.content,
       led:'66CC00',
       vibrate:this.vibrate,
       data:{

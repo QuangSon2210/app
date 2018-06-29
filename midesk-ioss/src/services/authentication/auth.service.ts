@@ -17,9 +17,12 @@ export class AuthService {
         public _cookieService: CookieService,
         private _fcm: FCM,
         ) {
-        // _fcm.getToken().then(token=>{
-        //     this.fcm_token = token;
-        // })
+        this.initFCMToken();
+    }
+    initFCMToken(){
+        this._fcm.getToken().then(token=>{
+            this.fcm_token = token;
+        })
     }
     getToken(): string {
         return this._cookieService.get(TOKEN_NAME);

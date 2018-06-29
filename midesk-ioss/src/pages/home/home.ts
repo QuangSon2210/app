@@ -66,7 +66,7 @@ export class HomePage {
   countNotify:any;
   room:any={};
   constructor(
-    public navCtrl: NavController,
+    private navCtrl: NavController,
     public popoverCtrl: PopoverController,
     private _ticketService: TicketService,
     private modalCtrl: ModalController,
@@ -78,6 +78,9 @@ export class HomePage {
     ) {
     this.initApp();
   }
+  // ionViewWillEnter(){
+  //   this.initApp();
+  // }
   initApp(){
     this._platform.ready().then(()=>{
       // this.room=JSON.parse(this._authService.getLoggedInRoom());
@@ -93,6 +96,14 @@ export class HomePage {
       this.initListTicket();
       this.priority = this._authService.getPriority();
     })
+  }
+  connectSocket(){
+    this.room=JSON.parse(this._authService.getLoggedInRoom());
+    let self = this;
+    setTimeout(function(){
+      self._socketService.connect();
+      self._socketService.emitData('room',self.room);
+    },2000);
   }
   loadCountTicket(){
     this._ticketService.countTicket().subscribe(res=>{
@@ -153,8 +164,8 @@ export class HomePage {
   	this.sectionSelect.open();
   }
   clickTicket(index){
-  	console.log(index);
-    this.navCtrl.push(TicketDetailPage,{data:index});
+    console.log(index);
+    this.navCtrl.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
   }
   doFilter(){
     this.modelTicket.dataItems=[];
@@ -198,10 +209,11 @@ export class HomePage {
     });
   }
   listenEventNewNotifi(){
-    console.log(JSON.parse(this._authService.getLoggedInRoom()).array_agent.split(','));
+    //console.log(JSON.parse(this._authService.getLoggedInRoom()).array_agent.split(','));
     let userId = this._authService.getLoggedInUser().id;
     let teamId = JSON.parse(this._authService.getLoggedInRoom()).array_team.split(',');
     this._socketService.listenEvent('NEW NOTIFI').subscribe(res=>{
+      console.log(res);
       if(res[0]['view'] != userId && res[0]['del_agent'] != userId && teamId.indexOf(res[0]['id_team'],0)!=-1 || userId == res[0]['id_user']){
         this.countNotify+=1;
         this.loadCountTicket();

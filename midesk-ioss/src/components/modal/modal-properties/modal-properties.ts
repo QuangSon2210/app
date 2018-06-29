@@ -80,7 +80,6 @@ export class ModalProperties{
     this._socketService.listenEvent('NEW_UPDATE_TICKET').subscribe(data=>{
       console.log(data);
       let arr:any = data;
-        let flag = false;
       for(let i=0;i<arr.length;i++){
         //console.log(this.navParamsCtrl.get('data'));
         if(data[i].ticket_id==this.navParams.get('data').id){
@@ -95,37 +94,28 @@ export class ModalProperties{
 							}
               self.assign.assign_agent = content['assign_agent']['id'];
 							self.assign.agent_name = content['assign_agent']['name'];
-              //self.ticketDefault.assign_agent = content['assign_agent']['id'];
-              flag = true;
             }
             else if(key == 'assign_team' && content['assign_team']['id']!=self.assign.assign_team){
 							if(typeof self.dataUpdate['assign_team'] != 'undefined' && self.dataUpdate['assign_agent'] != content['assign_agent']['id']){
-								//self.dataUpdate['assign_agent'] = content['assign_agent']['id'];
 								self.dataUpdate['assign_team'] = content['assign_team']['id'];
 							}
               self.assign.assign_team = content['assign_team']['id'];
               self.assign.team_name = content['assign_team']['name'];
-              //self.ticketDefault.assign_team = content['assign_team']['id'];
-              flag = true;
 						}
             else if(key == 'priority' && content['priority']['id']!=self.priorityDefault.id){
 							if(typeof self.dataUpdate['priority'] != 'undefined' && self.dataUpdate['prirority'] != content['priority']['id']){
 								self.dataUpdate['priority'] = content['priority']['id'];
 							}
               self.priorityDefault = content['priority'];
-              flag = true;
             }
             else if(key == 'title' && content['title']!=self.titleDefault){
               self.titleDefault = content['title'];
-              flag = true;
             }
             else if(key == 'status' && content['status']!=self.statusDefault.value){
 							if(typeof self.dataUpdate['status'] != 'undefined' && self.dataUpdate['status'] != content['status']){
 								self.dataUpdate['status'] = content['status'];
 							}
 							self.statusDefault = self.checkStatus[content['status']];
-							
-              flag = true;
 						}
             // else if(key=='category'){
 						// 	if()
