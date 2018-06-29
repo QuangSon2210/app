@@ -162,7 +162,6 @@ export class MyApp {
       this._notifyService.sendNotification(body).subscribe(); 
   }
   initLocalNotification(data){
-    
     this._localNotification.schedule({
       id:2,
       title:data.title,
@@ -182,6 +181,11 @@ export class MyApp {
         this.initLocalNotification(res);
       })
     //}
+  }
+  handleNotification(){
+    this._localNotification.on('click').subscribe(res=>{
+      alert(res);
+    })
   }
   listenEventUpdate(){
     this._dataService.listenEvent('UPDATE PROFILE').subscribe(res=>{
