@@ -18,6 +18,7 @@ import { AuthService } from '../services/authentication/auth.service';
 import { DataService } from '../common/data.service';
 import { MessageService } from '../common/message.service';
 import { UserService } from '../services/user.service';
+import { TicketDetailPage } from '../pages/ticket/ticket-detail/ticket-detail';
 
 @Component({
   templateUrl: 'app.html',
@@ -185,7 +186,7 @@ export class MyApp {
   }
   handleNotification(){
     this._localNotification.on('click').subscribe(res=>{
-      alert(res.data.id);
+      this.nav.push(TicketDetailPage,{data:res.data.id});
     })
   }
   listenEventUpdate(){
