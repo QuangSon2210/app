@@ -38,6 +38,9 @@ export class SettingPage {
     console.log('ionViewDidLoad SettingPage');
   }
   changeStatusNotify(){
+    if(this._authService.getFCMToken()==''){
+      this._authService.initFCMToken();
+    }
     this.data['is_notification'] = (this.enableNotify==true)?'1':'0';
     let arr = this._cookieService.getObject('setting');
     arr['notify']= this.data['is_notification'];

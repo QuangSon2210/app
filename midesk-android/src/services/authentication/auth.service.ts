@@ -15,9 +15,12 @@ export class AuthService {
     private loggedInUser: any; //User
     constructor(
         public _cookieService: CookieService,
-        _fcm: FCM,
+        private _fcm: FCM,
         ) {
-        _fcm.getToken().then(token=>{
+        this.initFCMToken();
+    }
+    initFCMToken(){
+        this._fcm.getToken().then(token=>{
             this.fcm_token = token;
         })
     }
