@@ -83,7 +83,6 @@ export class HomePage {
   // }
   initApp(){
     this._platform.ready().then(()=>{
-      alert(this._authService.getFCMToken());
       // this.room=JSON.parse(this._authService.getLoggedInRoom());
       // let self = this;
       // setTimeout(function(){
