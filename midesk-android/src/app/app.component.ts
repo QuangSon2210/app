@@ -185,7 +185,7 @@ export class MyApp {
   }
   handleNotification(){
     this._localNotification.on('click').subscribe(res=>{
-      alert(res.ticket_id);
+      alert(res.data);
     })
   }
   listenEventUpdate(){
