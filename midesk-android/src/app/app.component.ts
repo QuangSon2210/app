@@ -185,7 +185,7 @@ export class MyApp {
   }
   handleNotification(){
     this._localNotification.on('click').subscribe(res=>{
-      Object.keys(res.data).forEach(function(key)=>{
+      Object.keys(res.data).forEach(function(key){
         alert(key);
       })
     })
