@@ -16,7 +16,7 @@ export class AuthService {
     constructor(
         public _cookieService: CookieService,
         private _fcm: FCM,
-        ) {
+    ){
         this.initFCMToken();
     }
     initFCMToken(){
