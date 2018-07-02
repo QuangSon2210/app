@@ -15,13 +15,13 @@ export class ConvertTime implements PipeTransform {
         var now = Date.parse(tmp)/1000;
         var compare = now - val;
         if(compare < 60){
-            val = "ngay bây giờ ";
+            val = "now ";
         }
         else if(compare <= 3600){
-            val = Math.round(compare/60)+" phút trước";
+            val = Math.round(compare/60)+"m ago";
         }
         else if(compare > 3600 && compare < 86400){
-            val = Math.round(compare/3600)+" giờ trước";
+            val = Math.round(compare/3600)+"h ago";
         }
         else{
             let time = new Date(val*1000);

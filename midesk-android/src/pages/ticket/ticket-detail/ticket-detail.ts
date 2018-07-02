@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, NavController, ModalController, PopoverController, AlertController, ActionSheetController, Platform, Nav } from 'ionic-angular';
+import { NavParams, NavController, ModalController, PopoverController, AlertController, ActionSheetController, Platform } from 'ionic-angular';
 import { TicketService } from './../../../services/ticket.service';
 import { ModalAssign } from'./../../../components/modal/modal-assign/modal-assign';
 import { SettingService } from './../../../common/setting.service';
@@ -33,6 +33,7 @@ export class TicketDetailPage {
   assign='';
   avatar='';
   countChange = 0;
+  count = 0;
   priority:any=[];
 	ticketDetail:any=[];
   ticketInfo:any={};
@@ -126,6 +127,7 @@ export class TicketDetailPage {
                     delete self.ticketUpdate[key];
                     delete self.ticketUpdate['assign_team'];
                   }
+                  
                   //flag = true;
                 }
                 break;
@@ -309,6 +311,7 @@ export class TicketDetailPage {
         }
       }
       this.countChange = Object.keys(this.ticketUpdate).length;
+      this.count += 1;
     })
     contactModal.present();
    }
@@ -402,6 +405,7 @@ export class TicketDetailPage {
        }
       }
       this.countChange = Object.keys(this.ticketUpdate).length;
+      this.coun += 2;
     })
     popoverPriority.present();
      
