@@ -145,7 +145,8 @@ export class MyApp {
         title: title,
         id:custom.id,
         ticket_id: custom.ticket_id,
-        notify_id: data[0]['id']
+        notify_id: data[0]['id'],
+        user_id: this._authService.getLoggedInUser().id
       }
       let body={
         "notification":{
@@ -173,13 +174,16 @@ export class MyApp {
       data:{
         id:data.id,
         ticket_id:data.ticket_id,
-        notify_id:data.notify_id
+        notify_id:data.notify_id,
+        user_id: data.user_id
       }
     })
   }
   receiveNotification(){
     //if(this._authService.enableNotify()){
       this._fcm.onNotification().subscribe(res=>{
+        alert(res.data.user_id);
+        //if(res.data.user_id != this._authService.getLoggedInUser().id)
         this.initLocalNotification(res);
       })
     //}
