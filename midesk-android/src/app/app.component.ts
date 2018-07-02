@@ -181,6 +181,7 @@ export class MyApp {
   }
   receiveNotification(){
     //if(this._authService.enableNotify()){
+      alert(this.nav.getActive().name);
       this._fcm.onNotification().subscribe(res=>{
         if(this._authService.getLoggedInUser().id != res.user_id){
           this.initLocalNotification(res);
