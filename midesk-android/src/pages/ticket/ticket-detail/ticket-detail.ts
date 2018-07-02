@@ -405,7 +405,7 @@ export class TicketDetailPage {
        }
       }
       this.countChange = Object.keys(this.ticketUpdate).length;
-      this.coun += 2;
+      this.count += 2;
     })
     popoverPriority.present();
      
