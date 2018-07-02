@@ -146,7 +146,7 @@ export class MyApp {
         id:custom.id,
         ticket_id: custom.ticket_id,
         notify_id: data[0]['id'],
-        user_id: this._authService.getLoggedInUser().id
+        user_id: data[0]['del_agent']
       }
       let body={
         "notification":{
@@ -182,9 +182,9 @@ export class MyApp {
   receiveNotification(){
     //if(this._authService.enableNotify()){
       this._fcm.onNotification().subscribe(res=>{
-        alert(res.data.user_id);
-        //if(res.data.user_id != this._authService.getLoggedInUser().id)
-        this.initLocalNotification(res);
+        if(this._authService.getLoggedInUser().id != res.user_id){
+          this.initLocalNotification(res);
+        }
       })
     //}
   }
