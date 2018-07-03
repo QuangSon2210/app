@@ -7,21 +7,23 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>518123301176-05tkk4v9ljcutoumdnfed9agdchsokqh.apps.googleusercontent.com</string>
+	<string>438029741002-6crj1vssadn9racnon20bsmo18tsd4jq.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.518123301176-05tkk4v9ljcutoumdnfed9agdchsokqh</string>
+	<string>com.googleusercontent.apps.438029741002-6crj1vssadn9racnon20bsmo18tsd4jq</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>438029741002-podsu7q7nag83boj9q9qbqupamgiuh64.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDLr9DGo8J0yzt_L2E5Ijwu4_nuIKZW6p0</string>
+	<string>AIzaSyBqZNrbZFAAsDluQv0EDZRmq4yz2U9b6KQ</string>
 	<key>GCM_SENDER_ID</key>
-	<string>518123301176</string>
+	<string>438029741002</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.midesk.io</string>
+	<string>mitek.vn.midesk</string>
 	<key>PROJECT_ID</key>
-	<string>notification-1c83f</string>
+	<string>midesk-a5edc</string>
 	<key>STORAGE_BUCKET</key>
-	<string>notification-1c83f.appspot.com</string>
+	<string>midesk-a5edc.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +35,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:518123301176:ios:7c2bb8adfc3716b4</string>
+	<string>1:438029741002:ios:a006de8e6add3bf3</string>
 	<key>DATABASE_URL</key>
-	<string>https://notification-1c83f.firebaseio.com</string>
+	<string>https://midesk-a5edc.firebaseio.com</string>
 </dict>
 </plist>

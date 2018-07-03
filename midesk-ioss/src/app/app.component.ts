@@ -18,6 +18,7 @@ import { AuthService } from '../services/authentication/auth.service';
 import { DataService } from '../common/data.service';
 import { MessageService } from '../common/message.service';
 import { UserService } from '../services/user.service';
+import { TicketDetailPage } from '../pages/ticket/ticket-detail/ticket-detail';
 
 @Component({
   templateUrl: 'app.html',
@@ -67,6 +68,7 @@ export class MyApp {
         this.connectSocket();
         this.listenEventNewNotifi();
         this.listenEventUpdate();
+        this.handleNotification();
         this.receiveNotification();
         this._notifyService.countNewNotifications().subscribe(res=>{ this.countNotify = res;});
         this.loggedInUser = this._authService.getLoggedInUser();
@@ -137,16 +139,19 @@ export class MyApp {
       var regex = /(<([^>]+)>)/ig;
       let custom = JSON.parse(data[0]['custom']);
       title = title.replace(regex, "");
+      let content = data[0]['content'];
       let array = {
+        content: content,
         title: title,
         id:custom.id,
         ticket_id: custom.ticket_id,
-        notify_id: data[0]['id']
+        notify_id: data[0]['id'],
+        user_id: data[0]['del_agent']
       }
       let body={
         "notification":{
-          "title":"Bạn có thông báo mới!",
-          "body":title,
+          "title":title,
+          "body":content,
           "sound":"default",
           "click_action":"FCM_PLUGIN_ACTIVITY",
           "icon":"fcm_push_icon",
@@ -160,26 +165,34 @@ export class MyApp {
       this._notifyService.sendNotification(body).subscribe(); 
   }
   initLocalNotification(data){
-    
     this._localNotification.schedule({
       id:2,
-      title:'Bạn có thông báo mới!',
-      text:data.title,
+      title: data.title,
+      text: data.content,
       led:'66CC00',
       vibrate:this.vibrate,
       data:{
         id:data.id,
         ticket_id:data.ticket_id,
-        notify_id:data.notify_id
+        notify_id:data.notify_id,
+        user_id: data.user_id
       }
     })
   }
   receiveNotification(){
-    //if(this._authService.enableNotify()){
+    if(this._authService.enableNotify()){
       this._fcm.onNotification().subscribe(res=>{
-        this.initLocalNotification(res);
+        if(this._authService.getLoggedInUser().id != res.user_id){
+          this.initLocalNotification(res);
+        }
       })
-    //}
+    }
+  }
+  handleNotification(){
+    this._localNotification.on('click').subscribe(res=>{
+      let index = { id: res.data.id };
+      this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
+    })
   }
   listenEventUpdate(){
     this._dataService.listenEvent('UPDATE PROFILE').subscribe(res=>{
