@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:438029741002:android:27739c4402c3d872",
+        "mobilesdk_app_id": "1:438029741002:android:897b5759d9d1eaa7",
         "android_client_info": {
-          "package_name": "MiDesk.MITEK.vn"
+          "package_name": "midesk.mitek.vn"
         }
       },
       "oauth_client": [
         {
-          "client_id": "438029741002-jrktt8s2rq2ermv1emauvnpdf59p1o9t.apps.googleusercontent.com",
+          "client_id": "438029741002-podsu7q7nag83boj9q9qbqupamgiuh64.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "MiDesk.MITEK.vn",
+            "package_name": "midesk.mitek.vn",
             "certificate_hash": "4ffa96465a2f8c316de26132290e3803e8e1bc38"
           }
         },
