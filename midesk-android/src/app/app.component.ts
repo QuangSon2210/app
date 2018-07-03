@@ -180,14 +180,13 @@ export class MyApp {
     })
   }
   receiveNotification(){
-    //if(this._authService.enableNotify()){
-      alert(this.nav.getActive().name);
+    if(this._authService.enableNotify()){
       this._fcm.onNotification().subscribe(res=>{
         if(this._authService.getLoggedInUser().id != res.user_id){
           this.initLocalNotification(res);
         }
       })
-    //}
+    }
   }
   handleNotification(){
     this._localNotification.on('click').subscribe(res=>{

@@ -1,27 +1,35 @@
 {
   "project_info": {
-    "project_number": "518123301176",
-    "firebase_url": "https://notification-1c83f.firebaseio.com",
-    "project_id": "notification-1c83f",
-    "storage_bucket": "notification-1c83f.appspot.com"
+    "project_number": "438029741002",
+    "firebase_url": "https://midesk-a5edc.firebaseio.com",
+    "project_id": "midesk-a5edc",
+    "storage_bucket": "midesk-a5edc.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:518123301176:android:1f8b62403f791b4f",
+        "mobilesdk_app_id": "1:438029741002:android:a006de8e6add3bf3",
         "android_client_info": {
-          "package_name": "com.midesk.android"
+          "package_name": "mitek.vn.midesk"
         }
       },
       "oauth_client": [
         {
-          "client_id": "518123301176-1udu0potg9fkrjaig5nhbbko4j3hhu7s.apps.googleusercontent.com",
+          "client_id": "438029741002-sder2lk3tqiplqi0ho47o7mfe3ifq809.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mitek.vn.midesk",
+            "certificate_hash": "eca00a080f2dd98cab1a5d86f37db81aef9c35e1"
+          }
+        },
+        {
+          "client_id": "438029741002-b1ipk40jfi6uhs4fnh9f53k2c53o0ep0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDHsTzTZEf_TE9yT5YkMJ2RRZ_nhg2sG9c"
+          "current_key": "AIzaSyDEab50JQnWFc0o6y6C_baFxdYgv_PN65Y"
         }
       ],
       "services": {
@@ -29,39 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:518123301176:android:7c2bb8adfc3716b4",
-        "android_client_info": {
-          "package_name": "com.midesk.io"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "518123301176-1udu0potg9fkrjaig5nhbbko4j3hhu7s.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDHsTzTZEf_TE9yT5YkMJ2RRZ_nhg2sG9c"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "438029741002-b1ipk40jfi6uhs4fnh9f53k2c53o0ep0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
