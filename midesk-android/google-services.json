@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "438029741002-2b8p07h8v7j3nbea6va9pj6ou2cirn5s.apps.googleusercontent.com",
+          "client_id": "438029741002-jrktt8s2rq2ermv1emauvnpdf59p1o9t.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "MiDesk.MITEK.vn",
-            "certificate_hash": "eca00a080f2dd98cab1a5d86f37db81aef9c35e1"
+            "certificate_hash": "4ffa96465a2f8c316de26132290e3803e8e1bc38"
           }
         },
         {
