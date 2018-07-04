@@ -94,6 +94,7 @@ export function cookieServiceFactory() {
     NotificationsService,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: CookieService, useFactory: cookieServiceFactory },
+    { provide: RequestOptions, useClass: AuthRequestOptions },
   ]
 })
 export class AppModule {}
