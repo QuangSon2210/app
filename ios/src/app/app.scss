@@ -14,3 +14,146 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.no-border .item-inner{
+	background-image: none!important;
+	border:none!important;
+}
+.custom-popup .popover-content{
+		// top:20%!important;
+		// left:15%!important;
+		// width:200px!important;
+		// height:auto!important;
+		right:10px!important;
+		top:85px!important;
+}
+.custom-popup .list-md{
+	margin:0!important;
+}
+.success-toast{
+	.toast-wrapper{
+		background:#c2f0c2!important;
+		border: 1px solid #99e699;
+		//border-radius:5px;
+		.toast-message{
+			color:#29a329 !important;
+			padding:1.2rem;
+			font-size:1.5rem;
+		}	
+	}
+} 
+.fail-toast{
+	.toast-wrapper{
+		background:#ffe6e6!important;
+		border: 1px solid #ffcccc;
+		//border-radius:5px;
+		.toast-message{
+			color:#b30000 !important;
+			padding:1.2rem;
+			font-size:1.5rem;
+		}	
+	}	
+}
+.user-avatar{
+	width:60px;
+	height:60px;
+	border-radius: 50%;
+	background: #FFF;
+	text-align: center;
+	line-height:60px;
+	font-size: 25px;
+	color:#2cd094;
+	margin:8px 0;
+}
+//header
+.ion-md-arrow-round-back{
+	font-size:20px!important;
+}
+.ion-ios-arrow-round-back{
+	font-size:30px!important;
+}
+.toolbar-md{
+	min-height:55px!important;
+	//padding: 6px 4px 4px 4px!important;
+}
+// .content-md{
+// 	.fixed-content,.scroll-content{
+// 		margin-top:44px!important;
+// 	}
+// }
+.back-button-md{
+	margin:0 6px 0 0!important;
+}
+.toolbar-title-md,.toolbar-title-ios{
+	font-size:1.5rem!important;
+	padding:0!important;
+}
+.header-title{
+	padding-top: 12px;
+	span{
+		font-weight: 500;
+		color:#FFF;
+		font-size:1.5rem;	
+	}
+}
+.chip-md > ion-label{
+	margin:0 3px !important;
+}
+.width-icon{
+	font-size:2rem;
+}
+.popover-content{
+	width:330px!important;
+}
+.custom-channel .popover-content,.custom-status .popover-content,.custom-priority .popover-content{
+	width:200px!important;
+}
+.custom-sort .popover-content{
+	width:300px!important;
+}
+.custom-popup .popover-content{
+	width:300px!important;
+	//left:40%!important;
+	height: 300px;
+}
+.custom-status .popover-content{
+	// top:186px!important;
+	// left:148px!important;
+	top:25%!important;
+	left:40%!important;
+}
+.custom-priority .popover-content{
+	top:30%!important;
+	left:40%!important;
+	// top:206px!important;
+	// left:148px!important;
+}
+.my-class{
+	.item-md .radio-md{
+		margin:0!important;
+		.radio-icon{
+			display: none!important;
+		}
+	}
+}
+.attachfile-content img {
+    height: 15px;
+}
+.border-audio-ticket{
+    display: table;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.background-midesk{
+	background-color: #5fb85f;
+}
+// .md,
+// .ios,
+// .wp {
+//  page-home {
+//    ion-header {
+//         height: 60px;//by default 56px
+//     }
+//  }
+//}
+//

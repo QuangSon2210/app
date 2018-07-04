@@ -38,8 +38,25 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  new:        #C8C800,
+  solved:     #CCCCCC,
+  open:       #C80000,
+  pending:    #15BDE9,
+  checked:    #33CC00,
+  facebook:   #3b5998,
+  chrome:     #AA0000,
+  allchanel:  #F4A460,
+  //midesk:     #2cd094,
+  midesk:     #0a844c,
+  whitee:     #FFFFFF,
 );
+$toolbar-background: #5fb85f;
+$spinner-ios-crescent-color: #33CC00;
+$checkbox-ios-icon-border-color-on: #c8c7cc;
+$checkbox-ios-icon-checkmark-color: #00CC66;
+$checkbox-ios-background-color-on: #FFFFFF;	
+$popover-md-width: 200px;
 
 
 // App iOS Variables
