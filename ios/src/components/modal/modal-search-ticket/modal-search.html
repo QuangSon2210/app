@@ -1,0 +1,52 @@
+<ion-header >
+  <ion-navbar>
+  	
+  		<ion-row no-padding>
+  			<ion-col col-2 no-padding>
+  				<ion-buttons class="margin-header-icon" >
+  					<button ion-button (click)="closeModal()"><ion-icon name="arrow-round-back" color="dark" style="font-size: 25px"></ion-icon></button>
+  				</ion-buttons>
+  			</ion-col>
+  			<ion-col col-8 no-padding>
+  					<ion-input clearInput [(ngModel)]="modelSearch.text" (keyup)="onSearchTicket($event)" type="text" placeholder="Nhập tiêu đề hoặc mã phiếu ..."></ion-input>
+  			</ion-col>
+  			<ion-col col-2 no-padding>
+  				<ion-buttons end *ngIf="modelSearch.text!==''" class="margin-header-icon">
+					<button padding-left ion-button (click)="clearSearch()"><ion-icon color="dark" name="close"></ion-icon></button>
+				</ion-buttons>
+  			</ion-col>
+  		</ion-row>
+  	
+  </ion-navbar>
+</ion-header>
+<ion-content no-padding>
+	<ion-spinner padding margin *ngIf="modelSearch.dataLoading"  name="crescent"></ion-spinner>
+	<ion-list no-padding class="list-ticket">
+      	<ion-card>
+			<ion-item *ngIf="modelSearch.dataTotal!==0">Hiển thị {{modelSearch.currentData}} trên tổng {{modelSearch.dataTotal}} kết quả</ion-item>
+		</ion-card>
+		<ion-card *ngFor="let item of modelSearch.dataItems">
+	    	<ion-item (click)="clickTicket(item)">
+		      <ion-avatar item-start [ngStyle]="{'background-color':'#'+item.date}" class="box-avatar" *ngIf="item.request!==null">{{item.request | firstNlast}}
+					<!-- <img src="../assets/imgs/user-icon.png"> -->
+				</ion-avatar>
+				<ion-avatar item-start class="box-avatar" *ngIf="item.request===null">
+					ERR
+				</ion-avatar>
+				<p *ngIf="item.request!==null"><span style="font-size:1.2rem;color:#888888">#{{item.ticket_id}} - {{item.request}}</span></p>
+				<p *ngIf="item.request===null"><span style="font-size:1.2rem;color:#888888">#{{item.ticket_id}} - Chưa có người yêu cầu</span><p>
+				<p class="title-ticket" *ngIf="item.title!==''" >{{item.title}}</p>
+				<p class="title-ticket" *ngIf="item.title===''" >Chưa có tiêu đề</p>
+				<p class="date-ticket" item-end>
+					<span *ngFor=" let stt of status" >
+						<ion-badge *ngIf="stt.value===item.status" color="{{stt.value}}">{{stt.alias}}</ion-badge>
+					</span>
+					<br>{{item.created_at| toTime2}}
+				</p>
+			</ion-item>
+		</ion-card>
+    </ion-list>
+    <ion-infinite-scroll *ngIf="modelSearch.loadMore" (ionInfinite)="doInfinite($event)">
+    	<ion-infinite-scroll-content></ion-infinite-scroll-content>
+  	</ion-infinite-scroll>
+</ion-content>

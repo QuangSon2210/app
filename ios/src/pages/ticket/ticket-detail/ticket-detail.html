@@ -1,0 +1,127 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>#{{ticketInfo.ticket_id}}</ion-title>
+		<ion-buttons *ngIf="ticketInfo.is_delete==0" padding-right end><button ion-button [disabled]="countChange<=0" (click)="actionTicket()"><ion-icon class="send-icon" color="light" name="paper-plane"></ion-icon><ion-badge class="badge-count" *ngIf="countChange>0" id="send-badge">{{countChange}}</ion-badge></button></ion-buttons>
+		<ion-buttons class="padding-button" end><button ion-button (click)="openActionSheet()"><ion-icon class="send-icon" color="light" name="more"></ion-icon></button></ion-buttons>
+	    <!-- <button ion-button menuToggle>
+	      <ion-icon name="menu"></ion-icon>
+	    </button>
+	    <ion-title>Ticket Detail</ion-title>
+	    <ion-buttons end><button id="send-btn" class="bg-transparent" [disabled]="countChange<=0" (click)="actionTicket()"><ion-icon class="icon-size" color="light" name="send"></ion-icon><ion-badge *ngIf="countChange>0" id="send-badge">{{countChange}}</ion-badge></button></ion-buttons>
+	    <ion-buttons end><button class="bg-transparent"><ion-icon class="icon-size" color="light" (click)="openActionSheet()" name="more"></ion-icon></button></ion-buttons> -->
+  </ion-navbar>
+</ion-header>
+<ion-content>
+	<div padding *ngIf="loading">
+		<ion-spinner text-center name="crescent"></ion-spinner>
+	</div>
+	<div *ngIf="!loading">
+	<ion-grid class="background-midesk">
+  	<ion-row no-padding>
+	  	<ion-col col-12>
+	  	<ion-item class="ticket-title bg-transparent no-border" no-padding>
+	    	<ion-label class="title">{{ticketInfo.title}}</ion-label>
+	  	</ion-item>
+	  	</ion-col>
+  	</ion-row>
+  	<ion-row no-padding>
+	  	<ion-col col-6>
+	  		<p *ngIf="requesterName!==''" class="requester" no-margin>from: {{requesterName2 | convertLength }} </p>
+	  		<p *ngIf="requesterName===''" class="requester" no-margin>chưa có người yêu cầu</p>
+	  		<p class="date" no-margin>{{ticketInfo.created_at| date: 'dd/MM'}}</p>
+	  	</ion-col>
+	  	<ion-col col-6 class="chip-assign">
+			<button *ngIf="assign===''" no-margin float-right style="padding:0 0.5em!important" ion-button class="assign-button">
+	  			<span (click)="openModalAssign()">Người xử lý</span>
+	  		</button>
+	  		<ion-chip *ngIf="assign!==''" float-right>
+			  <ion-avatar class="box-assign" [ngStyle]="{'background':avatar}">{{assign| charAt}}</ion-avatar>
+			  <ion-label (click)="openModalAssign()">{{assign|convertLength}}</ion-label>
+			  <button ion-button clear color="light">
+			    <ion-icon *ngIf="reChoose"  (click)="reChooseAssign()" name="close-circle"></ion-icon>
+			    <ion-icon *ngIf="!reChoose" (click)="openModalAssign()" name="swap"></ion-icon>
+			  </button>
+			</ion-chip>		
+	  	</ion-col>
+  	</ion-row>
+    </ion-grid>
+   	<ion-card class="ticket-info">
+  		<ion-grid no-padding>
+	 		<ion-list>
+	 			<ion-item (click)="changeStatus()">
+					<ion-row class="item-inner" style="border:0!important;padding-right:0px;" no-padding>
+						<ion-col no-padding col-6>Trạng thái</ion-col>
+						<ion-col no-padding text-right col-6><p><ion-badge color="{{statusDefault.value}}" >{{statusDefault.alias}}</ion-badge><span style="padding-left:5px;font-size:1.5rem">{{statusDefault.name}}</span></p></ion-col>
+						<!-- <img src="../assets/imgs/caret-down.png" style="width:25px"> -->
+					</ion-row>
+				</ion-item>
+	 			<ion-item (click)="changePriority()">
+					<ion-row class="item-inner" style="border:0!important;padding-right:0px;" no-padding>
+						<ion-col no-padding col-6>Mức độ ưu tiên</ion-col>
+						<ion-col no-padding text-right col-6><p><ion-badge [ngStyle]="{'background-color':priorityDefault.color}" >{{priorityDefault.name}}</ion-badge></p></ion-col>
+						<!-- <img src="../assets/imgs/caret-down.png" style="width:25px"> -->
+					</ion-row>
+				</ion-item>
+				<ion-item text-center>
+					<img (click)="openModalProperties()" class="more-icon" src="assets/imgs/more.png" />
+				</ion-item>
+	  		</ion-list>
+  		</ion-grid>
+  	</ion-card>
+ 	<ion-grid class="ticket-info" *ngIf="ticketDetail.length>0">
+	  	<ion-list no-margin >
+	  		<div id="detail" style="background-color:#FFF6D9!important" *ngFor=" let detail of ticketDetail, let i = index " (click)="showMore(detail,i)">
+			  	<ion-item *ngIf="detail.create_name!=null" [ngStyle]="{'background-color': detail.private ? '#FFF6D9':'#FFFFFF'}">
+			  		<ion-avatar item-start [ngStyle]="{'background':'#'+detail.date}" class="box-avatar">{{detail.create_name | charAt}}</ion-avatar>
+				      <h2 class="create-by">{{detail.create_name}}</h2>
+				      <p class="create-time">{{detail.datecreate | toTime}}<ion-badge *ngIf="detail.private" class="private-notee" float-right>Note</ion-badge></p>
+			  	</ion-item>
+			  	<ion-item *ngIf="detail.create_name==null" [ngStyle]="{'background-color': detail.private ? '#FFF6D9':'#FFFFFF'}">
+			  		<ion-avatar item-start class="box-avatar">SYS</ion-avatar>
+				      <h2 class="create-by">System</h2>
+				      <p class="create-time">{{detail.datecreate | toTime}}</p>
+			  	</ion-item>
+		  		<ion-grid class="content-detail" [ngStyle]="{'background-color': detail.private ? '#FFF6D9':'#FFFFFF','border-bottom': detail.private && ticketDetail.length!=i ? '0.55px solid #EFDAA3':'0.px solid #CCC'}" padding-left padding-right>
+		  		<!-- <ion-grid [ngStyle]="{'background-color': detail.private ? '#FFF6D9':'#FFFFFF','border-bottom': detail.private ? '0.55px solid #EFDAA3':'0.55px solid #CCC'}" padding-left padding-right> -->
+		  			<ion-row>
+		  				<ion-col col-12 *ngIf="detail.compactContent==''" [innerHTML]="detail.content|safeHtml"></ion-col>
+		  				<ion-col col-12 *ngIf="detail.showMore==true &&detail.compactContent!=''" [innerHTML]="detail.content|safeHtml"></ion-col>
+		  				<ion-col col-12 *ngIf="detail.showMore==false &&detail.compactContent!=''" [innerHTML]="detail.compactContent|safeHtml"></ion-col>
+		  				<ion-col *ngIf="detail.type=='file'">
+		  					<label>File đính kèm:</label>
+		  					<img src="{{urlFile+detail.file_original}}">
+		  					<a href="{{urlFile+detail.file_original}}" target="_blank" download>{{detail.file_original}}</a>
+		  				</ion-col>
+		  			</ion-row>
+		  		</ion-grid>
+		  	</div>
+		</ion-list>
+  	</ion-grid>
+  	</div>
+</ion-content>
+<ion-footer no-lines *ngIf="!loading" style="border-top: 1px solid #CCC;">
+	<ion-grid>
+		<ion-row>
+			<ion-col col-11>
+				<ion-select class="note" no-padding interface="popover" [(ngModel)]="privateNote">
+			      	<ion-option [value]="0">Public</ion-option>
+			      	<ion-option [value]="1">Private</ion-option>
+			    </ion-select>
+			</ion-col>
+			<ion-col col-1>
+				<ion-icon name="flash" (click)="openMacro()" style="font-size:20px"></ion-icon>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col col-12>
+				<ion-textarea no-margin placeholder="Nội dung phiếu" rows="2" [(ngModel)]="content" (keyup)="onComment()" autocomplete="on" autocorrect="on"></ion-textarea>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-footer>
+
+
+<ion-select  interface="action-sheet" #actionSheet >
+      <ion-option>Delete</ion-option>
+      <ion-option>Share</ion-option>
+</ion-select>

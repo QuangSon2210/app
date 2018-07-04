@@ -1,0 +1,101 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>Tạo Phiếu Mới</ion-title>
+		<ion-buttons end>
+			<button (click)="createTicket()" ion-button>
+				<ion-icon class="send-icon" name="paper-plane" style="width:25px" color="light"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>	
+</ion-header>
+
+<ion-content no-padding>
+  <ion-grid class="background-midesk">
+  	<ion-row no-padding>
+	  	<ion-col col-12>
+	  	<ion-item class="ticket-title" no-padding style="background-color: transparent;border:none!important">
+	    	<ion-input type="text" [(ngModel)]="ticketParams.title" placeholder="Tiêu đề" ></ion-input>
+	  	</ion-item>
+	  	</ion-col>
+  	</ion-row>
+  	<ion-row padding-vertical>
+	  	<ion-col col-6>
+	  		<ion-buttons *ngIf="ticketParams.requester===''">
+	  			<button (click)="openModalRequester()" no-margin no-padding  ion-button class="assign-button no-background">
+	  				<ion-icon ios="ios-add-circle-outline" md="md-add-circle"></ion-icon>
+	  				<span>&nbsp;Người yêu cầu</span>
+	  			</button>
+	  		</ion-buttons>
+	  		<ion-buttons *ngIf="ticketParams.requester!==''">
+	  			<button (click)="openModalRequester()" no-margin style="padding:0 0.5em!important"  ion-button color="dark" class="assign-button">{{requesterName2 |convertLength}}
+	  			<ion-icon style="margin:0 -5px 10px 5px" name="close-circle" (click)="clearRequester()" color="light" ></ion-icon>
+	  			</button>
+	  		</ion-buttons>		
+	  	</ion-col>
+	  	<ion-col col-6 class="chip-assign">
+	  			<button *ngIf="assign==''" no-margin float-right style="padding:0 0.5em!important" ion-button class="assign-button">
+	  				<span (click)="openModalAssign()">Người xử lý</span>
+	  			</button>
+	  			<ion-chip float-right *ngIf="assign!==''" (click)="openModalAssign()">
+				  <ion-avatar class="box-assign" [ngStyle]="{'background':avatar}">
+				    {{ assign|charAt }}
+				  </ion-avatar>
+				  <ion-label>{{assign |convertLength}}</ion-label>
+				  <button ion-button clear color="light" (click)="clearAssign()">
+					<ion-icon name="close-circle"  ></ion-icon>
+				  </button>
+				</ion-chip>
+	  	</ion-col>
+  	</ion-row>
+  </ion-grid>
+  <ion-grid no-padding>
+  <ion-list>
+  	<ion-item (click)="openPopoverStatus()">
+		<ion-row class="item-inner" style="border:0!important" no-padding>
+			<ion-col no-padding col-6>Trạng thái</ion-col>
+			<ion-col no-padding text-right col-6><p><ion-badge color="{{status.value}}">{{status.alias}}</ion-badge><span style="padding-left:5px;font-size:1.5rem">{{status.name}}</span></p></ion-col>
+			<!-- <img src="../assets/imgs/caret-down.png" style="width:25px"> -->
+		</ion-row>
+	</ion-item>
+	<ion-item (click)="openPopoverPriority()">
+		<ion-row class="item-inner" style="border:0!important" no-padding>
+			<ion-col no-padding col-6>Mức độ ưu tiên</ion-col>
+			<ion-col no-padding text-right col-6><p><ion-badge [ngStyle]="{'background-color':priority.color}" >{{priority.name}}</ion-badge></p></ion-col>
+			<!-- <img src="../assets/imgs/caret-down.png" style="width:25px"> -->
+		</ion-row>
+	</ion-item>
+  	<ion-item text-center>
+  		<img (click)="openModalProperties()" class="more-icon" src="assets/imgs/more.png" />
+  	</ion-item>
+  </ion-list>
+  </ion-grid>
+  
+</ion-content>
+<ion-footer style="border-top: 1px outset #CCC;">
+	<ion-grid>
+		<ion-row>
+			<ion-col col-12>
+				<ion-select class="note" no-padding interface="popover" [(ngModel)]="privateNote">
+			      	<ion-option [value]="0">Public</ion-option>
+			      	<ion-option [value]="1">Private</ion-option>
+			    </ion-select>
+			</ion-col>
+			<ion-col col-12>
+				<ion-textarea no-margin placeholder="Nội dung phiếu" rows="1" [(ngModel)]="ticketParams.content"  autocomplete="on" autocorrect="on"></ion-textarea>
+			</ion-col>
+			<ion-col col-1>
+				<label padding-right for="profile_image" color="primary">
+					<ion-icon name="attach" style="font-size:20px" ></ion-icon>
+				</label>
+				<input id="profile_image" hidden type="file" (change)="onChangeUpload($event)">
+			</ion-col>
+			<ion-col col-10>
+				<p no-margin>{{fileName}}</p>
+			</ion-col>
+			<ion-col col-1>
+				<ion-icon name="flash" (click)="openMacro()" style="font-size:20px"></ion-icon>
+			</ion-col>
+      		
+		</ion-row>
+	</ion-grid>
+</ion-footer>

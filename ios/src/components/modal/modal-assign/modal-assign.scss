@@ -1,0 +1,30 @@
+modal-assign {
+	.toolbar-background-ios,.toolbar-background-md{
+		background-color: transparent;
+		color:#000;
+	}
+	// .header-ios .toolbar-ios:last-child .toolbar-background-ios{
+	// 	border-width: 0 0 1.55px!important;
+	// }
+	.searchbar-search-icon { display:none; width:0; height:0; }
+	.searchbar-md{
+		padding:0!important;
+	}
+	.searchbar-md .searchbar-input{
+		padding:8px 10px 0 10px!important;
+		webkit-box-shadow:none!important;
+		box-shadow: none!important;
+		font-size:1.4rem!important;
+	}
+	.box-avatar{
+		width:40px;
+		height:40px;
+		background:#4F4F4F;
+		color:#fff;
+		text-align: center;
+		line-height: 40px;
+		font-size:20px;
+		font-weight:100;
+		border-radius: 50%;
+	}
+}

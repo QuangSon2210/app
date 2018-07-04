@@ -8,6 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { TicketAddPage } from './../pages/ticket/ticket-add/ticket-add';
+import { TicketDetailPage } from './../pages/ticket/ticket-detail/ticket-detail';
 
 import { SettingService } from '../common/setting.service';
 import { DataService } from '../common/data.service';
@@ -26,6 +28,18 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 import { FCM } from '@ionic-native/fcm';
 import { CookieService } from 'angular2-cookie/core';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+
+import { ModalAssign } from '../components/modal/modal-assign/modal-assign';
+import { ModalRequester } from '../components/modal/modal-requester/modal-requester';
+import { ModalProperties } from '../components/modal/modal-properties/modal-properties';
+import { ModalMacro } from '../components/modal/modal-macro/modal-macro';
+import { MacroDetail } from '../components/modal/modal-macro/macro-detail/macro-detail';
+import { ModalSearchTicket } from '../components/modal/modal-search-ticket/modal-search.component';
+import { PopoverSort } from '../components/popover/popover-sort/popover-sort';
+import { PopoverChannel } from '../components/popover/popover-channel/popover-channel';
+import { PopoverCategory } from '../components/popover/popover-category/popover-category';
+import { PopoverStatus } from '../components/popover/popover-status/popover-status';
+import { PopoverPriority } from '../components/popover/popover-priority/popover-priority';
 
 import { GetFirstCharacter } from '../pipes/get-first-character.pipe';
 import { GetFirstLastCharacter} from '../pipes/get-first-last-character.pipe';
@@ -47,6 +61,20 @@ export function cookieServiceFactory() {
     MyApp,
     HomePage,
     LoginPage,
+    TicketAddPage,
+    TicketDetailPage,
+    ModalAssign,
+    ModalRequester,
+    ModalProperties,
+    ModalSearchTicket,
+    ModalMacro,
+    MacroDetail,
+
+    PopoverSort,
+    PopoverChannel,
+    PopoverCategory,
+    PopoverStatus,
+    PopoverPriority,
 
     GetFirstCharacter,
     GetFirstLastCharacter,
@@ -82,6 +110,20 @@ export function cookieServiceFactory() {
     MyApp,
     HomePage,
     LoginPage,
+    TicketAddPage,
+    TicketDetailPage,
+    ModalAssign,
+    ModalRequester,
+    ModalProperties,
+    ModalSearchTicket,
+    ModalMacro,
+    MacroDetail,
+
+    PopoverSort,
+    PopoverChannel,
+    PopoverCategory,
+    PopoverStatus,
+    PopoverPriority,
   ],
   providers: [
     StatusBar,

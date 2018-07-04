@@ -1,0 +1,143 @@
+page-ticket-add{
+	.assign-button{
+		height: 1.8em;
+		font-size: 1.5rem;
+		max-width:100%;
+	}
+	ion-footer{
+		height:100px;
+	}
+	.chip-ios{
+		margin:0;
+	}
+	.button-md{
+		text-transform: none!important;
+	}
+	.no-background{
+		background:transparent!important;
+	}
+	.item-inner{
+		border-bottom:0.55px solid #E8E8E8!important;
+	}
+	.item{
+		.text-input::-moz-placeholder {
+		  color: #E8E8E8;
+		}
+
+		.text-input:-ms-input-placeholder {
+		  color: #E8E8E8;
+		}
+
+		.text-input::-webkit-input-placeholder {
+		  color: #E8E8E8;
+		}
+	}
+	.button-md{
+		box-shadow: none!important;
+	}
+	.name-item{
+		color:black!important;
+	}
+	.more-icon{
+		width:20px;
+	}
+	.ticket-title .item-inner{
+		border:none!important;
+	}
+	.ticket-title .item-inner {
+		input{
+			padding: 11px 8px 11px 0!important;
+			margin:0!important;
+			//border-bottom:0.55px solid #E8E8E8!important;
+			caret-color:#FFF;
+			color:#FFF;
+		}
+		input:focus{
+			//border-bottom:0.55px solid #FFFFFF!important;
+		}
+
+	}
+	.input-cover{
+		border-bottom:0.55px solid #E8E8E8!important;
+		display:block!important;
+	}
+	.box-avatar{
+		background:#2979ff;
+		color:#fff;
+		text-align: center;
+		line-height: 33px;
+		font-size:22px;
+		font-weight:100;
+		border-radius: 50%;
+	}
+	.custom-category .item-inner{
+		padding-right:0px!important;
+		.label-ios{
+			margin:11px 4px 11px 0!important;
+		}
+	}
+	.send-icon{
+		font-size:2.5rem;
+	}
+	// .chip-assign{
+	// 	ion-chip{
+	// 		margin:0;
+	// 		height: 27px;
+	// 		line-height: 27px;
+	// 		font-size: 13px;
+	// 		color:#FFF;
+	// 		ion-avatar{
+	// 			width:27px;
+	// 			height: 27px;
+	// 			min-width: 27px;
+	// 			min-height: 27px;
+	// 		}
+	// 		.button{
+	// 			width:27px!important;
+	// 			height: 27px!important;
+	// 		}
+	// 	}
+	// }
+	.chip-assign{
+		ion-chip{
+			margin:0;
+			height: 27px;
+			line-height: 27px;
+			font-size: 13px;
+			color:#FFF;
+			ion-avatar{
+				width:27px;
+				height: 27px;
+				line-height: 27px;
+				font-size:16px;
+				text-align: center;
+				min-width: 27px;
+				min-height: 27px;
+			}
+			.button{
+				width:27px!important;
+				height: 27px!important;
+			}
+		}
+	}
+	.note{
+		padding-left:1px;
+		max-width: 25%;
+	}
+	.note .select-icon{
+		width:15px!important;
+	}
+	.list-md{
+		margin:0!important;
+		.label-md{
+			margin: 14px 0px 14px 0px!important;
+		}
+	}
+	ion-badge{
+		border-radius:2px!important;
+		//margin:0 0 15px 7px!important;
+		padding:2px 5px!important;
+		color:white!important;
+	}
+	
+}
