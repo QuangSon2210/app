@@ -9,6 +9,8 @@ import { DataService } from '../common/data.service';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/authentication/auth.service';
 import { MessageService } from '../common/message.service';
+import { SocketService } from '../common/socket.service';
+import { NotificationsService } from '../services/notifications.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -26,7 +28,7 @@ export class MyApp {
   token:any;
   vibrate:any;
   avatarName:string;
-
+  room:any={};
   constructor(
     public platform: Platform, 
     public statusBar: StatusBar, 
@@ -35,6 +37,8 @@ export class MyApp {
     private _userService: UserService,
     private _authService: AuthService,
     private _msgService: MessageService,
+    private _socketService: SocketService,
+    private _notifyService: NotificationsService
   ) {
     this.initializeApp();
 
@@ -57,6 +61,8 @@ export class MyApp {
   }
   checkLogin(){
     if(this._authService.isUserLoggedIn()){
+      this.connectSocket();
+      this._notifyService.countNewNotifications().subscribe(res => { this.countNotify = res;});
       this.loggedInUser = this._authService.getLoggedInUser();
       this.avatarName = this._authService.getLoggedInUser().lastname;
       this.avatarName = this.avatarName.substr(0,1);
@@ -71,6 +77,13 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
+  connectSocket(){
+    this.room=JSON.parse(this._authService.getLoggedInRoom());
+    let self = this;
+    setTimeout(function(){
+      self._socketService.connect(self.room);
+    },2000);
+  }
   logOut(){
     this.confirmLogout();
   }
@@ -83,7 +96,7 @@ export class MyApp {
         loading.present();
         this._userService.logout(this._authService.getUserLastlogId()).subscribe(res=>{
           if(res.code==200){
-            //this._socketService.disconnect();
+            this._socketService.disconnect();
             this._authService.logoutUser();
             window.location.reload();
           }

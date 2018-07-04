@@ -11,6 +11,7 @@ import { LoginPage } from '../pages/login/login';
 
 import { SettingService } from '../common/setting.service';
 import { DataService } from '../common/data.service';
+import { SocketService } from './../common/socket.service';
 import { MessageService } from '../common/message.service';
 import { UserService } from '../services/user.service';
 import { ContactService } from '../services/contact.service';
@@ -24,6 +25,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { FCM } from '@ionic-native/fcm';
 import { CookieService } from 'angular2-cookie/core';
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 
 import { GetFirstCharacter } from '../pipes/get-first-character.pipe';
 import { GetFirstLastCharacter} from '../pipes/get-first-last-character.pipe';
@@ -35,6 +37,7 @@ import { SearchFilter } from '../pipes/search-filter.pipe';
 import { GroupByPipe } from '../pipes/group-by.pipe';
 import { HighlightPipe } from '../pipes/highlight-search.pipe';
 
+const config: SocketIoConfig = { url: 'https://socketprod.midesk.vn', options: {} };
 export function cookieServiceFactory() {
   return new CookieService();
 }
@@ -61,6 +64,7 @@ export function cookieServiceFactory() {
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    SocketIoModule.forRoot(config),
   ],
   exports: [
     GetFirstCharacter,
@@ -85,6 +89,7 @@ export function cookieServiceFactory() {
     LocalNotifications,
     FCM,
     SettingService,
+    SocketService,
     DataService,
     MessageService,
     UserService,

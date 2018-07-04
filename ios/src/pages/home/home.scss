@@ -1,3 +1,100 @@
 page-home {
-
+	.no-background{
+		background:transparent;
+		height: 2rem!important;
+		padding:0.5em!important;
+		color:#666666;
+		//box-shadow:none!important;
+	}
+	// .no-background:hover,:active{
+	// 	background:rgba(0, 0, 0, 0.14)!important;
+	// }
+	.select-icon{
+		width: 14px!important;
+		color:#f4f4f4!important;
+	}
+	.select-text{
+		min-width:130px!important;
+		color:#FFFFFF;
+		font-size:1.1em!important;
+	}
+	ion-select{
+		max-width:100%!important;
+	}
+	ion-icon{
+		font-size:1.7em!important;
+	}
+	.list-ticket .item-ios{
+		border-bottom:0.55px solid #c8c7cc;
+	}
+	.list-ticket .item-inner{
+		border:none!important;
+	}
+	.item-inner .date-bagde-ticket{
+		font-size:0.7em!important;
+		margin:0!important;
+	}
+	.item-inner .date-bagde-ticket ion-badge{
+		border-radius:2px!important;
+		margin:0 0 15px 7px!important;
+		padding:2px 5px!important;
+		color:white;
+	}
+	.box-avatar{
+		width:45px;
+		height:45px;
+		background:#4F4F4F;
+		color:#fff;
+		text-align: center;
+		line-height: 45px;
+		font-size:18px;
+		font-weight:100;
+		border-radius: 50%;
+	}
+	.padding-icon{
+		padding-right:20px;
+	}
+	.toolbar-content-ios{
+		padding-top:7px!important;
+		padding-bottom:3px!important;
+	}
+	.toolbar-content-md{
+		padding-top:4px!important;
+	}
+	.bar-button-menutoggle-ios,.bar-button-menutoggle-md{
+		margin:4px 6px 0px 0px !important;
+	}
+	.toolbar-md{
+		min-height: inherit;
+		padding:7px 3px 7px 0px;
+	}
+	.badge-count{
+		border-radius: 15px !important;
+		padding: 4px 4px;
+		line-height: 8px;
+		font-size: 0.9rem;
+		background-color: #EEAD0E;
+	}
+	.menu-icon{
+		padding:0 0 0 10px;
+		font-size:2em!important;
+	}
+	.filter ion-select .select-icon .select-icon-inner{
+		color:#FFFFFF;
+	}
+	.title-ticket{
+		color:black;
+		font-size:1.4rem!important;
+	}
+	.date-ticket{
+		margin:0!important;
+		text-align:right;
+		font-size:1rem;
+		line-height:20px;
+		ion-badge{
+			padding:2px 4px;
+			font-size:1.0rem;
+			border-radius: 2px;
+		}
+	}
 }
