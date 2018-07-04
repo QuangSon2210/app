@@ -7,7 +7,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { LoginPage } from '../pages/login/login';
+
+import { SettingService } from '../common/setting.service';
+import { DataService } from '../common/data.service';
+import { MessageService } from '../common/message.service';
+import { UserService } from '../services/user.service';
+import { ContactService } from '../services/contact.service';
+import { TicketService } from '../services/ticket.service';
+import { AuthService } from '../services/authentication/auth.service';
+import { AuthRequestOptions } from '../services/authentication/auth-request.service';
+import { NotificationsService } from '../services/notifications.service';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -33,7 +43,7 @@ export function cookieServiceFactory() {
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
+    LoginPage,
 
     GetFirstCharacter,
     GetFirstLastCharacter,
@@ -67,13 +77,21 @@ export function cookieServiceFactory() {
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    LoginPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     LocalNotifications,
     FCM,
+    SettingService,
+    DataService,
+    MessageService,
+    UserService,
+    TicketService,
+    ContactService,
+    AuthService,
+    NotificationsService,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: CookieService, useFactory: cookieServiceFactory },
   ]

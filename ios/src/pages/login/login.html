@@ -1,0 +1,30 @@
+<ion-content class="login-background" padding center text-center>
+	<ion-grid>
+		<ion-row>
+			<ion-col>
+				<img class="img-midesk" src="assets/imgs/midesk.png" />
+			</ion-col>
+		</ion-row>
+		<ion-row>
+				<ion-card>
+					<ion-card-header><b>ĐĂNG NHẬP</b></ion-card-header>
+					<ion-card-content>
+						<form [formGroup]="loginForm" (ngSubmit)="loginForm.valid && onFormSubmit()" id="login-form">
+						<ion-list no-line>
+							<ion-item>
+								<ion-label floating>Email</ion-label>
+								<ion-input style="z-index: 9999" clearInput type="email" name="email" required="required" formControlName="email"></ion-input>
+							</ion-item>
+							<ion-item>
+								<ion-label floating>Mật khẩu</ion-label>
+								<ion-input style="z-index: 9999" clearInput type="password" name="password" required="required" formControlName="password"></ion-input>
+							</ion-item>
+						</ion-list>
+						<button [disabled]="!loginForm.valid" ion-button block  color="midesk" type="submit" ><ion-spinner *ngIf="submitLoading" name="bubbles"></ion-spinner>Đăng Nhập</button>
+						</form>
+					</ion-card-content>
+				</ion-card>
+			
+		</ion-row>
+	</ion-grid>
+</ion-content>
