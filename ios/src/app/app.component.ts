@@ -55,7 +55,19 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      this.checkLogin();
+      if(this._authService.isUserLoggedIn()){
+        this.connectSocket();
+        this.listenEventNewNotifi();
+        this.listenEventUpdate();
+        this._notifyService.countNewNotifications().subscribe(res => { this.countNotify = res;});
+        this.loggedInUser = this._authService.getLoggedInUser();
+        this.avatarName = this._authService.getLoggedInUser().lastname;
+        this.avatarName = this.avatarName.substr(0,1);
+        this.rootPage = HomePage;
+      }else{
+        this.loggedInUser = {};
+        this.rootPage = LoginPage;
+      }
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
