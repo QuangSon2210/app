@@ -3,10 +3,10 @@ import { Component, ViewChild, Injectable } from '@angular/core';
 import { NavController, Select,  ModalController, PopoverController, Platform } from 'ionic-angular';
 import { AuthService } from './../../services/authentication/auth.service';
 import { TicketService } from './../../services/ticket.service';
-// import { TicketDetailPage } from './../ticket/ticket-detail/ticket-detail';
-// import { ModalSearchTicket } from './../../components/modal/modal-search-ticket/modal-search.component';
-// import { PopoverSort } from './../../components/popover/popover-sort/popover-sort';
-// import { PopoverChannel } from './../../components/popover/popover-channel/popover-channel';
+import { TicketDetailPage } from './../ticket/ticket-detail/ticket-detail';
+import { ModalSearchTicket } from './../../components/modal/modal-search-ticket/modal-search.component';
+import { PopoverSort } from './../../components/popover/popover-sort/popover-sort';
+import { PopoverChannel } from './../../components/popover/popover-channel/popover-channel';
 import { SocketService } from '../../common/socket.service';
 import { DataService } from '../../common/data.service';
 
@@ -156,58 +156,58 @@ export class HomePage {
       })
     }
   }
-  // openModal(){
-  //   let contactModal = this.modalCtrl.create(ModalSearchTicket);
-  //   contactModal.present();
-  // }
-  // doSort(){
-  // 	this.sectionSelect.open();
-  // }
-  // clickTicket(index){
-  //   console.log(index);
-  //   this.navCtrl.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
-  // }
-  // doFilter(){
-  //   this.modelTicket.dataItems=[];
-  //   this.modelTicket.dataPage=1;
-  //   this.modelTicket.dataTotal=0;
-  //   this.initListTicket();
-  //   console.log(this.modelTicket.filterBy);
-  // }
-  // openPopoverSort(myEvent) {
-  //   let data = {priority:this.priority,status:this.status,orderBy: this.orderBy}
-  //   let popover = this.popoverCtrl.create(PopoverSort,data,{cssClass:"custom-sort",enableBackdropDismiss: true });
-  //   popover.present({
-  //     ev: myEvent
-  //   });
-  //   popover.onDidDismiss(data=>{
-  //     if(typeof data!=undefined && data!=null){
-  //       this.modelTicket.sortBy={status:data.status,priority:data.priority};
-  //       this.modelTicket.orderBy = data.orderBy;
-  //       this.modelTicket.dataPage=1;
-  //       this.modelTicket.dataTotal=0;
-  //       this.initListTicket();
-  //     }
-  //     console.log(this.modelTicket);
-  //     console.log(data);
-  //     //
-  //   });
-  // }
-  // openPopoverChannel(myEvent){
-  //   let data = this.modelTicket.channel;
-  //   let popover = this.popoverCtrl.create(PopoverChannel,{data:data},{cssClass:"custom-channel",enableBackdropDismiss: true });
-  //   popover.present({
-  //     ev: myEvent
-  //   });
-  //   popover.onDidDismiss(data=>{
-  //     if(typeof data!=undefined && data !=null){     
-  //       this.modelTicket.channel = data.channel;
-  //       this.modelTicket.dataPage=1;
-  //       this.modelTicket.dataTotal=0;
-  //       this.initListTicket(); 
-  //     }
-  //   });
-  // }
+  openModal(){
+    let contactModal = this.modalCtrl.create(ModalSearchTicket);
+    contactModal.present();
+  }
+  doSort(){
+  	this.sectionSelect.open();
+  }
+  clickTicket(index){
+    console.log(index);
+    this.navCtrl.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
+  }
+  doFilter(){
+    this.modelTicket.dataItems=[];
+    this.modelTicket.dataPage=1;
+    this.modelTicket.dataTotal=0;
+    this.initListTicket();
+    console.log(this.modelTicket.filterBy);
+  }
+  openPopoverSort(myEvent) {
+    let data = {priority:this.priority,status:this.status,orderBy: this.orderBy}
+    let popover = this.popoverCtrl.create(PopoverSort,data,{cssClass:"custom-sort",enableBackdropDismiss: true });
+    popover.present({
+      ev: myEvent
+    });
+    popover.onDidDismiss(data=>{
+      if(typeof data!=undefined && data!=null){
+        this.modelTicket.sortBy={status:data.status,priority:data.priority};
+        this.modelTicket.orderBy = data.orderBy;
+        this.modelTicket.dataPage=1;
+        this.modelTicket.dataTotal=0;
+        this.initListTicket();
+      }
+      console.log(this.modelTicket);
+      console.log(data);
+      //
+    });
+  }
+  openPopoverChannel(myEvent){
+    let data = this.modelTicket.channel;
+    let popover = this.popoverCtrl.create(PopoverChannel,{data:data},{cssClass:"custom-channel",enableBackdropDismiss: true });
+    popover.present({
+      ev: myEvent
+    });
+    popover.onDidDismiss(data=>{
+      if(typeof data!=undefined && data !=null){     
+        this.modelTicket.channel = data.channel;
+        this.modelTicket.dataPage=1;
+        this.modelTicket.dataTotal=0;
+        this.initListTicket(); 
+      }
+    });
+  }
   listenEventNewNotifi(){
     //console.log(JSON.parse(this._authService.getLoggedInRoom()).array_agent.split(','));
     let userId = this._authService.getLoggedInUser().id;

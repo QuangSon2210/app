@@ -10,6 +10,7 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { TicketAddPage } from './../pages/ticket/ticket-add/ticket-add';
 import { TicketDetailPage } from './../pages/ticket/ticket-detail/ticket-detail';
+import { SettingPage } from './../pages/setting/setting';
 
 import { SettingService } from '../common/setting.service';
 import { DataService } from '../common/data.service';
@@ -63,6 +64,8 @@ export function cookieServiceFactory() {
     LoginPage,
     TicketAddPage,
     TicketDetailPage,
+    SettingPage,
+
     ModalAssign,
     ModalRequester,
     ModalProperties,
@@ -112,6 +115,8 @@ export function cookieServiceFactory() {
     LoginPage,
     TicketAddPage,
     TicketDetailPage,
+    SettingPage,
+    
     ModalAssign,
     ModalRequester,
     ModalProperties,
