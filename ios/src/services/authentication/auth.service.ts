@@ -47,8 +47,10 @@ export class AuthService {
 
     isUserLoggedIn(): boolean {
         if (this.getToken()) {
+            alert(111);
             this.isloggedIn = true;
         }
+        alert(222);
         return this.isloggedIn;
     }
     getLoggedInUser(): User {
