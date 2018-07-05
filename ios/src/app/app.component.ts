@@ -19,7 +19,7 @@ import { NotificationsService } from '../services/notifications.service';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = LoginPage;
 
   pages: Array<{title: string, component: any, icon: string}>;
 
@@ -72,25 +72,25 @@ export class MyApp {
       this.splashScreen.hide();
     });
   }
-  checkLogin(){
-    if(this._authService.isUserLoggedIn()){
-      this.connectSocket();
-      this.listenEventNewNotifi();
-      this.listenEventUpdate();
-      this._notifyService.countNewNotifications().subscribe(res => { this.countNotify = res;});
-      this.loggedInUser = this._authService.getLoggedInUser();
-      this.avatarName = this._authService.getLoggedInUser().lastname;
-      this.avatarName = this.avatarName.substr(0,1);
-      this.rootPage = HomePage;
-    }else{
-      this.loggedInUser = {};
-      this.rootPage = LoginPage;
-    }
-  }
+  // checkLogin(){
+  //   if(this._authService.isUserLoggedIn()){
+  //     this.connectSocket();
+  //     this.listenEventNewNotifi();
+  //     this.listenEventUpdate();
+  //     this._notifyService.countNewNotifications().subscribe(res => { this.countNotify = res;});
+  //     this.loggedInUser = this._authService.getLoggedInUser();
+  //     this.avatarName = this._authService.getLoggedInUser().lastname;
+  //     this.avatarName = this.avatarName.substr(0,1);
+  //     this.rootPage = HomePage;
+  //   }else{
+  //     this.loggedInUser = {};
+  //     this.rootPage = LoginPage;
+  //   }
+  // }
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    this.nav.push(page.component);
   }
   connectSocket(){
     this.room=JSON.parse(this._authService.getLoggedInRoom());
