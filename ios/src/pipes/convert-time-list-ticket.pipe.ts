@@ -11,7 +11,6 @@ export class ConvertTimeListTicket implements PipeTransform {
         // if(typeof val == 'string'){
         //     val = Date.parse(val)/1000;
         // }
-        var val = val.toString();
         var tmp =  new Date().toString();
         var now = Date.parse(tmp)/1000;
         var compare = now - val;

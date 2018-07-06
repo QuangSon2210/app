@@ -27,6 +27,7 @@ export class AuthService {
     getToken(): string {
         return this._cookieService.get(TOKEN_NAME);
     }
+
     setUserAuthenticated(userLogin): boolean {
         if (typeof userLogin.success != 'undefined' && userLogin.success.token != '') {
             this.isloggedIn = true;

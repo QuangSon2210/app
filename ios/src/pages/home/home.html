@@ -43,7 +43,7 @@
             <span *ngFor=" let stt of status" >
               <ion-badge *ngIf="stt.value===child.status" color="{{stt.value}}">{{stt.alias}}</ion-badge>
             </span>
-            <br><span *ngIf="modelTicket.orderBy!='dateupdate'">{{child.created_at| toTime2}}</span><span *ngIf="modelTicket.orderBy=='dateupdate'">{{child.dateupdate| toTime2}}</span>
+            <br><span *ngIf="modelTicket.orderBy!='dateupdate'">{{child.datecreate| toTime}}</span><span *ngIf="modelTicket.orderBy=='dateupdate'">{{child.dateupdate| toTime}}</span>
           </p>
         </ion-item>
   </div>
@@ -64,7 +64,7 @@
             <span *ngFor=" let stt of status" >
               <ion-badge *ngIf="stt.value===item.status" color="{{stt.value}}">{{stt.alias}}</ion-badge>
             </span>
-            <br><span *ngIf="modelTicket.orderBy!='dateupdate'">{{item.created_at| toTime2}}</span><span *ngIf="modelTicket.orderBy=='dateupdate'">{{item.dateupdate| toTime2}}</span>
+            <br><span *ngIf="modelTicket.orderBy!='dateupdate'">{{item.datecreate| toTime2}}</span><span *ngIf="modelTicket.orderBy=='dateupdate'">{{item.dateupdate| toTime2}}</span>
           </p>
       </ion-item>
     </ion-card>
