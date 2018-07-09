@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { TicketAddPage } from '../pages/ticket/ticket-add/ticket-add';
+import { TicketDetailPage } from '../pages/ticket/ticket-detail/ticket-detail';
 import { DataService } from '../common/data.service';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/authentication/auth.service';
@@ -13,6 +14,8 @@ import { MessageService } from '../common/message.service';
 import { SocketService } from '../common/socket.service';
 import { NotificationsService } from '../services/notifications.service';
 import { SettingPage } from '../pages/setting/setting';
+import { LocalNotifications } from '@ionic-native/local-notifications';
+import { FCM } from '@ionic-native/fcm';
 
 @Component({
   templateUrl: 'app.html'
@@ -40,7 +43,9 @@ export class MyApp {
     private _authService: AuthService,
     private _msgService: MessageService,
     private _socketService: SocketService,
-    private _notifyService: NotificationsService
+    private _notifyService: NotificationsService,
+    private _localNotification: LocalNotifications,
+    private _fcm: FCM
   ) {
     this.initializeApp();
 
@@ -132,13 +137,73 @@ export class MyApp {
       team = team.split(',');
       if(userId == data[0]['id_user'] || team.indexOf(data[0]['id_team'],0)!=-1 && data[0]['del_agent'] != userId && data[0]['view'] != userId){
         this.countNotify+=1;
-        // this.token = this._authService.getFCMToken();
-        // if(this._authService.enableNotify()){
-        //   this.pushNotifications(data);
-        //   this.vibrate = this._authService.enableVibrate();
-        // }
+        this.token = this._authService.getFCMToken();
+        if(this._authService.enableNotify()){
+          this.pushNotifications(data);
+          this.vibrate = this._authService.enableVibrate();
+        }
       }
     });
+  }
+  pushNotifications(data){
+      let title = data[0]['title'];
+      var regex = /(<([^>]+)>)/ig;
+      let custom = JSON.parse(data[0]['custom']);
+      title = title.replace(regex, "");
+      let content = data[0]['content'];
+      let array = {
+        content: content,
+        title: title,
+        id:custom.id,
+        ticket_id: custom.ticket_id,
+        notify_id: data[0]['id'],
+        user_id: data[0]['del_agent']
+      }
+      let body={
+        "notification":{
+          "title":title,
+          "body":content,
+          "sound":"default",
+          "click_action":"FCM_PLUGIN_ACTIVITY",
+          "icon":"fcm_push_icon",
+          "forceStart": "1"
+        },
+        "data":array,
+        "to":this.token,
+        "priority":"high",
+        "restricted_package_name":""
+      }
+      this._notifyService.sendNotification(body).subscribe(); 
+  }
+  initLocalNotification(data){
+    this._localNotification.schedule({
+      id:2,
+      title: data.title,
+      text: data.content,
+      led:'66CC00',
+      vibrate:this.vibrate,
+      data:{
+        id:data.id,
+        ticket_id:data.ticket_id,
+        notify_id:data.notify_id,
+        user_id: data.user_id
+      }
+    })
+  }
+  receiveNotification(){
+    if(this._authService.enableNotify()){
+      this._fcm.onNotification().subscribe(res=>{
+        if(this._authService.getLoggedInUser().id != res.user_id){
+          this.initLocalNotification(res);
+        }
+      })
+    }
+  }
+  handleNotification(){
+    this._localNotification.on('click').subscribe(res=>{
+      let index = { id: res.data.id };
+      this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
+    })
   }
   listenEventUpdate(){
     this._dataService.listenEvent('UPDATE PROFILE').subscribe(res=>{
