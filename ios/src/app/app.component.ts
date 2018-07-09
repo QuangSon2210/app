@@ -66,6 +66,8 @@ export class MyApp {
         this.connectSocket();
         this.listenEventNewNotifi();
         this.listenEventUpdate();
+        this.handleNotification();
+        this.receiveNotification();
         this._notifyService.countNewNotifications().subscribe(res => { this.countNotify = res;});
         this.loggedInUser = this._authService.getLoggedInUser();
         this.avatarName = this._authService.getLoggedInUser().lastname;
