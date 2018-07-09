@@ -194,15 +194,12 @@ export class MyApp {
     })
   }
   receiveNotification(){
-    if(this._authService.enableNotify()){
-      alert('nhan thong bao: ---');
-      this._fcm.onNotification().subscribe(res=>{
-        alert(res);
-        if(this._authService.getLoggedInUser().id != res.user_id){
-          this.initLocalNotification(res);
-        }
-      })
-    }
+    this._fcm.onNotification().subscribe(res=>{
+      alert(res);
+      if(this._authService.getLoggedInUser().id != res.user_id){
+        this.initLocalNotification(res);
+      }
+    })
   }
   handleNotification(){
     this._localNotification.on('click').subscribe(res=>{
