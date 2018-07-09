@@ -173,12 +173,12 @@ export class HomePage {
     this.modelTicket.dataPage=1;
     this.modelTicket.dataTotal=0;
     this.initListTicket();
+    //alert(this._authService.getToken2().then((res=>{return (res)})));
     // this._authService.getToken2().then((token)=>{
-    //   this.token2 = token;
+    //   alert(token);
     // }).catch(error=>{
     //   console.log(error);
     // });
-
   }
   openPopoverSort(myEvent) {
     let data = {priority:this.priority,status:this.status,orderBy: this.orderBy}
