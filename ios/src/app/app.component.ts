@@ -137,9 +137,11 @@ export class MyApp {
       let userId = this._authService.getLoggedInUser().id;
       let team = JSON.parse(this._authService.getLoggedInRoom()).array_team;
       team = team.split(',');
+      alert(userId +'-----'+ team);
       if(userId == data[0]['id_user'] || team.indexOf(data[0]['id_team'],0)!=-1 && data[0]['del_agent'] != userId && data[0]['view'] != userId){
         this.countNotify+=1;
         this.token = this._authService.getFCMToken();
+        alert(this.token);
         if(this._authService.enableNotify()){
           this.pushNotifications(data);
           this.vibrate = this._authService.enableVibrate();
