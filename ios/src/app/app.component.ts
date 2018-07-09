@@ -177,7 +177,7 @@ export class MyApp {
         "restricted_package_name":""
       }
       alert(this.token);
-      this._notifyService.sendNotification(body).subscribe();
+      this._notifyService.sendNotification(body).subscribe(res=>alert(res));
   }
   initLocalNotification(data){
     this._localNotification.schedule({
@@ -195,12 +195,10 @@ export class MyApp {
     })
   }
   receiveNotification(){
-    alert(1);
     this._fcm.onNotification().subscribe(res=>{
-      alert(res);
-      if(this._authService.getLoggedInUser().id != res.user_id){
+      //if(this._authService.getLoggedInUser().id != res.user_id){
         this.initLocalNotification(res);
-      }
+      //}
     })
   }
   handleNotification(){
