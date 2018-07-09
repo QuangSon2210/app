@@ -17,17 +17,17 @@ export class AuthService {
     constructor(
         //public _cookieService: CookieService,
         private _fcm: FCM,
-        private _platform: Platform
     ){
-        this.initFCMToken();
+        //this.initFCMToken();
+        _fcm.getToken().then(token=>{
+            this.fcm_token = token;
+        })
     }
     initFCMToken(){
-        this._platform.ready().then(()=>{
-            this._fcm.getToken().then((token)=>{
-                this.fcm_token = token;
-            })
-        })
         
+        this._fcm.getToken().then(token=>{
+            this.fcm_token = token;
+        })
     }
     getToken(): string {
         //return this._cookieService.get(TOKEN_NAME);
