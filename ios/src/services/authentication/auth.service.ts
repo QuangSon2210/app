@@ -5,6 +5,7 @@ import 'rxjs/add/operator/catch';
 //import { CookieService } from 'angular2-cookie/core';
 import { User } from './../../models/user';
 import { FCM } from '@ionic-native/fcm';
+import { Platform } from 'ionic-angular/umd';
 
 export const TOKEN_NAME: string = 'jwt_token';
 
@@ -16,13 +17,17 @@ export class AuthService {
     constructor(
         //public _cookieService: CookieService,
         private _fcm: FCM,
+        private _platform: Platform
     ){
         this.initFCMToken();
     }
     initFCMToken(){
-        this._fcm.getToken().then(token=>{
-            this.fcm_token = token;
+        this._platform.ready().then(()=>{
+            this._fcm.getToken().then((token)=>{
+                this.fcm_token = token;
+            })
         })
+        
     }
     getToken(): string {
         //return this._cookieService.get(TOKEN_NAME);
