@@ -176,7 +176,6 @@ export class MyApp {
         "restricted_package_name":""
       }
       this._notifyService.sendNotification(body).subscribe();
-      alert('oke'); 
   }
   initLocalNotification(data){
     this._localNotification.schedule({
