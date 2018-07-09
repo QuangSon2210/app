@@ -29,7 +29,6 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 import { FCM } from '@ionic-native/fcm';
 import { CookieService } from 'angular2-cookie/core';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
-import { IonicStorageModule } from '@ionic/storage';
 
 import { ModalAssign } from '../components/modal/modal-assign/modal-assign';
 import { ModalRequester } from '../components/modal/modal-requester/modal-requester';
@@ -97,7 +96,6 @@ export function cookieServiceFactory() {
     ReactiveFormsModule,
     HttpModule,
     SocketIoModule.forRoot(config),
-    IonicStorageModule.forRoot(),
     
   ],
   exports: [
