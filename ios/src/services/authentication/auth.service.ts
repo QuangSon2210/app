@@ -27,7 +27,6 @@ export class AuthService {
     initFCMToken(){
         this._platform.ready().then(()=>{
             this._fcm.getToken().then(token=>{
-                alert(token);
                 this.fcm_token = token;
             })
         })

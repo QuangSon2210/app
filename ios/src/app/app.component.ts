@@ -142,13 +142,13 @@ export class MyApp {
         this.token = this._authService.getFCMToken();
         if(this._authService.enableNotify()){
           this.pushNotifications(data);
-          alert('gui thong bao');
           this.vibrate = this._authService.enableVibrate();
         }
       }
     });
   }
   pushNotifications(data){
+      alert('gui thong bao');
       let title = data[0]['title'];
       var regex = /(<([^>]+)>)/ig;
       let custom = JSON.parse(data[0]['custom']);
@@ -197,7 +197,7 @@ export class MyApp {
     if(this._authService.enableNotify()){
       alert('nhan thong bao: ---');
       this._fcm.onNotification().subscribe(res=>{
-        alert('nhan thong bao: ---' + res);
+        alert(res);
         if(this._authService.getLoggedInUser().id != res.user_id){
           this.initLocalNotification(res);
         }
