@@ -12,6 +12,7 @@ import { AuthService } from '../services/authentication/auth.service';
 import { MessageService } from '../common/message.service';
 import { SocketService } from '../common/socket.service';
 import { NotificationsService } from '../services/notifications.service';
+import { SettingPage } from '../pages/setting/setting';
 
 @Component({
   templateUrl: 'app.html'
@@ -47,6 +48,7 @@ export class MyApp {
     this.pages = [
       { title: 'Thông Báo', component: HomePage, icon:'notifications-outline'},
       { title: 'Tạo Phiếu Mới', component: TicketAddPage, icon:'create'},
+      { title: 'Cài đặt', component: SettingPage, icon: 'settings'},
     ];
 
   }

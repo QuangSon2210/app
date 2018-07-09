@@ -52,7 +52,8 @@ import { SearchFilter } from '../pipes/search-filter.pipe';
 import { GroupByPipe } from '../pipes/group-by.pipe';
 import { HighlightPipe } from '../pipes/highlight-search.pipe';
 
-const config: SocketIoConfig = { url: 'https://socketprod.midesk.vn', options: {} };
+// v1 const config: SocketIoConfig = { url: 'https://socketprod.midesk.vn', options: {} };
+const config: SocketIoConfig = { url: 'https://socketdev-v2.midesk.vn', options: {} };
 export function cookieServiceFactory() {
   return new CookieService();
 }
