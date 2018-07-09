@@ -194,6 +194,7 @@ export class MyApp {
     })
   }
   receiveNotification(){
+    alert(1);
     this._fcm.onNotification().subscribe(res=>{
       alert(res);
       if(this._authService.getLoggedInUser().id != res.user_id){
