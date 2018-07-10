@@ -179,6 +179,7 @@ export class MyApp {
       }
       alert(this.token);
       this._notifyService.sendNotification(body).subscribe(res=>alert(res));
+      this.initLocalNotification(body);
   }
   initLocalNotification(data){
     this._localNotification.schedule({
