@@ -140,7 +140,6 @@ export class MyApp {
       if(userId == data[0]['id_user'] || team.indexOf(data[0]['id_team'],0)!=-1 && data[0]['del_agent'] != userId && data[0]['view'] != userId){
         this.countNotify+=1;
         this.token = this._authService.getFCMToken();
-        alert(this.token);
         if(this._authService.enableNotify()){
           this.pushNotifications(data);
           this.vibrate = this._authService.enableVibrate();
@@ -178,8 +177,9 @@ export class MyApp {
       "restricted_package_name":""
     }
     alert(this.token);
-    this._notifyService.sendNotification(body).subscribe(res=>alert(res.id));
-    this._localNotification.hasPermission().then(()=>{
+    this._notifyService.sendNotification(body).subscribe(res=>alert(res.data));
+    this._localNotification.hasPermission().then((res)=>{
+      alert(res);
       this._localNotification.schedule({
         id:2,
         title: '1111',
