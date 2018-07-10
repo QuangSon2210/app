@@ -67,7 +67,7 @@ export class MyApp {
         this.listenEventNewNotifi();
         this.listenEventUpdate();
         this.handleNotification();
-        this.receiveNotification();
+        //this.receiveNotification();
         this._notifyService.countNewNotifications().subscribe(res => { this.countNotify = res;});
         this.loggedInUser = this._authService.getLoggedInUser();
         this.avatarName = this._authService.getLoggedInUser().lastname;
@@ -148,7 +148,6 @@ export class MyApp {
     });
   }
   pushNotifications(data){
-    alert('gui thong bao');
     let title = data[0]['title'];
     var regex = /(<([^>]+)>)/ig;
     let custom = JSON.parse(data[0]['custom']);
@@ -179,7 +178,11 @@ export class MyApp {
     this._notifyService.sendNotification(body).subscribe();
     this._localNotification.hasPermission().then((res)=>{
       alert(res);
-      this.initLocalNotification(body);
+      this._localNotification.schedule({
+        id:3,
+        title:'tẽtt',
+        text:'texaa',
+      })
     })
   }
   initLocalNotification(data){
