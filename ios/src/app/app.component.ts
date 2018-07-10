@@ -149,42 +149,44 @@ export class MyApp {
     });
   }
   pushNotifications(data){
-      alert('gui thong bao');
-      let title = data[0]['title'];
-      var regex = /(<([^>]+)>)/ig;
-      let custom = JSON.parse(data[0]['custom']);
-      title = title.replace(regex, "");
-      let content = data[0]['content'];
-      let array = {
-        content: content,
-        title: title,
-        id:custom.id,
-        ticket_id: custom.ticket_id,
-        notify_id: data[0]['id'],
-        user_id: data[0]['del_agent']
-      }
-      let body={
-        "notification":{
-          "title":title,
-          "body":content,
-          "sound":"default",
-          "click_action":"FCM_PLUGIN_ACTIVITY",
-          "icon":"fcm_push_icon",
-          "forceStart": "1"
-        },
-        "data":array,
-        "to":this.token,
-        "priority":"high",
-        "restricted_package_name":""
-      }
-      alert(this.token);
-      this._notifyService.sendNotification(body).subscribe(res=>alert(res.id));
+    alert('gui thong bao');
+    let title = data[0]['title'];
+    var regex = /(<([^>]+)>)/ig;
+    let custom = JSON.parse(data[0]['custom']);
+    title = title.replace(regex, "");
+    let content = data[0]['content'];
+    let array = {
+      content: content,
+      title: title,
+      id:custom.id,
+      ticket_id: custom.ticket_id,
+      notify_id: data[0]['id'],
+      user_id: data[0]['del_agent']
+    }
+    let body={
+      "notification":{
+        "title":title,
+        "body":content,
+        "sound":"default",
+        "click_action":"FCM_PLUGIN_ACTIVITY",
+        "icon":"fcm_push_icon",
+        "forceStart": "1"
+      },
+      "data":array,
+      "to":this.token,
+      "priority":"high",
+      "restricted_package_name":""
+    }
+    alert(this.token);
+    this._notifyService.sendNotification(body).subscribe(res=>alert(res.id));
+    this._localNotification.hasPermission().then(()=>{
       this._localNotification.schedule({
         id:2,
         title: '1111',
         text: '22222',
         led:'66CC00',
       })
+    })
   }
   initLocalNotification(data){
     this._localNotification.schedule({
