@@ -1,0 +1,40 @@
+page-notifications {
+	.box-ticket{
+		width:40px;
+		height:40px;
+		border-radius: 50%;
+		border:1px solid #2cd094;
+		line-height: 40px;
+		font-size:15px;
+		text-align: center;
+	}
+	b{
+		color:#037330;
+		font-weight: 500;
+	}
+	h4{
+		font-size:1.2rem!important;
+	}
+	p{
+		font-size:1.2rem!important;
+		i{
+			font-size:1.2rem!important;
+			color:#868686!important;
+		}
+		ion-icon{
+			font-size: 1.2rem!important;
+		}
+	}
+	.hide{
+		visibility: hidden;
+	}
+	.list-md,.list-ios{
+		margin:-1px 0 0;
+	}
+	.button-loadmore{
+		margin-bottom:5px;
+	}
+	.more-icon{
+		width:20px;
+	}
+}

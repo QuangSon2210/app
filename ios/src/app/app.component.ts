@@ -16,6 +16,7 @@ import { NotificationsService } from '../services/notifications.service';
 import { SettingPage } from '../pages/setting/setting';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { FCM } from '@ionic-native/fcm';
+import { NotificationsPage } from '../pages/notifications/notifications';
 
 @Component({
   templateUrl: 'app.html'
@@ -51,7 +52,7 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Thông Báo', component: HomePage, icon:'notifications-outline'},
+      { title: 'Thông Báo', component: NotificationsPage, icon:'notifications-outline'},
       { title: 'Tạo Phiếu Mới', component: TicketAddPage, icon:'create'},
       { title: 'Cài đặt', component: SettingPage, icon: 'settings'},
     ];
@@ -66,8 +67,8 @@ export class MyApp {
         this.connectSocket();
         this.listenEventNewNotifi();
         this.listenEventUpdate();
-        this.handleNotification();
-        this.receiveNotification();
+        //this.handleNotification();
+        //this.receiveNotification();
         this._notifyService.countNewNotifications().subscribe(res => { this.countNotify = res;});
         this.loggedInUser = this._authService.getLoggedInUser();
         this.avatarName = this._authService.getLoggedInUser().lastname;
@@ -139,11 +140,11 @@ export class MyApp {
       team = team.split(',');
       if(userId == data[0]['id_user'] || team.indexOf(data[0]['id_team'],0)!=-1 && data[0]['del_agent'] != userId && data[0]['view'] != userId){
         this.countNotify+=1;
-        this.token = this._authService.getFCMToken();
-        if(this._authService.enableNotify()){
-          this.pushNotifications(data);
-          this.vibrate = this._authService.enableVibrate();
-        }
+        // this.token = this._authService.getFCMToken();
+        // if(this._authService.enableNotify()){
+        //   this.pushNotifications(data);
+        //   this.vibrate = this._authService.enableVibrate();
+        // }
       }
     });
   }
