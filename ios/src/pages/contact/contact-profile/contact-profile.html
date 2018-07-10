@@ -1,0 +1,93 @@
+
+<ion-header>
+  <ion-navbar>
+  	<ion-buttons><button ion-button menuToggle><ion-icon name="menu"></ion-icon></button></ion-buttons>
+    <ion-buttons *ngIf="section=='segment1' && !edit" (click)="editProfile()" float-right><button ion-button><ion-icon name="create"></ion-icon></button></ion-buttons>
+    <ion-buttons *ngIf="section=='segment1' && edit" (click)="updateProfile()" float-right><button ion-button><ion-icon name="checkmark"></ion-icon></button></ion-buttons>
+    <ion-buttons *ngIf="section=='segment1' && edit" (click)="closeEdit()" float-right><button ion-button><ion-icon name="close"></ion-icon></button></ion-buttons>
+  </ion-navbar>
+	<ion-grid no-padding class="background-midesk">
+		<ion-row>
+			<ion-col col-12 text-center><ion-avatar text-center [ngStyle]="{'background':contactProfile.color}" class="customer-avatar">{{modelEdit.fullname|firstNlast}}</ion-avatar></ion-col>
+			<ion-col col-12 text-center><p class="name" no-margin>{{contactProfile.fullname}}</p></ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-segment color="whitee" [(ngModel)]="section">
+			    <ion-segment-button value="segment1">
+			      Thông tin cá nhân
+			    </ion-segment-button>
+			    <ion-segment-button [disabled]="edit" value="segment2">
+			      Phiếu liên quan ({{contactTicket.length}})
+			    </ion-segment-button>
+			  </ion-segment>
+		</ion-row>
+	</ion-grid>
+</ion-header>
+<ion-content padding >
+	<div [ngSwitch]='section' *ngIf="!loading">
+	<ion-grid *ngSwitchCase="'segment1'" >
+		<ion-list *ngIf="!edit">
+			<ion-item class="customer-info" (click)="openAddTicket()">
+				<ion-avatar item-start><ion-icon color="midesk" name="mail"></ion-icon></ion-avatar>
+				<p class="title">Email</p>
+				<p *ngIf="contactProfile.email!==''">{{contactProfile.email}}</p>
+				<p *ngIf="contactProfile.email===''">Chưa cập nhật</p>
+			</ion-item>
+			<ion-item class="customer-info">
+				<ion-avatar item-start><ion-icon color="midesk" name="call"></ion-icon></ion-avatar>
+				<p class="title">Điện thoại</p>
+				<p *ngIf="contactProfile.phone!==''">{{contactProfile.phone}}</p>
+				<p *ngIf="contactProfile.phone===''">Chưa cập nhật</p>
+			</ion-item>
+			<ion-item class="customer-info">
+				<ion-avatar item-start><ion-icon color="midesk" name="card"></ion-icon></ion-avatar>
+				<p class="title">Địa chỉ</p>
+				<p *ngIf="contactProfile.address!==''&&contactProfile.address!==null">{{contactProfile.address}}</p>
+				<p *ngIf="contactProfile.address===''||contactProfile.address===null">Chưa cập nhật</p>
+			</ion-item>
+			<ion-item *ngIf="contactProfile.channel!==''" class="customer-info">
+				<ion-avatar item-start><ion-icon color="midesk" name="desktop"></ion-icon></ion-avatar>
+				<p class="title">Kênh</p>
+				<p>{{contactProfile.channel}}</p>
+			</ion-item>
+			<ion-item *ngIf="contactProfile.customer.length>0" class="customer-info">
+				<ion-avatar item-start><ion-icon color="midesk" name="briefcase"></ion-icon></ion-avatar>
+				<p class="title">Công ty</p>
+				<p style="text-overflow: ellipsis;overflow: hidden" *ngFor="let item of contactProfile.customer">- {{item.customer_name}}</p>
+			</ion-item>
+		</ion-list>
+		<ion-list *ngIf="edit" no-lines>
+			<ion-item class="customer-info">
+				<ion-avatar item-start><ion-icon color="midesk" name="text"></ion-icon></ion-avatar>
+				<p class="title">Họ tên</p>
+				<input no-margin class="text-input text-input-md input-edit" (keyup)="onInsertData($event,$type='contact')" [(ngModel)]="modelEdit.fullname" type="text"/>
+			</ion-item>
+			<ion-item class="customer-info">
+				<ion-avatar item-start><ion-icon color="midesk" name="call"></ion-icon></ion-avatar>
+				<p class="title">Điện thoại</p>
+				<input no-margin class="text-input text-input-md input-edit" (keyup)="onInsertData($event,$type='phone')" [(ngModel)]="modelEdit.phone" type="text"/>
+			</ion-item>
+			<ion-item class="customer-info">
+				<ion-avatar item-start><ion-icon color="midesk" name="card"></ion-icon></ion-avatar>
+				<p class="title">Địa chỉ</p>
+				<input no-margin class="text-input text-input-md input-edit" (keyup)="onInsertData($event,$type='address')" [(ngModel)]="modelEdit.address" type="text"/>
+			</ion-item>
+		</ion-list>
+	</ion-grid>
+	<ion-grid *ngSwitchCase="'segment2'" >
+		<ion-list *ngIf="contactTicket.length>0">
+			<ion-item *ngFor="let item of contactTicket" class="customer-ticket" (click)="openTicketDetail(item)" no-padding>
+				<ion-avatar class="box-ticket" item-start><ion-icon color="midesk" name="pricetags"></ion-icon></ion-avatar>
+				<p class="title">#{{item.ticket_id}} - {{item.title}}</p>
+				<p class="description">{{item.created_at| date: 'dd/MM'}} | {{item.status}}</p>
+			</ion-item>
+		</ion-list>
+		
+			<p *ngIf="contactTicket.length<=0">Không tìm thấy dữ liệu</p>
+		
+	</ion-grid>
+	</div>
+	<div *ngIf="loading">
+		<ion-spinner text-center name="bubbles"></ion-spinner>
+	</div>
+</ion-content>

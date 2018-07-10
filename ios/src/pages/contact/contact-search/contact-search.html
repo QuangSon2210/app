@@ -1,0 +1,37 @@
+<ion-header >
+  <ion-navbar>
+  	
+  		<ion-row no-padding>
+  			<ion-col col-10 no-padding>
+  					<ion-input clearInput [(ngModel)]="modelSearch.text" (keyup)="onSearchTicket($event)" type="text" placeholder="Nhập tên người liên hệ ..."></ion-input>
+  			</ion-col>
+  			<ion-col col-2 no-padding>
+  				<ion-buttons end *ngIf="modelSearch.text!==''" class="margin-header-icon">
+					<button padding-left ion-button (click)="clearSearch()"><ion-icon color="dark" name="close"></ion-icon></button>
+				</ion-buttons>
+  			</ion-col>
+  		</ion-row>
+  	
+  </ion-navbar>
+</ion-header>
+<ion-content no-padding>
+  	<div padding *ngIf="loading">
+		<ion-spinner text-center name="crescent"></ion-spinner>
+	</div>
+	<ion-list *ngIf="!loading">
+		<ion-item *ngFor=" let item of modelSearch.dataItems " (click)="contactProfile(item)">
+			<ion-avatar item-start class="customer-avatar margin-vertical" *ngIf="item.fullname!==null" [ngStyle]="{'background':item.color}">{{item.fullname|firstNlast}}</ion-avatar>
+			<ion-avatar item-start class="customer-avatar margin-vertical" *ngIf="item.fullname===null" [ngStyle]="{'background':item.color}">{{item.customer_name|firstNlast}}</ion-avatar>
+			<p class="name" [innerHTML]="item.fullname | highlight:modelSearch.text" *ngIf="item.fullname!==null"></p>
+			
+			<p *ngIf="item.relation_title!==null" class="relation" item-end><span [ngStyle]="{'background':item.relation_color}">{{item.relation_title}}</span></p>
+			<p class="phone"><span *ngIf="item.phone!=='' && item.phone!==null">Điện thoại: {{item.phone}}</span><span *ngIf="item.phone==='' || item.phone===null">Email: {{item.email}}</span></p>
+		</ion-item>
+	</ion-list>
+	<ion-infinite-scroll *ngIf="modelSearch.loadMore" (ionInfinite)="doInfinite($event)">
+	    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+	</ion-infinite-scroll>
+	<ion-refresher *ngIf="!loading" (ionRefresh)="doRefresh($event)">
+	    <ion-refresher-content></ion-refresher-content>
+	</ion-refresher>
+</ion-content>
