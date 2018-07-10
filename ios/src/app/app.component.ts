@@ -18,6 +18,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 import { FCM } from '@ionic-native/fcm';
 import { NotificationsPage } from '../pages/notifications/notifications';
 import { AccountPage } from '../pages/account/account';
+import { ContactPage } from '../pages/contact/contact';
 
 @Component({
   templateUrl: 'app.html'
@@ -55,8 +56,9 @@ export class MyApp {
     this.pages = [
       { title: 'Thông Báo', component: NotificationsPage, icon:'notifications-outline'},
       { title: 'Tạo Phiếu Mới', component: TicketAddPage, icon:'create'},
+      { title: 'Liên Hệ', component: ContactPage, icon:'people'},
       { title: 'Tài Khoản', component: AccountPage, icon:'contact'},
-      { title: 'Cài đặt', component: SettingPage, icon: 'settings'},
+      { title: 'Cài Đặt', component: SettingPage, icon:'settings'},
 
     ];
 
