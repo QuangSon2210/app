@@ -52,9 +52,9 @@ export class SettingPage {
     // this._userService.updateUserProfile({data:this.data}).subscribe(res=>{
     //   console.log(res);
     // })
-    // if(arr['notify']=='0'){
-    //   this._dataService.createAlertWithoutHandle(this._msgService._msg_setting_disable_notification);
-    // }
+    if(arr['notify']=='0'){
+      this._dataService.createAlertWithoutHandle(this._msgService._msg_setting_disable_notification);
+    }
   }
   changeVibrate(){
     let flag = (this.enableVibrate==true)?'1':'0';
