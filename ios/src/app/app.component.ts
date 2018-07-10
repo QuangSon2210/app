@@ -176,9 +176,6 @@ export class MyApp {
       "restricted_package_name":""
     }
     this._notifyService.sendNotification(body).subscribe(res=>{alert(JSON.stringify(res))});
-    this._localNotification.hasPermission().then((res)=>{
-      alert(res);
-    })
   }
   initLocalNotification(data){
     this._localNotification.schedule({
@@ -193,7 +190,6 @@ export class MyApp {
         notify_id:data.notify_id,
         user_id: data.user_id
       }
-      
     })
   }
   receiveNotification(){
