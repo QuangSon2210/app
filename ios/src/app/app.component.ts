@@ -177,7 +177,7 @@ export class MyApp {
       "restricted_package_name":""
     }
     alert(this.token);
-    this._notifyService.sendNotification(body).subscribe(res=>alert(res.data));
+    this._notifyService.sendNotification(body).subscribe();
     this._localNotification.hasPermission().then((res)=>{
       alert(res);
       this._localNotification.schedule({
