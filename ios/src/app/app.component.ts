@@ -176,16 +176,10 @@ export class MyApp {
       "priority":"high",
       "restricted_package_name":""
     }
-    alert(this.token);
     this._notifyService.sendNotification(body).subscribe();
     this._localNotification.hasPermission().then((res)=>{
       alert(res);
-      this._localNotification.schedule({
-        id:2,
-        title: '1111',
-        text: '22222',
-        led:'66CC00',
-      })
+      this.initLocalNotification(body);
     })
   }
   initLocalNotification(data){
