@@ -132,6 +132,7 @@ export function cookieServiceFactory() {
     SettingPage,
     NotificationsPage,
     AccountPage,
+    ContactPage,
     ContactAddPage,
     ContactProfilePage,
     ContactSearchPage,
