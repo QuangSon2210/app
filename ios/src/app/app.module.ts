@@ -13,6 +13,10 @@ import { TicketDetailPage } from './../pages/ticket/ticket-detail/ticket-detail'
 import { SettingPage } from './../pages/setting/setting';
 import { NotificationsPage } from './../pages/notifications/notifications';
 import { AccountPage } from './../pages/account/account';
+import { ContactPage } from './../pages/contact/contact';
+import { ContactAddPage } from './../pages/contact/contact-add/contact-add';
+import { ContactProfilePage } from './../pages/contact/contact-profile/contact-profile';
+import { ContactSearchPage } from './../pages/contact/contact-search/contact-search';
 
 import { SettingService } from '../common/setting.service';
 import { DataService } from '../common/data.service';
@@ -70,6 +74,10 @@ export function cookieServiceFactory() {
     SettingPage,
     NotificationsPage,
     AccountPage,
+    ContactPage,
+    ContactAddPage,
+    ContactProfilePage,
+    ContactSearchPage,
 
     ModalAssign,
     ModalRequester,
@@ -124,7 +132,10 @@ export function cookieServiceFactory() {
     SettingPage,
     NotificationsPage,
     AccountPage,
-    
+    ContactAddPage,
+    ContactProfilePage,
+    ContactSearchPage,
+
     ModalAssign,
     ModalRequester,
     ModalProperties,
