@@ -79,11 +79,13 @@
 			<ion-item *ngFor="let item of contactTicket" class="customer-ticket" (click)="openTicketDetail(item)" no-padding>
 				<ion-avatar class="box-ticket" item-start><ion-icon color="midesk" name="pricetags"></ion-icon></ion-avatar>
 				<p class="title">#{{item.ticket_id}} - {{item.title}}</p>
-				<p class="description">{{item.created_at| toTime2 }} | {{item.status}}</p>
+				<p class="description">{{item.datecreate| toTime2 }} | {{item.status}}</p>
 			</ion-item>
 		</ion-list>
-		
-			<p *ngIf="contactTicket.length<=0">Không tìm thấy dữ liệu</p>
+    <ion-list>
+      <ion-item><p *ngIf="contactTicket.length<=0">Không tìm thấy dữ liệu</p></ion-item>
+    </ion-list>
+			
 		
 	</ion-grid>
 	</div>
