@@ -64,10 +64,12 @@ page-contact-profile {
 	}
 	.segment-ios-whitee .segment-button{
 		border:0;
-		border-radius: 0;
+        border-radius: 0;
+        color:#EEEEEE;
 	}
 	.segment-ios-whitee .segment-button.segment-activated{
-		color:#2cd094;
+        color:#FFF;
+        background: #5fb85f;
 	}
 	.name{
 		font-size:1.8rem;
