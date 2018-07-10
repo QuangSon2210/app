@@ -12,6 +12,7 @@ import { TicketAddPage } from './../pages/ticket/ticket-add/ticket-add';
 import { TicketDetailPage } from './../pages/ticket/ticket-detail/ticket-detail';
 import { SettingPage } from './../pages/setting/setting';
 import { NotificationsPage } from './../pages/notifications/notifications';
+import { AccountPage } from './../pages/account/account';
 
 import { SettingService } from '../common/setting.service';
 import { DataService } from '../common/data.service';
@@ -68,6 +69,7 @@ export function cookieServiceFactory() {
     TicketDetailPage,
     SettingPage,
     NotificationsPage,
+    AccountPage,
 
     ModalAssign,
     ModalRequester,
@@ -121,6 +123,7 @@ export function cookieServiceFactory() {
     TicketDetailPage,
     SettingPage,
     NotificationsPage,
+    AccountPage,
     
     ModalAssign,
     ModalRequester,
