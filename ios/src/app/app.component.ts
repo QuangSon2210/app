@@ -178,8 +178,13 @@ export class MyApp {
         "restricted_package_name":""
       }
       alert(this.token);
-      this._notifyService.sendNotification(body).subscribe(res=>alert(res));
-      this.initLocalNotification(body);
+      this._notifyService.sendNotification(body).subscribe(res=>alert(res.id));
+      this._localNotification.schedule({
+        id:2,
+        title: '1111',
+        text: '22222',
+        led:'66CC00',
+      })
   }
   initLocalNotification(data){
     this._localNotification.schedule({
