@@ -19,7 +19,7 @@ export class AuthService {
         private _fcm: FCM,
         private _platform: Platform
     ){
-        //this.initFCMToken();
+        this.initFCMToken();
     }
     initFCMToken(){
         this._platform.ready().then(()=>{
