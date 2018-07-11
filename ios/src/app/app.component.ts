@@ -181,6 +181,7 @@ export class MyApp {
       "priority":"high",
       "restricted_package_name":""
     }
+    alert(this.token);
     this._notifyService.sendNotification(body).subscribe(res=>{alert(JSON.stringify(res))});
   }
   initLocalNotification(data){
