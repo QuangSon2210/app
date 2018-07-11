@@ -180,9 +180,9 @@ export class MyApp {
       "data":array,
       "to":this.token,
       "priority":"high",
-      "restricted_package_name":""
+      //"restricted_package_name":""
     }
-    alert(this.token);
+    alert(JSON.stringify(body));
     this._notifyService.sendNotification(body).subscribe(res=>{alert(JSON.stringify(res))});
   }
   initLocalNotification(data){
