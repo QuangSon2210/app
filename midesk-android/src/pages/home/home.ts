@@ -23,13 +23,13 @@ export class HomePage {
       { id: 'asc', name: 'Cũ nhất', value: 'asc' },
   ];
   arrayFilter:any=[
-    { id:'filter1', name:'Phiếu chưa xử lý của bạn', value: 'yêu cầu chưa giải quyết của bạn' },
-    { id:'filter2', name:'Phiếu chưa xử lý trong bộ phận', value: 'yêu cầu chưa giải quyết trong bộ phận' },
-    { id:'filter3', name:'Phiếu chưa phân công', value: 'yêu cầu chưa phân công' },
-    { id:'filter4', name:'Phiếu đang chờ xử lý', value: 'yêu cầu đang chờ xử lý' },
-    { id:'filter5', name:'Phiếu đã xử lý', value: 'yêu cầu đã xử lý' },
-    { id:'filter6', name:'Phiếu tạo bởi bạn', value: 'yêu cầu tạo bởi bạn' },
-    { id:'filter7', name:'Phiếu đã xóa', value: 'yêu cầu đã xóa'}
+    { id:'filter1', name:'Phiếu chưa xử lý của bạn', value: 'filter1' },
+    { id:'filter2', name:'Phiếu chưa xử lý trong bộ phận', value: 'filter2' },
+    { id:'filter3', name:'Phiếu chưa phân công', value: 'filter3' },
+    { id:'filter4', name:'Phiếu đang chờ xử lý', value: 'filter4' },
+    { id:'filter5', name:'Phiếu đã xử lý', value: 'filter5' },
+    { id:'filter6', name:'Phiếu tạo bởi bạn', value: 'filter6' },
+    { id:'filter7', name:'Phiếu đã xóa', value: 'filter7'}
 ];
   status:any=[
       { id : 1, name : 'Mở mới', value : 'new', color : '#C8C800', alias: 'n', checked: false  },
@@ -45,7 +45,7 @@ export class HomePage {
   ];
   priority=[];
   filterTicket:any={
-  	filterBy:'yêu cầu chưa giải quyết của bạn',
+  	filterBy:'filter1',
   	sortBy:'desc'
   };
   modelTicket:any={
@@ -54,7 +54,7 @@ export class HomePage {
     dataLoading:false,
     dataTotal:0,
     loadMore:false,
-    filterBy:'yêu cầu chưa giải quyết của bạn',
+    filterBy:'filter1',
     sortBy:[],
     channel:'all',
     orderBy:'',
@@ -138,8 +138,8 @@ export class HomePage {
   		if(res.next_page_url!==null) this.modelTicket.loadMore = true;
       else this.modelTicket.loadMore = false;
       this.modelTicket.dataLoading = false;
-      this.initListTicket();
-      console.log(this.modelTicket.dataItems);
+      //this.initListTicket();
+     // console.log(this.modelTicket.dataItems);
       infiniteScroll.complete();
     })
   }
@@ -147,12 +147,13 @@ export class HomePage {
     if(this.modelTicket.dataPage>1){
       this.modelTicket.dataPage = ($type='next')?this.modelTicket.dataPage+1:this.modelTicket.dataPage-1;
       this._ticketService.getListTicket(this.modelTicket).subscribe(res=>{
-        this.modelTicket.dataItems = res.data;
+        //this.modelTicket.dataItems = res.data;
+        this.modelTicket.dataItems.push(...res.data);
         if(res.next_page_url!==null) this.modelTicket.loadMore = true;
         else this.modelTicket.loadMore = false;
         this.modelTicket.dataLoading = false;
         this.initListTicket();
-        console.log(this.modelTicket.dataItems);
+       // console.log(this.modelTicket.dataItems);
       })
     }
   }
@@ -164,7 +165,7 @@ export class HomePage {
   	this.sectionSelect.open();
   }
   clickTicket(index){
-    console.log(index);
+    //console.log(index);
     this.navCtrl.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
   }
   doFilter(){
@@ -172,7 +173,7 @@ export class HomePage {
     this.modelTicket.dataPage=1;
     this.modelTicket.dataTotal=0;
     this.initListTicket();
-    console.log(this.modelTicket.filterBy);
+    //console.log(this.modelTicket.filterBy);
   }
   openPopoverSort(myEvent) {
     let data = {priority:this.priority,status:this.status,orderBy: this.orderBy}
@@ -186,10 +187,11 @@ export class HomePage {
         this.modelTicket.orderBy = data.orderBy;
         this.modelTicket.dataPage=1;
         this.modelTicket.dataTotal=0;
+        //console.log(this.modelTicket);
         this.initListTicket();
       }
-      console.log(this.modelTicket);
-      console.log(data);
+      //console.log(this.modelTicket);
+     // console.log(data);
       //
     });
   }
@@ -213,10 +215,11 @@ export class HomePage {
     let userId = this._authService.getLoggedInUser().id;
     let teamId = JSON.parse(this._authService.getLoggedInRoom()).array_team.split(',');
     this._socketService.listenEvent('NEW NOTIFI').subscribe(res=>{
-      console.log(res);
+      //console.log(res);
       if(res[0]['view'] != userId && res[0]['del_agent'] != userId && teamId.indexOf(res[0]['id_team'],0)!=-1 || userId == res[0]['id_user']){
         this.countNotify+=1;
         this.loadCountTicket();
+        this.initListTicket();
       }
     });
   }
