@@ -140,12 +140,18 @@ export class MyApp {
   }
   listenEventNewNotifi(){
     this._socketService.listenEvent('NEW NOTIFI').subscribe(data=>{
+      this._localNotification.schedule({
+        text:'test',
+        title:'text',
+        id:2,
+      })
       let userId = this._authService.getLoggedInUser().id;
       let team = JSON.parse(this._authService.getLoggedInRoom()).array_team;
       team = team.split(',');
       if(userId == data[0]['id_user'] || team.indexOf(data[0]['id_team'],0)!=-1 && data[0]['del_agent'] != userId && data[0]['view'] != userId){
         this.countNotify+=1;
-        this.token = this._authService.getFCMToken();
+        //this.token = this._authService.getFCMToken();
+        this.token = localStorage.getItem('fcm_token');
         if(this._authService.enableNotify()){
           this.pushNotifications(data);
           this.vibrate = this._authService.enableVibrate();
@@ -199,31 +205,14 @@ export class MyApp {
     })
   }
   receiveNotification(){
-    this._fcm.onNotification().subscribe(res=>{
-      if(this._authService.getLoggedInUser().id != res.user_id){
-        this._localNotification.hasPermission().then(()=>{
-          this.initLocalNotification(res);
-        })
-      }
-      // if(this._authService.getLoggedInUser().id != res.user_id){
-      //   // alert('nhan thong bao');
-      //   alert(JSON.stringify(res));
-      //   this.initLocalNotification(res);
-      // }
-      // if(res.wasTapped){
-      //   alert(JSON.stringify(res));
-      //   alert('co thong bao moi');
-      // }else{
-      //   this.initLocalNotification(res);
-      // }
-      // alert('nhan thong bao');
-      // alert(JSON.stringify(res));
-      // this.initLocalNotification(res);
-      if(res.wasTapped){
-        alert(JSON.stringify(res));
-      }
-      else alert('nhan thong bao');
-    })
+    alert(localStorage.getItem('fcm_token'));
+    // this._fcm.onNotification().subscribe(res=>{
+    //   if(this._authService.getLoggedInUser().id != res.user_id){
+    //     this._localNotification.hasPermission().then(()=>{
+    //       this.initLocalNotification(res);
+    //     })
+    //   }
+    // })
   }
   handleNotification(){
     this._localNotification.on('click').subscribe(res=>{
