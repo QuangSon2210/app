@@ -214,6 +214,7 @@ export class MyApp {
       // }
       alert('nhan thong bao');
       alert(JSON.stringify(res));
+      this.initLocalNotification(res);
       
     })
   }
