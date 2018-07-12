@@ -72,7 +72,7 @@ export class MyApp {
         this.connectSocket();
         this.listenEventNewNotifi();
         this.listenEventUpdate();
-        this.handleNotification();
+        //this.handleNotification();
         this.receiveNotification();
         this._notifyService.countNewNotifications().subscribe(res => { this.countNotify = res;});
         this.loggedInUser = this._authService.getLoggedInUser();
@@ -182,7 +182,7 @@ export class MyApp {
       //"restricted_package_name":""
     }
     //alert(JSON.stringify(body));
-    this._notifyService.sendNotification(body).subscribe();
+    this._notifyService.sendNotification(body).subscribe(res=>{alert(JSON.stringify(res))});
   }
   initLocalNotification(data){
     this._localNotification.schedule({
@@ -212,12 +212,8 @@ export class MyApp {
       // }else{
       //   this.initLocalNotification(res);
       // }
-      if(res.wasTapped){
-        alert('co thong bao moi 1');
-      }
-      else{
-        alert('co thong bao moi 2');
-      }
+      alert('nhan thong bao');
+      alert(JSON.stringify(res));
       
     })
   }
