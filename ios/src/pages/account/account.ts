@@ -3,7 +3,7 @@ import { DataService } from './../../common/data.service';
 import { AuthService } from './../../services/authentication/auth.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
-import { CookieService } from 'angular2-cookie/core';
+//import { CookieService } from 'angular2-cookie/core';
 import { MessageService } from '../../common/message.service';
 
 @Component({
@@ -26,7 +26,7 @@ export class AccountPage {
     private _authService: AuthService,
     private _dataService: DataService,
     private _userService: UserService,
-    private _cookieService: CookieService,
+    //private _cookieService: CookieService,
     private _event : Events,
     private _msgService: MessageService
   ) {
