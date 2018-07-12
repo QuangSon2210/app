@@ -206,12 +206,19 @@ export class MyApp {
       //   alert(JSON.stringify(res));
       //   this.initLocalNotification(res);
       // }
+      // if(res.wasTapped){
+      //   alert(JSON.stringify(res));
+      //   alert('co thong bao moi');
+      // }else{
+      //   this.initLocalNotification(res);
+      // }
       if(res.wasTapped){
-        alert(JSON.stringify(res));
-        alert('co thong bao moi');
-      }else{
-        this.initLocalNotification(res);
+        alert('co thong bao moi 1');
       }
+      else{
+        alert('co thong bao moi 2');
+      }
+      
     })
   }
   handleNotification(){
