@@ -186,10 +186,9 @@ export class MyApp {
   }
   initLocalNotification(data){
     this._localNotification.schedule({
-      id:2,
+      id:1,
       title: data.title,
       text: data.content,
-      led:'66CC00',
       vibrate:this.vibrate,
       data:{
         id:data.id,
@@ -201,6 +200,11 @@ export class MyApp {
   }
   receiveNotification(){
     this._fcm.onNotification().subscribe(res=>{
+      if(this._authService.getLoggedInUser().id != res.user_id){
+        this._localNotification.hasPermission().then(()=>{
+          this.initLocalNotification(res);
+        })
+      }
       // if(this._authService.getLoggedInUser().id != res.user_id){
       //   // alert('nhan thong bao');
       //   alert(JSON.stringify(res));
