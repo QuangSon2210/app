@@ -72,7 +72,7 @@ export class MyApp {
         this.connectSocket();
         this.listenEventNewNotifi();
         this.listenEventUpdate();
-        //this.handleNotification();
+        this.handleNotification();
         this.receiveNotification();
         this._notifyService.countNewNotifications().subscribe(res => { this.countNotify = res;});
         this.loggedInUser = this._authService.getLoggedInUser();
@@ -146,7 +146,6 @@ export class MyApp {
       if(userId == data[0]['id_user'] || team.indexOf(data[0]['id_team'],0)!=-1 && data[0]['del_agent'] != userId && data[0]['view'] != userId){
         this.countNotify+=1;
         this.token = this._authService.getFCMToken();
-        alert(this.token);
         if(this._authService.enableNotify()){
           this.pushNotifications(data);
           this.vibrate = this._authService.enableVibrate();
@@ -182,8 +181,8 @@ export class MyApp {
       "priority":"high",
       //"restricted_package_name":""
     }
-    alert(JSON.stringify(body));
-    this._notifyService.sendNotification(body).subscribe(res=>{alert(JSON.stringify(res))});
+    //alert(JSON.stringify(body));
+    this._notifyService.sendNotification(body).subscribe();
   }
   initLocalNotification(data){
     this._localNotification.schedule({
@@ -202,11 +201,11 @@ export class MyApp {
   }
   receiveNotification(){
     this._fcm.onNotification().subscribe(res=>{
-      //if(this._authService.getLoggedInUser().id != res.user_id){
-        alert('nhan thong bao');
-        alert(JSON.stringify(res));
-        //this.initLocalNotification(res);
-      //}
+      if(this._authService.getLoggedInUser().id != res.user_id){
+        // alert('nhan thong bao');
+        // alert(JSON.stringify(res));
+        this.initLocalNotification(res);
+      }
     })
   }
   handleNotification(){
