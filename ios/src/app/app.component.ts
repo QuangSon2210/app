@@ -201,9 +201,15 @@ export class MyApp {
   }
   receiveNotification(){
     this._fcm.onNotification().subscribe(res=>{
-      if(this._authService.getLoggedInUser().id != res.user_id){
-        // alert('nhan thong bao');
-        // alert(JSON.stringify(res));
+      // if(this._authService.getLoggedInUser().id != res.user_id){
+      //   // alert('nhan thong bao');
+      //   alert(JSON.stringify(res));
+      //   this.initLocalNotification(res);
+      // }
+      if(res.wasTapped){
+        alert(JSON.stringify(res));
+        alert('co thong bao moi');
+      }else{
         this.initLocalNotification(res);
       }
     })
