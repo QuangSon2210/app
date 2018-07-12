@@ -70,6 +70,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       if(this._authService.isUserLoggedIn()){
         this.connectSocket();
+        this.initFCMToken();
         this.listenEventNewNotifi();
         this.listenEventUpdate();
         //this.handleNotification();
@@ -86,6 +87,19 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+  initFCMToken(){
+    if(localStorage.getItem('fcm_token') =='' || typeof localStorage.getItem('fcm_token') == 'undefined' || localStorage.getItem('fcm_token') == null){
+      this._fcm.getToken().then(token=>{
+        localStorage.setItem('fcm_token',token);
+        this.token = token;
+        alert('token1:'+this.token);
+      })
+    }
+    else {
+      this.token = localStorage.getItem('fcm_token');
+      alert('tokken2:'+this.token);
+    }
   }
   // checkLogin(){
   //   if(this._authService.isUserLoggedIn()){
@@ -205,7 +219,7 @@ export class MyApp {
     })
   }
   receiveNotification(){
-    alert(localStorage.getItem('fcm_token'));
+    //alert(localStorage.getItem('fcm_token'));
     // this._fcm.onNotification().subscribe(res=>{
     //   if(this._authService.getLoggedInUser().id != res.user_id){
     //     this._localNotification.hasPermission().then(()=>{

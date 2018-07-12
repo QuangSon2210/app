@@ -16,18 +16,18 @@ export class AuthService {
     private loggedInUser: any; //User
     constructor(
         //public _cookieService: CookieService,
-        private _fcm: FCM,
-        private _platform: Platform
+        // private _fcm: FCM,
+        // private _platform: Platform
     ){
-        this.initFCMToken();
+        //this.initFCMToken();
     }
-    initFCMToken(){
-        this._platform.ready().then(()=>{
-            this._fcm.getToken().then(token=>{
-                this.fcm_token = token;
-            })
-        })
-    }
+    // initFCMToken(){
+    //     this._platform.ready().then(()=>{
+    //         this._fcm.getToken().then(token=>{
+    //             this.fcm_token = token;
+    //         })
+    //     })
+    // }
     getToken(): string {
         //return this._cookieService.get(TOKEN_NAME);
         return localStorage.getItem(TOKEN_NAME);
@@ -40,7 +40,7 @@ export class AuthService {
             localStorage.setItem('curuser',JSON.stringify({ info: this.loggedInUser.user, user_log: this.loggedInUser.user_log }));
             localStorage.setItem('room',this.loggedInUser.room);
             localStorage.setItem('data',JSON.stringify({ priority: this.loggedInUser.priority, relation: this.loggedInUser.relation }));
-            localStorage.setItem('fcm_token', this.fcm_token);
+            //localStorage.setItem('fcm_token', this.fcm_token);
             localStorage.setItem('setting',JSON.stringify({ notify:this.loggedInUser.user.is_notification,vibrate:'1'}));
         } else {
             console.log('Empty token ---');
@@ -68,14 +68,14 @@ export class AuthService {
         }
         return this.loggedInUser;
     }
-    getFCMToken():string{
-        if(localStorage.getItem('fcm_token') =='' || typeof localStorage.getItem('fcm_token') =='undefined' || localStorage.getItem('fcm_token') ==null){
-            this.initFCMToken();
-            localStorage.setItem('fcm_token', this.fcm_token);
-            return this.fcm_token;
-        }
-        return localStorage.getItem('fcm_token');
-    }
+    // getFCMToken():string{
+    //     if(localStorage.getItem('fcm_token') =='' || typeof localStorage.getItem('fcm_token') =='undefined' || localStorage.getItem('fcm_token') ==null){
+    //         this.initFCMToken();
+    //         localStorage.setItem('fcm_token', this.fcm_token);
+    //         return this.fcm_token;
+    //     }
+    //     return localStorage.getItem('fcm_token');
+    // }
     enableNotify():boolean{
         let flag = JSON.parse(localStorage.getItem('setting'))['notify'];
         if(flag=='1'){
