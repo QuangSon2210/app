@@ -220,7 +220,7 @@ export class MyApp {
       // alert(JSON.stringify(res));
       // this.initLocalNotification(res);
       if(res.wasTapped){
-        console.log(res);
+        alert(JSON.stringify(res));
       }
       else alert('nhan thong bao');
     })
