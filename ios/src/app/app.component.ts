@@ -212,10 +212,13 @@ export class MyApp {
       // }else{
       //   this.initLocalNotification(res);
       // }
-      alert('nhan thong bao');
-      alert(JSON.stringify(res));
-      this.initLocalNotification(res);
-      
+      // alert('nhan thong bao');
+      // alert(JSON.stringify(res));
+      // this.initLocalNotification(res);
+      if(res.wasTapped){
+        console.log(res);
+      }
+      else alert('nhan thong bao');
     })
   }
   handleNotification(){
