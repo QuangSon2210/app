@@ -212,19 +212,19 @@ export class MyApp {
   }
   receiveNotification(){
     //alert(localStorage.getItem('fcm_token'));
-    this._fcm.subscribeToTopic('new').then(data=>{
-      alert(JSON.stringify(data));
-    })
-    // this._fcm.onNotification().subscribe(res=>{
-    //   // if(this._authService.getLoggedInUser().id != res.user_id){
-    //   //   this._localNotification.hasPermission().then(()=>{
-    //   //     this.initLocalNotification(res);
-    //   //   })
-    //   // }
-    //   if(res.wasTapped){
-    //     this.initLocalNotification(res);
-    //   }else this.initLocalNotification(res);
+    // this._fcm.subscribeToTopic('new').then(data=>{
+    //   alert(JSON.stringify(data));
     // })
+    this._fcm.onNotification().subscribe(res=>{
+      // if(this._authService.getLoggedInUser().id != res.user_id){
+      //   this._localNotification.hasPermission().then(()=>{
+      //     this.initLocalNotification(res);
+      //   })
+      // }
+      if(res.wasTapped){
+        this.initLocalNotification(res);
+      }else this.initLocalNotification(res);
+    })
   }
   handleNotification(){
     this._localNotification.on('click').subscribe(res=>{
