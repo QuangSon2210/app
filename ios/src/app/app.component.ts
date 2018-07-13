@@ -70,6 +70,11 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       if(this._authService.isUserLoggedIn()){
         this.connectSocket();
+        this.initFCMToken();
+        this.listenEventNewNotifi();
+        this.listenEventUpdate();
+        this.handleNotification();
+        this.receiveNotification();
         this._notifyService.countNewNotifications().subscribe(res => { this.countNotify = res;});
         this.loggedInUser = this._authService.getLoggedInUser();
         this.avatarName = this._authService.getLoggedInUser().lastname;
@@ -111,13 +116,13 @@ export class MyApp {
     this._socketService.listenEvent('disconnect').subscribe(()=>{
       window.setTimeout(this.connectSocket(),5000);
     })
-    this._socketService.listenEvent('connect').subscribe(()=>{
-      this.initFCMToken();
-      this.listenEventNewNotifi();
-      this.listenEventUpdate();
-      this.handleNotification();
-      this.receiveNotification();
-    })
+    // this._socketService.listenEvent('connect').subscribe(()=>{
+    //   this.initFCMToken();
+    //   this.listenEventNewNotifi();
+    //   this.listenEventUpdate();
+    //   this.handleNotification();
+    //   this.receiveNotification();
+    // })
   }
   logOut(){
     this.confirmLogout();
