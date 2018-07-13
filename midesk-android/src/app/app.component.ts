@@ -66,6 +66,7 @@ export class MyApp {
     this.platform.ready().then(() => {
       if(this._authService.isUserLoggedIn()){
         this.connectSocket();
+        this.initFCMToken();
         this.listenEventNewNotifi();
         this.listenEventUpdate();
         this.handleNotification();
