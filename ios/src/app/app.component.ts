@@ -221,6 +221,7 @@ export class MyApp {
       //     this.initLocalNotification(res);
       //   })
       // }
+      alert(JSON.stringify(res));
       if(res.wasTapped){
         this.initLocalNotification(res);
       }else this.initLocalNotification(res);
