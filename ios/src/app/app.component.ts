@@ -151,7 +151,7 @@ export class MyApp {
       if(userId == data[0]['id_user'] || team.indexOf(data[0]['id_team'],0)!=-1 && data[0]['del_agent'] != userId && data[0]['view'] != userId){
         this.countNotify+=1;
         //this.token = this._authService.getFCMToken();
-        // this.token = localStorage.getItem('fcm_token');
+        //this.token = localStorage.getItem('fcm_token');
         if(this._authService.enableNotify()){
           this.pushNotifications(data);
           this.vibrate = this._authService.enableVibrate();
@@ -180,7 +180,7 @@ export class MyApp {
         "sound":"default",
         "click_action":"FCM_PLUGIN_ACTIVITY",
         "icon":"fcm_push_icon",
-        "forceStart": "1"
+        //"forceStart": "1"
       },
       "data":array,
       "to":this.token,
@@ -212,7 +212,9 @@ export class MyApp {
       //     this.initLocalNotification(res);
       //   })
       // }
-      alert(JSON.stringify(res));
+      if(res.wasTapped){
+        this.initLocalNotification(res);
+      }else this.initLocalNotification(res);
     })
   }
   handleNotification(){
