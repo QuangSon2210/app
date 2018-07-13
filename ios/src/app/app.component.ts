@@ -189,7 +189,7 @@ export class MyApp {
       },
       "data":array,
       //"to":this.token,
-      "to":'/topics/new',
+      "to":'all',
       "priority":"high",
       //"restricted_package_name":""
     }
