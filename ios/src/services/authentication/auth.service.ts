@@ -16,7 +16,7 @@ export class AuthService {
     private loggedInUser: any; //User
     constructor(
         //public _cookieService: CookieService,
-        // private _fcm: FCM,
+        //private _fcm: FCM,
         // private _platform: Platform
     ){
         //this.initFCMToken();
@@ -32,6 +32,19 @@ export class AuthService {
         //return this._cookieService.get(TOKEN_NAME);
         return localStorage.getItem(TOKEN_NAME);
     }
+    // initFCMToken(){
+    //     if(localStorage.getItem('fcm_token') =='' || typeof localStorage.getItem('fcm_token') == 'undefined' || localStorage.getItem('fcm_token') == null){
+    //       this._fcm.getToken().then(token=>{
+    //         localStorage.setItem('fcm_token',token);
+    //         this.token = token;
+    //         alert('token1:'+this.token);
+    //       })
+    //     }
+    //     else {
+    //       this.token = localStorage.getItem('fcm_token');
+    //       alert('tokken2:'+this.token);
+    //     }
+    //   }
     setUserAuthenticated(userLogin): boolean {
         if (typeof userLogin.success != 'undefined' && userLogin.success.token != '') {
             this.isloggedIn = true;
@@ -68,14 +81,14 @@ export class AuthService {
         }
         return this.loggedInUser;
     }
-    // getFCMToken():string{
-    //     if(localStorage.getItem('fcm_token') =='' || typeof localStorage.getItem('fcm_token') =='undefined' || localStorage.getItem('fcm_token') ==null){
-    //         this.initFCMToken();
-    //         localStorage.setItem('fcm_token', this.fcm_token);
-    //         return this.fcm_token;
-    //     }
-    //     return localStorage.getItem('fcm_token');
-    // }
+    getFCMToken():string{
+        // if(localStorage.getItem('fcm_token') =='' || typeof localStorage.getItem('fcm_token') =='undefined' || localStorage.getItem('fcm_token') ==null){
+        //     this.initFCMToken();
+        //     localStorage.setItem('fcm_token', this.fcm_token);
+        //     return this.fcm_token;
+        // }
+        return localStorage.getItem('fcm_token');
+    }
     enableNotify():boolean{
         let flag = JSON.parse(localStorage.getItem('setting'))['notify'];
         if(flag=='1'){

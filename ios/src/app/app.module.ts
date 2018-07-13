@@ -59,7 +59,12 @@ import { GroupByPipe } from '../pipes/group-by.pipe';
 import { HighlightPipe } from '../pipes/highlight-search.pipe';
 
 // v1 const config: SocketIoConfig = { url: 'https://socketprod.midesk.vn', options: {} };
-const config: SocketIoConfig = { url: 'https://socketdev-v2.midesk.vn', options: {} };
+const config: SocketIoConfig = { url: 'https://socketdev-v2.midesk.vn', options: {
+  reconnection: true,
+  reconnectionDelay: 1000,
+  reconnectionDelayMax: 5000,
+  reconnectionAttempts: Infinity 
+} };
 export function cookieServiceFactory() {
   return new CookieService();
 }

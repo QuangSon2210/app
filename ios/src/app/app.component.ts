@@ -70,11 +70,6 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       if(this._authService.isUserLoggedIn()){
         this.connectSocket();
-        this.initFCMToken();
-        this.listenEventNewNotifi();
-        this.listenEventUpdate();
-        //this.handleNotification();
-        this.receiveNotification();
         this._notifyService.countNewNotifications().subscribe(res => { this.countNotify = res;});
         this.loggedInUser = this._authService.getLoggedInUser();
         this.avatarName = this._authService.getLoggedInUser().lastname;
@@ -88,34 +83,20 @@ export class MyApp {
       this.splashScreen.hide();
     });
   }
+  disconnect(){
+    this._socketService.disconnect();
+  }
   initFCMToken(){
     if(localStorage.getItem('fcm_token') =='' || typeof localStorage.getItem('fcm_token') == 'undefined' || localStorage.getItem('fcm_token') == null){
       this._fcm.getToken().then(token=>{
         localStorage.setItem('fcm_token',token);
         this.token = token;
-        alert('token1:'+this.token);
       })
     }
     else {
       this.token = localStorage.getItem('fcm_token');
-      alert('tokken2:'+this.token);
     }
   }
-  // checkLogin(){
-  //   if(this._authService.isUserLoggedIn()){
-  //     this.connectSocket();
-  //     this.listenEventNewNotifi();
-  //     this.listenEventUpdate();
-  //     this._notifyService.countNewNotifications().subscribe(res => { this.countNotify = res;});
-  //     this.loggedInUser = this._authService.getLoggedInUser();
-  //     this.avatarName = this._authService.getLoggedInUser().lastname;
-  //     this.avatarName = this.avatarName.substr(0,1);
-  //     this.rootPage = HomePage;
-  //   }else{
-  //     this.loggedInUser = {};
-  //     this.rootPage = LoginPage;
-  //   }
-  // }
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
@@ -127,6 +108,16 @@ export class MyApp {
     setTimeout(function(){
       self._socketService.connect(self.room);
     },2000);
+    this._socketService.listenEvent('disconnect').subscribe(()=>{
+      window.setTimeout(this.connectSocket(),5000);
+    })
+    this._socketService.listenEvent('connect').subscribe(()=>{
+      this.initFCMToken();
+      this.listenEventNewNotifi();
+      this.listenEventUpdate();
+      this.handleNotification();
+      this.receiveNotification();
+    })
   }
   logOut(){
     this.confirmLogout();
@@ -154,18 +145,13 @@ export class MyApp {
   }
   listenEventNewNotifi(){
     this._socketService.listenEvent('NEW NOTIFI').subscribe(data=>{
-      this._localNotification.schedule({
-        text:'test',
-        title:'text',
-        id:2,
-      })
       let userId = this._authService.getLoggedInUser().id;
       let team = JSON.parse(this._authService.getLoggedInRoom()).array_team;
       team = team.split(',');
       if(userId == data[0]['id_user'] || team.indexOf(data[0]['id_team'],0)!=-1 && data[0]['del_agent'] != userId && data[0]['view'] != userId){
         this.countNotify+=1;
         //this.token = this._authService.getFCMToken();
-        this.token = localStorage.getItem('fcm_token');
+        // this.token = localStorage.getItem('fcm_token');
         if(this._authService.enableNotify()){
           this.pushNotifications(data);
           this.vibrate = this._authService.enableVibrate();
@@ -220,13 +206,14 @@ export class MyApp {
   }
   receiveNotification(){
     //alert(localStorage.getItem('fcm_token'));
-    // this._fcm.onNotification().subscribe(res=>{
-    //   if(this._authService.getLoggedInUser().id != res.user_id){
-    //     this._localNotification.hasPermission().then(()=>{
-    //       this.initLocalNotification(res);
-    //     })
-    //   }
-    // })
+    this._fcm.onNotification().subscribe(res=>{
+      // if(this._authService.getLoggedInUser().id != res.user_id){
+      //   this._localNotification.hasPermission().then(()=>{
+      //     this.initLocalNotification(res);
+      //   })
+      // }
+      alert(JSON.stringify(res));
+    })
   }
   handleNotification(){
     this._localNotification.on('click').subscribe(res=>{
