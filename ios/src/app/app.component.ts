@@ -189,7 +189,7 @@ export class MyApp {
       },
       "data":array,
       //"to":this.token,
-      "to":'all',
+      "to":'/topics/all',
       "priority":"high",
       //"restricted_package_name":""
     }
@@ -216,15 +216,17 @@ export class MyApp {
     //   alert(JSON.stringify(data));
     // })
     this._fcm.onNotification().subscribe(res=>{
-      // if(this._authService.getLoggedInUser().id != res.user_id){
-      //   this._localNotification.hasPermission().then(()=>{
-      //     this.initLocalNotification(res);
-      //   })
-      // }
       alert(JSON.stringify(res));
+      if(this._authService.getLoggedInUser().id != res.user_id){
+          this.initLocalNotification(res);
+      }
       if(res.wasTapped){
-        this.initLocalNotification(res);
-      }else this.initLocalNotification(res);
+        alert('ok');
+      }
+      // alert(JSON.stringify(res));
+      // if(res.wasTapped){
+      //   this.initLocalNotification(res);
+      // }else this.initLocalNotification(res);
     })
   }
   handleNotification(){
