@@ -82,11 +82,6 @@ export class AuthService {
         return this.loggedInUser;
     }
     getFCMToken():string{
-        // if(localStorage.getItem('fcm_token') =='' || typeof localStorage.getItem('fcm_token') =='undefined' || localStorage.getItem('fcm_token') ==null){
-        //     this.initFCMToken();
-        //     localStorage.setItem('fcm_token', this.fcm_token);
-        //     return this.fcm_token;
-        // }
         return localStorage.getItem('fcm_token');
     }
     enableNotify():boolean{

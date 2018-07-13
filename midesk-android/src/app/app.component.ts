@@ -89,7 +89,20 @@ export class MyApp {
     setTimeout(function(){
       self._socketService.connect(self.room);
     },2000);
-    this.statusConnect = true;
+    this._socketService.listenEvent('disconnect').subscribe(()=>{
+      window.setTimeout(this.connectSocket(),5000);
+    })
+  }
+  initFCMToken(){
+    if(localStorage.getItem('fcm_token') =='' || typeof localStorage.getItem('fcm_token') == 'undefined' || localStorage.getItem('fcm_token') == null){
+      this._fcm.getToken().then(token=>{
+        localStorage.setItem('fcm_token',token);
+        this.token = token;
+      })
+    }
+    else {
+      this.token = localStorage.getItem('fcm_token');
+    }
   }
   openPage(page) {
     this.nav.push(page.component);
@@ -125,7 +138,7 @@ export class MyApp {
       team = team.split(',');
       if(userId == data[0]['id_user'] || team.indexOf(data[0]['id_team'],0)!=-1 && data[0]['del_agent'] != userId && data[0]['view'] != userId){
         this.countNotify+=1;
-        this.token = this._authService.getFCMToken();
+        //this.token = this._authService.getFCMToken();
         alert(this.token);
         if(this._authService.enableNotify()){
           this.pushNotifications(data);
