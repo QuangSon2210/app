@@ -38,16 +38,20 @@ export class SettingPage {
     console.log('ionViewDidLoad SettingPage');
   }
   changeStatusNotify(){
-    if(this._authService.getFCMToken()==''){
-      this._authService.initFCMToken();
-    }
+    // if(this._authService.getFCMToken()==''){
+    //   this._authService.initFCMToken();
+    // }
     this.data['is_notification'] = (this.enableNotify==true)?'1':'0';
-    let arr = this._cookieService.getObject('setting');
-    arr['notify']= this.data['is_notification'];
-    this._cookieService.putObject('setting',arr);
-    this._userService.updateUserProfile({data:this.data}).subscribe(res=>{
-      console.log(res);
-    })
+    let arr = JSON.parse(localStorage.getItem('setting'));
+    arr['notify'] = this.data['is_notification'];
+    localStorage.setItem('setting',JSON.stringify(arr));
+    this._userService.updateUserProfile({data:this.data}).subscribe();
+    // let arr = this._cookieService.getObject('setting');
+    // arr['notify']= this.data['is_notification'];
+    // this._cookieService.putObject('setting',arr);
+    // this._userService.updateUserProfile({data:this.data}).subscribe(res=>{
+    //   console.log(res);
+    // })
     if(arr['notify']=='0'){
       this._dataService.createAlertWithoutHandle(this._msgService._msg_setting_disable_notification);
     }
