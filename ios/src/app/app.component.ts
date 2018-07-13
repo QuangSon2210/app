@@ -179,14 +179,14 @@ export class MyApp {
       user_id: data[0]['del_agent']
     }
     let body={
-      "notification":{
-        "title":title,
-        "body":content,
-        "sound":"default",
-        "click_action":"FCM_PLUGIN_ACTIVITY",
-        "icon":"fcm_push_icon",
-        //"forceStart": "1"
-      },
+      // "notification":{
+      //   "title":title,
+      //   "body":content,
+      //   "sound":"default",
+      //   "click_action":"FCM_PLUGIN_ACTIVITY",
+      //   "icon":"fcm_push_icon",
+      //   "forceStart": "1"
+      // },
       "data":array,
       //"to":this.token,
       "to":'/topics/all',
@@ -216,12 +216,8 @@ export class MyApp {
     //   alert(JSON.stringify(data));
     // })
     this._fcm.onNotification().subscribe(res=>{
-      alert(JSON.stringify(res));
       if(this._authService.getLoggedInUser().id != res.user_id){
           this.initLocalNotification(res);
-      }
-      if(res.wasTapped){
-        alert('ok');
       }
       // alert(JSON.stringify(res));
       // if(res.wasTapped){
