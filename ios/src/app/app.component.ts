@@ -102,7 +102,7 @@ export class MyApp {
     else {
       this.token = localStorage.getItem('fcm_token');
     }
-    alert(this.token);
+    
   }
   openPage(page) {
     // Reset the content nav to have just this page
