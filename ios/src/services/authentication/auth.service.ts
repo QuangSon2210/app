@@ -5,7 +5,7 @@ import 'rxjs/add/operator/catch';
 //import { CookieService } from 'angular2-cookie/core';
 import { User } from './../../models/user';
 import { FCM } from '@ionic-native/fcm';
-import { Platform, AlertController } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
 
 export const TOKEN_NAME: string = 'jwt_token';
 
@@ -17,7 +17,7 @@ export class AuthService {
     constructor(
         //public _cookieService: CookieService,
         private _fcm: FCM,
-        private _platform: Platform
+        //private _platform: Platform
     ){
         //this.initFCMToken();
     }
@@ -33,11 +33,11 @@ export class AuthService {
         return localStorage.getItem(TOKEN_NAME);
     }
     initFCMToken(){
-        this._platform.ready().then(()=>{
+        //this._platform.ready().then(()=>{
           this._fcm.getToken().then(token=>{
             localStorage.setItem('fcm_token',token);
           }) 
-        }) 
+        //}) 
       }
     setUserAuthenticated(userLogin): boolean {
         if (typeof userLogin.success != 'undefined' && userLogin.success.token != '') {
@@ -47,11 +47,13 @@ export class AuthService {
             localStorage.setItem('curuser',JSON.stringify({ info: this.loggedInUser.user, user_log: this.loggedInUser.user_log }));
             localStorage.setItem('room',this.loggedInUser.room);
             localStorage.setItem('data',JSON.stringify({ priority: this.loggedInUser.priority, relation: this.loggedInUser.relation }));
-            if(this.loggedInUser.user['fcm_token']!='0' || this.loggedInUser.user['fcm_token']!=''){
-                localStorage.setItem('fcm_token', this.loggedInUser.user['fcm_token']);
+            if(this.loggedInUser.user['fcm_token']== '0' || this.loggedInUser.user['fcm_token']==''){
+                this.initFCMToken();
+                alert(1);
             }
             else{
-                this.initFCMToken();
+                alert(2);
+                localStorage.setItem('fcm_token',this.loggedInUser.user['fcm_token']);
             }
             alert(localStorage.getItem('fcm_token'));
             localStorage.setItem('setting',JSON.stringify({ notify:this.loggedInUser.user.is_notification,vibrate:'1'}));
