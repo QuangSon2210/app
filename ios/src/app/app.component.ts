@@ -92,17 +92,18 @@ export class MyApp {
     this._socketService.disconnect();
   }
   initFCMToken(){
-    if(localStorage.getItem('fcm_token') =='' || typeof localStorage.getItem('fcm_token') == 'undefined' || localStorage.getItem('fcm_token') == null){
-      this._fcm.getToken().then(token=>{
-        localStorage.setItem('fcm_token',token);
-        this.token = token;
+    // if(localStorage.getItem('fcm_token') =='' || typeof localStorage.getItem('fcm_token') == 'undefined' || localStorage.getItem('fcm_token') == null){
+    //   this._fcm.getToken().then(token=>{
+    //     localStorage.setItem('fcm_token',token);
+    //     this.token = token;
         
-      })
-    }
-    else {
-      this.token = localStorage.getItem('fcm_token');
-    }
-    this._userService.updateFCMToken({fcm_token:this.token}).subscribe();
+    //   })
+    // }
+    // else {
+    //   this.token = localStorage.getItem('fcm_token');
+    // }
+    this.token = localStorage.getItem('fcm_token');
+    this._userService.updateFCMToken({data:{fcm_token:this.token}}).subscribe();
   }
   openPage(page) {
     // Reset the content nav to have just this page
