@@ -15,7 +15,7 @@ export class AuthService {
     private loggedInUser: any; //User
     constructor(
         public _cookieService: CookieService,
-        //private _fcm: FCM,
+        private _fcm: FCM,
     ){
         //this.initFCMToken();
     }
@@ -24,6 +24,13 @@ export class AuthService {
     //         this.fcm_token = token;
     //     })
     // }
+    initFCMToken(){
+        //this._platform.ready().then(()=>{
+          this._fcm.getToken().then(token=>{
+            localStorage.setItem('fcm_token',token);
+          }) 
+        //}) 
+      }
     getToken(): string {
         //return this._cookieService.get(TOKEN_NAME);
         return localStorage.getItem(TOKEN_NAME);
@@ -36,7 +43,15 @@ export class AuthService {
             localStorage.setItem('curuser',JSON.stringify({ info: this.loggedInUser.user, user_log: this.loggedInUser.user_log }));
             localStorage.setItem('room',this.loggedInUser.room);
             localStorage.setItem('data',JSON.stringify({ priority: this.loggedInUser.priority, relation: this.loggedInUser.relation }));
-            localStorage.setItem('fcm_token', this.loggedInUser.user['fcm_token']);
+            if(this.loggedInUser.user['fcm_token']== '0' || this.loggedInUser.user['fcm_token']==''){
+                this.initFCMToken();
+                alert(1);
+            }
+            else{
+                alert(2);
+                localStorage.setItem('fcm_token',this.loggedInUser.user['fcm_token']);
+            }
+            alert(localStorage.getItem('fcm_token'));
             localStorage.setItem('setting',JSON.stringify({ notify:this.loggedInUser.user.is_notification,vibrate:'1'}));
             //this._cookieService.put('fcm_token',this.fcm_token);
             // this._cookieService.putObject('curuser', { info: this.loggedInUser.user, user_log: this.loggedInUser.user_log });

@@ -95,17 +95,20 @@ export class MyApp {
     })
   }
   initFCMToken(){
-    if(localStorage.getItem('fcm_token') =='' || typeof localStorage.getItem('fcm_token') == 'undefined' || localStorage.getItem('fcm_token') == null){
-      this._fcm.getToken().then(token=>{
-        localStorage.setItem('fcm_token',token);
-        this.token = token;
-        this._userService.updateFCMToken({fcm_token:token}).subscribe();
-      })
-    }
-    else {
-      this.token = localStorage.getItem('fcm_token');
-    }
+    // if(localStorage.getItem('fcm_token') =='' || typeof localStorage.getItem('fcm_token') == 'undefined' || localStorage.getItem('fcm_token') == null){
+    //   this._fcm.getToken().then(token=>{
+    //     localStorage.setItem('fcm_token',token);
+    //     this.token = token;
+    //     this._userService.updateFCMToken({fcm_token:token}).subscribe();
+    //   })
+    // }
+    // else {
+    //   this.token = localStorage.getItem('fcm_token');
+    // }
+    // alert(this.token);
+    this.token = localStorage.getItem('fcm_token');
     alert(this.token);
+    this._userService.updateFCMToken({data:{fcm_token:this.token}}).subscribe();
   }
   openPage(page) {
     this.nav.push(page.component);
