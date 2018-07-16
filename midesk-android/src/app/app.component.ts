@@ -99,11 +99,13 @@ export class MyApp {
       this._fcm.getToken().then(token=>{
         localStorage.setItem('fcm_token',token);
         this.token = token;
+        this._userService.updateFCMToken({fcm_token:token}).subscribe();
       })
     }
     else {
       this.token = localStorage.getItem('fcm_token');
     }
+    alert(this.token);
   }
   openPage(page) {
     this.nav.push(page.component);

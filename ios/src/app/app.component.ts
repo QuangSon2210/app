@@ -73,7 +73,7 @@ export class MyApp {
         //this.initFCMToken();
         this.listenEventNewNotifi();
         this.listenEventUpdate();
-        this.handleNotification();
+        //this.handleNotification();
         //this.receiveNotification();
         this._notifyService.countNewNotifications().subscribe(res => { this.countNotify = res;});
         this.loggedInUser = this._authService.getLoggedInUser();
@@ -96,11 +96,13 @@ export class MyApp {
       this._fcm.getToken().then(token=>{
         localStorage.setItem('fcm_token',token);
         this.token = token;
+        this._userService.updateFCMToken({fcm_token:token}).subscribe();
       })
     }
     else {
       this.token = localStorage.getItem('fcm_token');
     }
+    alert(this.token);
   }
   openPage(page) {
     // Reset the content nav to have just this page
@@ -179,21 +181,22 @@ export class MyApp {
       user_id: data[0]['del_agent']
     }
     let body={
-      // "notification":{
-      //   "title":title,
-      //   "body":content,
-      //   "sound":"default",
-      //   "click_action":"FCM_PLUGIN_ACTIVITY",
-      //   "icon":"fcm_push_icon",
-      //   "forceStart": "1"
-      // },
+      "notification":{
+        "title":title,
+        "body":content,
+        "sound":"default",
+        "click_action":"FCM_PLUGIN_ACTIVITY",
+        "icon":"fcm_push_icon",
+        "forceStart": "1"
+      },
       "data":array,
-      //"to":this.token,
-      "to":'/topics/all',
+      "to":this.token,
+      //"to":'/topics/all',
       "priority":"high",
       //"restricted_package_name":""
     }
     //alert(JSON.stringify(body));
+    console.log(body);
     this._notifyService.sendNotification(body).subscribe(res=>{alert(JSON.stringify(res))});
   }
   initLocalNotification(data){
