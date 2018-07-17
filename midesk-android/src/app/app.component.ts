@@ -67,11 +67,10 @@ export class MyApp {
       if(this._authService.isUserLoggedIn()){
         this.connectSocket();
         this.initFCMToken();
-        this.listenEventNewNotifi();
-        this.listenEventUpdate();
-        this.receive();
-        // this.handleNotification();
-        // this.receiveNotification();
+        //.listenEventNewNotifi();
+        //this.listenEventUpdate();
+        this.handleNotification();
+        this.receiveNotification();
         this._notifyService.countNewNotifications().subscribe(res=>{ this.countNotify = res;});
         this.loggedInUser = this._authService.getLoggedInUser();
         this.avatarName = this._authService.getLoggedInUser().lastname;
@@ -108,7 +107,6 @@ export class MyApp {
     // }
     // alert(this.token);
     this.token = localStorage.getItem('fcm_token');
-    alert(this.token);
     this._userService.updateFCMToken({data:{fcm_token:this.token}}).subscribe();
   }
   openPage(page) {
@@ -148,13 +146,13 @@ export class MyApp {
         //this.token = this._authService.getFCMToken();
         if(this._authService.enableNotify()){
           this.pushNotifications(data);
-          this.pushNotifications2();
           this.vibrate = this._authService.enableVibrate();
         }
       }
     });
   }
   pushNotifications2(){
+    alert(this.token);
     let body={
       "notification":{
         "title":"Tấn Tiến vừa cập nhật phiếu ....",
@@ -173,14 +171,11 @@ export class MyApp {
         
       },
       //"to":"f8QztzjPBFs:APA91bFiyLg1OYYJv0V3FoBNTL7mdbVQc23c5w0NVcJ0v8-XHVfSvbgCZOBPXh-G1F3thFkmPAv7VRzZXdI-vm9Dq_X-iN2i9nlBA7rr9SWtvK4OHXa6M159irtZGBMVZZJVKx2C0G4eoPXh-fX1iI3_40kzdm4GYw",
-      "to":"/topics/164",
+      "to":"/topics/224",
       "priority":"high",
       "restricted_package_name":""
     }
     this._notifyService.sendNotification(body).subscribe(); 
-  }
-  receive(){
-    this._fcm.subscribeToTopic(this._authService.getLoggedInUser().id.toString()).then((res)=>{alert(JSON.stringify(res))}).catch((err)=>{alert(JSON.stringify(err))});
   }
   pushNotifications(data){
       let title = data[0]['title'];
@@ -229,11 +224,16 @@ export class MyApp {
   }
   receiveNotification(){
     //if(this._authService.enableNotify()){
+    this._fcm.subscribeToTopic(this._authService.getLoggedInUser().id.toString()).then((res)=>{
+      alert(JSON.stringify(res));
       this._fcm.onNotification().subscribe(res=>{
         //if(this._authService.getLoggedInUser().id != res.user_id){
+          alert('nhan thong bao');
           this.initLocalNotification(res);
         //}
       })
+    });
+      
     //}
   }
   handleNotification(){
