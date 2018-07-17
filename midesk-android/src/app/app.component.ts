@@ -95,17 +95,6 @@ export class MyApp {
     })
   }
   initFCMToken(){
-    // if(localStorage.getItem('fcm_token') =='' || typeof localStorage.getItem('fcm_token') == 'undefined' || localStorage.getItem('fcm_token') == null){
-    //   this._fcm.getToken().then(token=>{
-    //     localStorage.setItem('fcm_token',token);
-    //     this.token = token;
-    //     this._userService.updateFCMToken({fcm_token:token}).subscribe();
-    //   })
-    // }
-    // else {
-    //   this.token = localStorage.getItem('fcm_token');
-    // }
-    // alert(this.token);
     this.token = localStorage.getItem('fcm_token');
     this._userService.updateFCMToken({data:{fcm_token:this.token}}).subscribe();
   }
@@ -143,10 +132,10 @@ export class MyApp {
       team = team.split(',');
       if(userId == data[0]['id_user'] || team.indexOf(data[0]['id_team'],0)!=-1 && data[0]['del_agent'] != userId && data[0]['view'] != userId){
         this.countNotify+=1;
-        if(this._authService.enableNotify()){
-          this.pushNotifications(data);
-          this.vibrate = this._authService.enableVibrate();
-        }
+        // if(this._authService.enableNotify()){
+        //   this.pushNotifications(data);
+        //   this.vibrate = this._authService.enableVibrate();
+        // }
       }
     });
   }
@@ -198,22 +187,15 @@ export class MyApp {
     })
   }
   receiveNotification(){
-    //if(this._authService.enableNotify()){
-    this._fcm.subscribeToTopic("test");
+    let user_id = this._authService.getLoggedInUser().id.toString();
+    this._fcm.subscribeToTopic(user_id);
     this._fcm.onNotification().subscribe(res=>{
-      //if(this._authService.getLoggedInUser().id != res.user_id){
-        //alert('nhan thong bao');
       if(res.wasTapped){
         alert(JSON.stringify(res));
       }else{
         this.initLocalNotification(res);
       }
-        //this.initLocalNotification(res);
-        
-      //}
     })
-    //this._fcm.unsubscribeFromTopic("test");
-    //}
   }
   handleNotification(){
     this._localNotification.on('click').subscribe(res=>{
