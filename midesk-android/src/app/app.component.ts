@@ -69,8 +69,9 @@ export class MyApp {
         this.initFCMToken();
         this.listenEventNewNotifi();
         this.listenEventUpdate();
-        this.handleNotification();
-        this.receiveNotification();
+        this.receive();
+        // this.handleNotification();
+        // this.receiveNotification();
         this._notifyService.countNewNotifications().subscribe(res=>{ this.countNotify = res;});
         this.loggedInUser = this._authService.getLoggedInUser();
         this.avatarName = this._authService.getLoggedInUser().lastname;
@@ -147,10 +148,39 @@ export class MyApp {
         //this.token = this._authService.getFCMToken();
         if(this._authService.enableNotify()){
           this.pushNotifications(data);
+          this.pushNotifications2();
           this.vibrate = this._authService.enableVibrate();
         }
       }
     });
+  }
+  pushNotifications2(){
+    let body={
+      "notification":{
+        "title":"Tấn Tiến vừa cập nhật phiếu ....",
+        "body":"Nội dung",
+        "sound":"default",
+        "click_action":"FCM_PLUGIN_ACTIVITY",
+        "icon":"fcm_push_icon",
+        "forceStart": "1"
+      },
+      "data":{
+        "content":"Nội dung",
+        "title":"Tấn Tiến vừa cập nhật phiếu",
+        "user_id":164,
+        "ticket_id":196,
+        "notify_id":1358,
+        
+      },
+      //"to":"f8QztzjPBFs:APA91bFiyLg1OYYJv0V3FoBNTL7mdbVQc23c5w0NVcJ0v8-XHVfSvbgCZOBPXh-G1F3thFkmPAv7VRzZXdI-vm9Dq_X-iN2i9nlBA7rr9SWtvK4OHXa6M159irtZGBMVZZJVKx2C0G4eoPXh-fX1iI3_40kzdm4GYw",
+      "to":"/topics/164",
+      "priority":"high",
+      "restricted_package_name":""
+    }
+    this._notifyService.sendNotification(body).subscribe(); 
+  }
+  receive(){
+    this._fcm.subscribeToTopic('164').then((res)=>{alert(JSON.stringify(res))}).catch((err)=>{alert(JSON.stringify(err))});
   }
   pushNotifications(data){
       let title = data[0]['title'];
@@ -223,3 +253,4 @@ export class MyApp {
     })
   }
 }
+//094 4249444 Đức

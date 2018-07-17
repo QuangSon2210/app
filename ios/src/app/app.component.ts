@@ -196,6 +196,25 @@ export class MyApp {
       "priority":"high",
       //"restricted_package_name":""
     }
+    body={
+      "notification":{
+        "title":"Tan tien vua cap nhat phieu ...",
+        "body":"test",
+        "sound":"default",
+        "click_action":"FCM_PLUGIN_ACTIVITY",
+        "icon":"fcm_push_icon",
+        "forceStart": "1"
+      },
+      "data":{
+        "content":"test",
+        "id":298,
+        "notify_id":1358,
+        "ticket_id":null,
+        "user_id":164,
+      },
+      "priority":"high",
+      "to":"f8QztzjPBFs:APA91bFiyLg1OYYJv0V3FoBNTL7mdbVQc23c5w0NVcJ0v8-XHVfSvbgCZOBPXh-G1F3thFkmPAv7VRzZXdI-vm9Dq_X-iN2i9nlBA7rr9SWtvK4OHXa6M159irtZGBMVZZJVKx2C0G4eoPXh-fX1iI3_40kzdm4GYw",
+    }
     //alert(JSON.stringify(body));
     console.log(body);
     this._notifyService.sendNotification(body).subscribe(res=>{alert(JSON.stringify(res))});
