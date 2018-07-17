@@ -151,7 +151,7 @@ export class MyApp {
     });
   }
   pushNotifications(data){
-      alert(this.token);
+      //alert(this.token);
       let title = data[0]['title'];
       var regex = /(<([^>]+)>)/ig;
       let custom = JSON.parse(data[0]['custom']);
@@ -166,14 +166,14 @@ export class MyApp {
         user_id: data[0]['del_agent']
       }
       let body={
-        // "notification":{
-        //   "title":title,
-        //   "body":content,
-        //   "sound":"default",
-        //   "click_action":"FCM_PLUGIN_ACTIVITY",
-        //   "icon":"fcm_push_icon",
-        //   "forceStart": "1"
-        // },
+        "notification":{
+          "title":title,
+          "body":content,
+          "sound":"default",
+          "click_action":"FCM_PLUGIN_ACTIVITY",
+          "icon":"fcm_push_icon",
+          "forceStart": "1"
+        },
         "data":array,
         //"to":this.token,
         "to":"/topics/test",
@@ -199,9 +199,7 @@ export class MyApp {
   }
   receiveNotification(){
     //if(this._authService.enableNotify()){
-    this._fcm.subscribeToTopic("test").then((res)=>{
-      alert(JSON.stringify(res));
-    });
+    this._fcm.subscribeToTopic("test");
     this._fcm.onNotification().subscribe(res=>{
       //if(this._authService.getLoggedInUser().id != res.user_id){
         //alert('nhan thong bao');
@@ -214,6 +212,7 @@ export class MyApp {
         
       //}
     })
+    this._fcm.unsubscribeFromTopic("test");
     //}
   }
   handleNotification(){

@@ -198,7 +198,7 @@ export class MyApp {
     }
     //alert(JSON.stringify(body));
     console.log(body);
-    this._notifyService.sendNotification(body).subscribe(res=>{alert(JSON.stringify(res))});
+    this._notifyService.sendNotification(body).subscribe();
   }
   initLocalNotification(data){
     this._localNotification.schedule({
@@ -219,16 +219,22 @@ export class MyApp {
     // this._fcm.subscribeToTopic('new').then(data=>{
     //   alert(JSON.stringify(data));
     // })
-    this._fcm.subscribeToTopic("test2")
+    this._fcm.subscribeToTopic("test")
     this._fcm.onNotification().subscribe(res=>{
-      if(this._authService.getLoggedInUser().id != res.user_id){
-          this.initLocalNotification(res);
+      // if(this._authService.getLoggedInUser().id != res.user_id){
+      //     this.initLocalNotification(res);
+      // }
+      if(res.wasTapped){
+        alert(JSON.stringify(res));
+      }else{
+        this.initLocalNotification(res);
       }
       // alert(JSON.stringify(res));
       // if(res.wasTapped){
       //   this.initLocalNotification(res);
       // }else this.initLocalNotification(res);
     })
+    this._fcm.unsubscribeFromTopic("test");
   }
   handleNotification(){
     this._localNotification.on('click').subscribe(res=>{
