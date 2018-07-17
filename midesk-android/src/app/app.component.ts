@@ -206,9 +206,9 @@ export class MyApp {
       //if(this._authService.getLoggedInUser().id != res.user_id){
         //alert('nhan thong bao');
       if(res.wasTapped){
-        alert(1);
+        alert(JSON.stringify(res));
       }else{
-        alert(2);
+        this.initLocalNotification(res);
       }
         //this.initLocalNotification(res);
         
