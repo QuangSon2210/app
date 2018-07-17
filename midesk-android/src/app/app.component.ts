@@ -69,7 +69,7 @@ export class MyApp {
         this.initFCMToken();
         this.listenEventNewNotifi();
         this.listenEventUpdate();
-        //this.handleNotification();
+        this.handleNotification();
         this.receiveNotification();
         this._notifyService.countNewNotifications().subscribe(res=>{ this.countNotify = res;});
         this.loggedInUser = this._authService.getLoggedInUser();

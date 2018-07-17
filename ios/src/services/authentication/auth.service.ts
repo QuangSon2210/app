@@ -47,12 +47,10 @@ export class AuthService {
             localStorage.setItem('curuser',JSON.stringify({ info: this.loggedInUser.user, user_log: this.loggedInUser.user_log }));
             localStorage.setItem('room',this.loggedInUser.room);
             localStorage.setItem('data',JSON.stringify({ priority: this.loggedInUser.priority, relation: this.loggedInUser.relation }));
-            if(this.loggedInUser.user['fcm_token']== '0' || this.loggedInUser.user['fcm_token']==''){
+            if(this.loggedInUser.user['fcm_token']== '0' || this.loggedInUser.user['fcm_token']=='' || this.loggedInUser.user['fcm_token'] == null){
                 this.initFCMToken();
-                alert(1);
             }
             else{
-                alert(2);
                 localStorage.setItem('fcm_token',this.loggedInUser.user['fcm_token']);
             }
             alert(localStorage.getItem('fcm_token'));
