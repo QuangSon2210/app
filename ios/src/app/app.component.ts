@@ -234,7 +234,7 @@ export class MyApp {
       //   this.initLocalNotification(res);
       // }else this.initLocalNotification(res);
     })
-    this._fcm.unsubscribeFromTopic("test");
+    //this._fcm.unsubscribeFromTopic("test");
   }
   handleNotification(){
     this._localNotification.on('click').subscribe(res=>{

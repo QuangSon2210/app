@@ -212,7 +212,7 @@ export class MyApp {
         
       //}
     })
-    this._fcm.unsubscribeFromTopic("test");
+    //this._fcm.unsubscribeFromTopic("test");
     //}
   }
   handleNotification(){
