@@ -67,9 +67,9 @@ export class MyApp {
       if(this._authService.isUserLoggedIn()){
         this.connectSocket();
         this.initFCMToken();
-        //.listenEventNewNotifi();
-        //this.listenEventUpdate();
-        this.handleNotification();
+        this.listenEventNewNotifi();
+        this.listenEventUpdate();
+        //this.handleNotification();
         this.receiveNotification();
         this._notifyService.countNewNotifications().subscribe(res=>{ this.countNotify = res;});
         this.loggedInUser = this._authService.getLoggedInUser();
@@ -143,7 +143,6 @@ export class MyApp {
       team = team.split(',');
       if(userId == data[0]['id_user'] || team.indexOf(data[0]['id_team'],0)!=-1 && data[0]['del_agent'] != userId && data[0]['view'] != userId){
         this.countNotify+=1;
-        //this.token = this._authService.getFCMToken();
         if(this._authService.enableNotify()){
           this.pushNotifications(data);
           this.vibrate = this._authService.enableVibrate();
@@ -151,33 +150,34 @@ export class MyApp {
       }
     });
   }
-  pushNotifications2(){
-    alert(this.token);
-    let body={
-      "notification":{
-        "title":"Tấn Tiến vừa cập nhật phiếu ....",
-        "body":"Nội dung",
-        "sound":"default",
-        "click_action":"FCM_PLUGIN_ACTIVITY",
-        "icon":"fcm_push_icon",
-        "forceStart": "1"
-      },
-      "data":{
-        "content":"Nội dung",
-        "title":"Tấn Tiến vừa cập nhật phiếu",
-        "user_id":164,
-        "ticket_id":196,
-        "notify_id":1358,
+  // pushNotifications2(){
+  //   alert(this.token);
+  //   let body={
+  //     "notification":{
+  //       "title":"Tấn Tiến vừa cập nhật phiếu ....",
+  //       "body":"Nội dung",
+  //       "sound":"default",
+  //       "click_action":"FCM_PLUGIN_ACTIVITY",
+  //       "icon":"fcm_push_icon",
+  //       "forceStart": "1"
+  //     },
+  //     "data":{
+  //       "content":"Nội dung",
+  //       "title":"Tấn Tiến vừa cập nhật phiếu",
+  //       "user_id":164,
+  //       "ticket_id":196,
+  //       "notify_id":1358,
         
-      },
-      //"to":"f8QztzjPBFs:APA91bFiyLg1OYYJv0V3FoBNTL7mdbVQc23c5w0NVcJ0v8-XHVfSvbgCZOBPXh-G1F3thFkmPAv7VRzZXdI-vm9Dq_X-iN2i9nlBA7rr9SWtvK4OHXa6M159irtZGBMVZZJVKx2C0G4eoPXh-fX1iI3_40kzdm4GYw",
-      "to":"/topics/224",
-      "priority":"high",
-      "restricted_package_name":""
-    }
-    this._notifyService.sendNotification(body).subscribe(); 
-  }
+  //     },
+  //     //"to":"f8QztzjPBFs:APA91bFiyLg1OYYJv0V3FoBNTL7mdbVQc23c5w0NVcJ0v8-XHVfSvbgCZOBPXh-G1F3thFkmPAv7VRzZXdI-vm9Dq_X-iN2i9nlBA7rr9SWtvK4OHXa6M159irtZGBMVZZJVKx2C0G4eoPXh-fX1iI3_40kzdm4GYw",
+  //     "to":"/topics/224",
+  //     "priority":"high",
+  //     "restricted_package_name":""
+  //   }
+  //   this._notifyService.sendNotification(body).subscribe(); 
+  // }
   pushNotifications(data){
+      alert(this.token);
       let title = data[0]['title'];
       var regex = /(<([^>]+)>)/ig;
       let custom = JSON.parse(data[0]['custom']);
@@ -201,7 +201,8 @@ export class MyApp {
           "forceStart": "1"
         },
         "data":array,
-        "to":this.token,
+        //"to":this.token,
+        "to":"/topics/test",
         "priority":"high",
         "restricted_package_name":""
       }
@@ -224,16 +225,13 @@ export class MyApp {
   }
   receiveNotification(){
     //if(this._authService.enableNotify()){
-    this._fcm.subscribeToTopic(this._authService.getLoggedInUser().id.toString()).then((res)=>{
-      alert(JSON.stringify(res));
-      this._fcm.onNotification().subscribe(res=>{
-        //if(this._authService.getLoggedInUser().id != res.user_id){
-          alert('nhan thong bao');
-          this.initLocalNotification(res);
-        //}
-      })
-    });
-      
+    this._fcm.subscribeToTopic("test");
+    this._fcm.onNotification().subscribe(res=>{
+      //if(this._authService.getLoggedInUser().id != res.user_id){
+        alert('nhan thong bao');
+        //this.initLocalNotification(res);
+      //}
+    })
     //}
   }
   handleNotification(){

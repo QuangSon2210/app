@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { CookieService } from 'angular2-cookie/core';
+//import { CookieService } from 'angular2-cookie/core';
 import { User } from './../../models/user';
 import { FCM } from '@ionic-native/fcm';
 
@@ -14,22 +14,15 @@ export class AuthService {
     private isloggedIn: boolean = false;
     private loggedInUser: any; //User
     constructor(
-        public _cookieService: CookieService,
+        //public _cookieService: CookieService,
         private _fcm: FCM,
     ){
         //this.initFCMToken();
     }
-    // initFCMToken(){
-    //     this._fcm.getToken().then(token=>{
-    //         this.fcm_token = token;
-    //     })
-    // }
     initFCMToken(){
-        //this._platform.ready().then(()=>{
           this._fcm.getToken().then(token=>{
             localStorage.setItem('fcm_token',token);
           }) 
-        //}) 
       }
     getToken(): string {
         //return this._cookieService.get(TOKEN_NAME);
@@ -58,7 +51,7 @@ export class AuthService {
             // this._cookieService.putObject('setting',{ notify:this.loggedInUser.user.is_notification,vibrate:'1'});
         } else {
             console.log('Empty token ---');
-            this._cookieService.removeAll();
+            //this._cookieService.removeAll();
             this.isloggedIn = false;
         }
         return this.isloggedIn;
