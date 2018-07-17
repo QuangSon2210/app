@@ -180,7 +180,7 @@ export class MyApp {
     this._notifyService.sendNotification(body).subscribe(); 
   }
   receive(){
-    this._fcm.subscribeToTopic('164').then((res)=>{alert(JSON.stringify(res))}).catch((err)=>{alert(JSON.stringify(err))});
+    this._fcm.subscribeToTopic(this._authService.getLoggedInUser().id.toString()).then((res)=>{alert(JSON.stringify(res))}).catch((err)=>{alert(JSON.stringify(err))});
   }
   pushNotifications(data){
       let title = data[0]['title'];
