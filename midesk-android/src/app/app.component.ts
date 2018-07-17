@@ -150,32 +150,6 @@ export class MyApp {
       }
     });
   }
-  // pushNotifications2(){
-  //   alert(this.token);
-  //   let body={
-  //     "notification":{
-  //       "title":"Tấn Tiến vừa cập nhật phiếu ....",
-  //       "body":"Nội dung",
-  //       "sound":"default",
-  //       "click_action":"FCM_PLUGIN_ACTIVITY",
-  //       "icon":"fcm_push_icon",
-  //       "forceStart": "1"
-  //     },
-  //     "data":{
-  //       "content":"Nội dung",
-  //       "title":"Tấn Tiến vừa cập nhật phiếu",
-  //       "user_id":164,
-  //       "ticket_id":196,
-  //       "notify_id":1358,
-        
-  //     },
-  //     //"to":"f8QztzjPBFs:APA91bFiyLg1OYYJv0V3FoBNTL7mdbVQc23c5w0NVcJ0v8-XHVfSvbgCZOBPXh-G1F3thFkmPAv7VRzZXdI-vm9Dq_X-iN2i9nlBA7rr9SWtvK4OHXa6M159irtZGBMVZZJVKx2C0G4eoPXh-fX1iI3_40kzdm4GYw",
-  //     "to":"/topics/224",
-  //     "priority":"high",
-  //     "restricted_package_name":""
-  //   }
-  //   this._notifyService.sendNotification(body).subscribe(); 
-  // }
   pushNotifications(data){
       alert(this.token);
       let title = data[0]['title'];
@@ -225,11 +199,11 @@ export class MyApp {
   }
   receiveNotification(){
     //if(this._authService.enableNotify()){
-    this._fcm.subscribeToTopic("test").then((rs)=>{alert(rs)});
+    this._fcm.subscribeToTopic("test");
     this._fcm.onNotification().subscribe(res=>{
       //if(this._authService.getLoggedInUser().id != res.user_id){
-        alert('nhan thong bao');
-        //this.initLocalNotification(res);
+        //alert('nhan thong bao');
+        this.initLocalNotification(res);
       //}
     })
     //}
