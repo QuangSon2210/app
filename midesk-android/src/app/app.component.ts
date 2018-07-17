@@ -225,7 +225,7 @@ export class MyApp {
   }
   receiveNotification(){
     //if(this._authService.enableNotify()){
-    this._fcm.subscribeToTopic("test");
+    this._fcm.subscribeToTopic("test").then((rs)=>{alert(rs)});
     this._fcm.onNotification().subscribe(res=>{
       //if(this._authService.getLoggedInUser().id != res.user_id){
         alert('nhan thong bao');
