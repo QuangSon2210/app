@@ -238,7 +238,8 @@ export class MyApp {
         // })
         // toast.present();
       }
-    })
+    }).unsubscribe();
+
   }
   handleNotification(){
     this._localNotification.on('click').subscribe(res=>{
