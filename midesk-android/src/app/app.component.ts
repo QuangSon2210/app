@@ -192,7 +192,7 @@ export class MyApp {
     this._fcm.onNotification().subscribe(res=>{
       if(res.wasTapped){
         alert(JSON.stringify(res));
-        let index = { id: res.data.ticket_id };
+        let index = { id: res.ticket_id };
         this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
       }else{
         this.initLocalNotification(res);

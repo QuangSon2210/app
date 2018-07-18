@@ -216,7 +216,7 @@ export class MyApp {
     let user_id = this._authService.getLoggedInUser().id.toString();
     this._fcm.subscribeToTopic(user_id);
     this._fcm.onNotification().subscribe(res=>{
-      let index = { id: res.data.ticket_id};
+      let index = { id: res.ticket_id};
       if(res.wasTapped){
         this.nav.push(TicketDetailPage,{data:index, component:'TicketDetailPage'})
       }else{
