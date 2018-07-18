@@ -62,10 +62,24 @@ export class DataService {
         });
         toast.present();
     }
+    // createToastWithHandle(msgContent?,duration?,cssClass?,showCloseButton?,closeButtonText?){
+    //     let toast = this.toastCtrl.create({
+    //         message:msgContent,
+    //         position:'bottom',
+    //         duration:duration,
+    //         cssClass:cssClass,
+    //         showCloseButton:showCloseButton,
+    //         closeButtonText:closeButtonText
+    //     });
+    //     toast.onDidDismiss(()=>{
+    //         window.location.reload();
+    //     })
+    //     toast.present();
+    // }
     createToastWithHandle(msgContent?,duration?,cssClass?,showCloseButton?,closeButtonText?){
         let toast = this.toastCtrl.create({
             message:msgContent,
-            position:'bottom',
+            position:'top',
             duration:duration,
             cssClass:cssClass,
             showCloseButton:showCloseButton,

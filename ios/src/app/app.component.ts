@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -48,7 +48,8 @@ export class MyApp {
     private _socketService: SocketService,
     private _notifyService: NotificationsService,
     private _localNotification: LocalNotifications,
-    private _fcm: FCM
+    private _fcm: FCM,
+    private toastCtrl: ToastController,
   ) {
     this.initializeApp();
 
@@ -220,8 +221,20 @@ export class MyApp {
       if(res.wasTapped){
         this.nav.push(TicketDetailPage,{data:index, component:'TicketDetailPage'})
       }else{
-        alert(JSON.stringify(res));
+        //alert(JSON.stringify(res));
         this.initLocalNotification(res);
+        let toast = this.toastCtrl.create({
+          message: res.title,
+          duration: 2000,
+          showCloseButton: true,
+          dismissOnPageChange: true,
+        })
+        toast.onDidDismiss((role)=>{
+          if(role == "close"){
+            this.nav.push(TicketDetailPage,{data:index, component:'TicketDetailPage'});
+          }
+        })
+        toast.present();
       }
     })
   }
