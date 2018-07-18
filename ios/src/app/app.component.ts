@@ -140,7 +140,7 @@ export class MyApp {
         loading.present();
         this._userService.logout(this._authService.getUserLastlogId()).subscribe(res=>{
           if(res.code==200){
-            localStorage.clear();
+            this._fcm.unsubscribeFromTopic(this._authService.getLoggedInUser().id.toString());
             this._socketService.disconnect();
             this._authService.logoutUser();
             window.location.reload();
