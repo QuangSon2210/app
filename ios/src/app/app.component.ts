@@ -226,7 +226,7 @@ export class MyApp {
         this.nav.push(TicketDetailPage,{data:index, component:'TicketDetailPage'})
       }else{
         //alert(JSON.stringify(res));
-        this.initLocalNotification(res);
+        //this.initLocalNotification(res);
         // let toast = this.toastCtrl.create({
         //   message: res.title,
         //   duration: 2000,
