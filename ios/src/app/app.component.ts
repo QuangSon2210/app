@@ -205,6 +205,8 @@ export class MyApp {
       title: data.title,
       text: data.content,
       vibrate:this.vibrate,
+      launch:true,
+      progressBar: true,
       data:{
         id:data.id,
         ticket_id:data.ticket_id,
@@ -223,18 +225,18 @@ export class MyApp {
       }else{
         //alert(JSON.stringify(res));
         this.initLocalNotification(res);
-        let toast = this.toastCtrl.create({
-          message: res.title,
-          duration: 2000,
-          showCloseButton: true,
-          dismissOnPageChange: true,
-        })
-        toast.onDidDismiss((role)=>{
-          if(role == "close"){
-            this.nav.push(TicketDetailPage,{data:index, component:'TicketDetailPage'});
-          }
-        })
-        toast.present();
+        // let toast = this.toastCtrl.create({
+        //   message: res.title,
+        //   duration: 2000,
+        //   showCloseButton: true,
+        //   dismissOnPageChange: true,
+        // })
+        // toast.onDidDismiss((role)=>{
+        //   if(role == "close"){
+        //     this.nav.push(TicketDetailPage,{data:index, component:'TicketDetailPage'});
+        //   }
+        // })
+        // toast.present();
       }
     })
   }
