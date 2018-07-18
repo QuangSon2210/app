@@ -189,7 +189,7 @@ export class MyApp {
   }
   receiveNotification(){
     let user_id = this._authService.getLoggedInUser().id.toString();
-    alert(user_id);
+    //alert(user_id);
     this._fcm.subscribeToTopic(user_id);
     this._fcm.onNotification().subscribe(res=>{
       if(res.wasTapped){
