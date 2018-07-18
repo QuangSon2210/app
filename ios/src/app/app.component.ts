@@ -220,6 +220,7 @@ export class MyApp {
       if(res.wasTapped){
         this.nav.push(TicketDetailPage,{data:index, component:'TicketDetailPage'})
       }else{
+        alert(JSON.stringify(res));
         this.initLocalNotification(res);
       }
     })

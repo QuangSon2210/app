@@ -191,7 +191,6 @@ export class MyApp {
     this._fcm.subscribeToTopic(user_id);
     this._fcm.onNotification().subscribe(res=>{
       if(res.wasTapped){
-        alert(JSON.stringify(res));
         let index = { id: res.ticket_id };
         this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
       }else{
