@@ -53,7 +53,7 @@ export class AuthService {
             else{
                 localStorage.setItem('fcm_token',this.loggedInUser.user['fcm_token']);
             }
-            alert(localStorage.getItem('fcm_token'));
+            //alert(localStorage.getItem('fcm_token'));
             localStorage.setItem('setting',JSON.stringify({ notify:this.loggedInUser.user.is_notification,vibrate:'1'}));
         } else {
             console.log('Empty token ---');

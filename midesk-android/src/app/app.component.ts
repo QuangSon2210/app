@@ -113,6 +113,7 @@ export class MyApp {
         loading.present();
         this._userService.logout(this._authService.getUserLastlogId()).subscribe(res=>{
           if(res.code==200){
+            localStorage.clear();
             this._socketService.disconnect();
             this._authService.logoutUser();
             window.location.reload();
@@ -188,6 +189,7 @@ export class MyApp {
   }
   receiveNotification(){
     let user_id = this._authService.getLoggedInUser().id.toString();
+    alert(user_id);
     this._fcm.subscribeToTopic(user_id);
     this._fcm.onNotification().subscribe(res=>{
       if(res.wasTapped){
