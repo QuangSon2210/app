@@ -140,8 +140,8 @@ export class MyApp {
         loading.present();
         this._userService.logout(this._authService.getUserLastlogId()).subscribe(res=>{
           if(res.code==200){
-            this._socketService.disconnect();
             localStorage.clear();
+            this._socketService.disconnect();
             this._authService.logoutUser();
             window.location.reload();
           }
@@ -227,20 +227,20 @@ export class MyApp {
       }else{
         //alert(JSON.stringify(res));
         this.initLocalNotification(res);
-        let toast = this.toastCtrl.create({
-          message: res.title,
-          duration: 2000,
-          showCloseButton: true,
-          dismissOnPageChange: true,
-        })
-        toast.onDidDismiss((role)=>{
-          if(role == "close"){
-            this.nav.push(TicketDetailPage,{data:index, component:'TicketDetailPage'});
-          }
-        })
-        toast.present();
+        // let toast = this.toastCtrl.create({
+        //   message: res.title,
+        //   duration: 2000,
+        //   showCloseButton: true,
+        //   dismissOnPageChange: true,
+        // })
+        // toast.onDidDismiss((role)=>{
+        //   if(role == "close"){
+        //     this.nav.push(TicketDetailPage,{data:index, component:'TicketDetailPage'});
+        //   }
+        // })
+        // toast.present();
       }
-    }).unsubscribe();
+    });
     
 
   }
