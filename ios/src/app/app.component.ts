@@ -225,7 +225,7 @@ export class MyApp {
   }
   handleNotification(){
     this._localNotification.on('click').subscribe(res=>{
-      let index = { id: res.data.id };
+      let index = { id: res.data.ticket_id };
       this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
     })
   }

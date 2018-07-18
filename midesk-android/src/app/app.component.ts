@@ -190,8 +190,9 @@ export class MyApp {
     let user_id = this._authService.getLoggedInUser().id.toString();
     this._fcm.subscribeToTopic(user_id);
     this._fcm.onNotification().subscribe(res=>{
+      let index = { id: res.data.id };
       if(res.wasTapped){
-        alert(JSON.stringify(res));
+        this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
       }else{
         this.initLocalNotification(res);
       }
@@ -199,7 +200,7 @@ export class MyApp {
   }
   handleNotification(){
     this._localNotification.on('click').subscribe(res=>{
-      let index = { id: res.data.id };
+      let index = { id: res.data.ticket_id };
       this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
     })
   }
