@@ -159,8 +159,15 @@ export class MyApp {
         this.countNotify+=1;
         //this.initLocalNotification(data);
         this._localNotification.schedule({
-          title:"Thoong bAoo",
-          text:" day la phieu test"
+          id:1,
+          title: data[0]['title'].replace(/(<([^>]+)>)/ig,""),
+          text: data[0]['content'],
+          data:{
+            id:JSON.parse(data[0]['custom']).id,
+            ticket_id:JSON.parse(data[0]['custom']).ticket_id,
+            notify_id:data[0]['id'],
+            user_id: data[0]['del_agent']
+          }
         })
         // if(this._authService.enableNotify()){
         //   this.pushNotifications(data);
