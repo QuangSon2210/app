@@ -89,9 +89,6 @@ export class MyApp {
       this.splashScreen.hide();
     });
   }
-  disconnect(){
-    this._socketService.disconnect();
-  }
   initFCMToken(){
     // if(localStorage.getItem('fcm_token') =='' || typeof localStorage.getItem('fcm_token') == 'undefined' || localStorage.getItem('fcm_token') == null){
     //   this._fcm.getToken().then(token=>{
@@ -225,7 +222,7 @@ export class MyApp {
       if(res.wasTapped){
         this.nav.push(TicketDetailPage,{data:index, component:'TicketDetailPage'})
       }else{
-        alert(JSON.stringify(res));
+        alert(1);
         //this.initLocalNotification(res);
         // this._localNotification.schedule({
         //   title:'test',

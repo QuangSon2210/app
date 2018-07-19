@@ -196,6 +196,7 @@ export class MyApp {
         let index = { id: res.ticket_id };
         this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
       }else{
+        alert(1);
         this.initLocalNotification(res);
       }
     })
