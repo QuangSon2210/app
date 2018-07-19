@@ -158,7 +158,7 @@ export class MyApp {
         this.countNotify+=1;
         //this.initLocalNotification(data);
         let custom = JSON.parse(data[0]['custom']);
-        alert(custom);
+        alert(data[0]['custom']);
         alert(custom.ticket_id);
         alert(data[0]['id']);
         this._localNotification.schedule({
