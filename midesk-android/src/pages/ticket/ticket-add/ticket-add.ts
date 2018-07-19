@@ -83,7 +83,6 @@ export class TicketAddPage {
     console.log(this.filterCategory.selected);
     this._ticketService.getTicketCategory(this.filterCategory.selected).subscribe(res=>{
       if(res.data!=null){
-        console.log(res.data);
         this.filterCategory.dataChildItems = res.data;
       }
     });
@@ -306,7 +305,6 @@ export class TicketAddPage {
         } 
       }
       Object.keys(data['dataMacro']).forEach(function(key) {
-        //self.ticketParams[key] = data['dataMacro'][key];
         switch(key){
           case 'private' || 'public':
             self.privateNote = data['dataMacro'][key];

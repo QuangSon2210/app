@@ -78,17 +78,8 @@ export class HomePage {
     ) {
     this.initApp();
   }
-  // ionViewWillEnter(){
-  //   this.initApp();
-  // }
   initApp(){
     this._platform.ready().then(()=>{
-      // this.room=JSON.parse(this._authService.getLoggedInRoom());
-      // let self = this;
-      // setTimeout(function(){
-      //   self._socketService.connect();
-      //   self._socketService.emitData('room',self.room);
-      // },2000);
       this.listenEventNewNotifi();
       this.listenEventUpdate();
       this._notifyService.countNewNotifications().subscribe(res=>{ this.countNotify = res;});
@@ -138,8 +129,6 @@ export class HomePage {
   		if(res.next_page_url!==null) this.modelTicket.loadMore = true;
       else this.modelTicket.loadMore = false;
       this.modelTicket.dataLoading = false;
-      //this.initListTicket();
-     // console.log(this.modelTicket.dataItems);
       infiniteScroll.complete();
     })
   }
@@ -153,7 +142,6 @@ export class HomePage {
         else this.modelTicket.loadMore = false;
         this.modelTicket.dataLoading = false;
         this.initListTicket();
-       // console.log(this.modelTicket.dataItems);
       })
     }
   }
@@ -190,9 +178,6 @@ export class HomePage {
         //console.log(this.modelTicket);
         this.initListTicket();
       }
-      //console.log(this.modelTicket);
-     // console.log(data);
-      //
     });
   }
   openPopoverChannel(myEvent){

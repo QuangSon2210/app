@@ -70,12 +70,6 @@ export class PopoverSort {
     }
   }
   confirmSort(){
-    // this.checkedItems={
-    //   status:'',
-    //   priority:'',
-    //   orderBy:'',
-    // };
-    //console.log(this.priority);
     for(let i = 0;i<this.status.length;i++){
       if(this.status[i].checked == true){
         this.checkedItems.status+="'"+this.status[i].value+"'"+',';

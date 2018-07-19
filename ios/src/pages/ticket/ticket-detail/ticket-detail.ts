@@ -94,9 +94,6 @@ export class TicketDetailPage {
     console.log(this.navCtrl.getActive().name);
   }
   initApp(){
-    // if(this._platform.ready()){
-    //   this.listenEventUpdateTicket();
-    // }
     this._platform.ready().then(()=>{
       this.listenEventUpdateTicket();
     })

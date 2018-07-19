@@ -8,18 +8,12 @@
 	</ion-navbar>
 </ion-header>
 <ion-content no-padding>
-	<!-- <ion-row style="padding:10px"(click)="openPopoverCategory()">
-		<ion-col col-4>Chủ đề</ion-col>
-		<ion-col col-7 text-right padding-right><p no-margin>{{categoryName|convertLength}}</p></ion-col>
-		<ion-col col-1 no-padding text-right><ion-buttons end><img src="../assets/imgs/caret-down.png" style="width:25px"></ion-buttons></ion-col> 
-	</ion-row> -->
 	<ion-list>
 		<ion-item>
 			<ion-row class="item-inner" style="border:0!important;padding-right:0px;" no-padding>
 				<ion-col no-padding col-12>Tiêu đề</ion-col>
 				<ion-col no-padding col-12>
 					<input class="text-input text-input-md input-edit" type="text" (keyup)="changeTitle($event)" [value]="titleDefault"/>
-					<!-- <ion-input type="text" [(ngModel)]="titleDefault" ></ion-input> -->
 				</ion-col>
 			</ion-row>
 		</ion-item>

@@ -140,38 +140,38 @@ export class MyApp {
       }
     });
   }
-  pushNotifications(data){
-      //alert(this.token);
-      let title = data[0]['title'];
-      var regex = /(<([^>]+)>)/ig;
-      let custom = JSON.parse(data[0]['custom']);
-      title = title.replace(regex, "");
-      let content = data[0]['content'];
-      let array = {
-        content: content,
-        title: title,
-        id:custom.id,
-        ticket_id: custom.ticket_id,
-        notify_id: data[0]['id'],
-        user_id: data[0]['del_agent']
-      }
-      let body={
-        "notification":{
-          "title":title,
-          "body":content,
-          "sound":"default",
-          "click_action":"FCM_PLUGIN_ACTIVITY",
-          "icon":"fcm_push_icon",
-          "forceStart": "1"
-        },
-        "data":array,
-        //"to":this.token,
-        "to":"/topics/test",
-        "priority":"high",
-        "restricted_package_name":""
-      }
-      this._notifyService.sendNotification(body).subscribe(); 
-  }
+  // pushNotifications(data){
+  //     //alert(this.token);
+  //     let title = data[0]['title'];
+  //     var regex = /(<([^>]+)>)/ig;
+  //     let custom = JSON.parse(data[0]['custom']);
+  //     title = title.replace(regex, "");
+  //     let content = data[0]['content'];
+  //     let array = {
+  //       content: content,
+  //       title: title,
+  //       id:custom.id,
+  //       ticket_id: custom.ticket_id,
+  //       notify_id: data[0]['id'],
+  //       user_id: data[0]['del_agent']
+  //     }
+  //     let body={
+  //       "notification":{
+  //         "title":title,
+  //         "body":content,
+  //         "sound":"default",
+  //         "click_action":"FCM_PLUGIN_ACTIVITY",
+  //         "icon":"fcm_push_icon",
+  //         "forceStart": "1"
+  //       },
+  //       "data":array,
+  //       //"to":this.token,
+  //       "to":"/topics/test",
+  //       "priority":"high",
+  //       "restricted_package_name":""
+  //     }
+  //     this._notifyService.sendNotification(body).subscribe(); 
+  // }
   initLocalNotification(data){
     this._localNotification.schedule({
       id:2,
@@ -189,14 +189,12 @@ export class MyApp {
   }
   receiveNotification(){
     let user_id = this._authService.getLoggedInUser().id.toString();
-    //alert(user_id);
     this._fcm.subscribeToTopic(user_id);
     this._fcm.onNotification().subscribe(res=>{
       if(res.wasTapped){
         let index = { id: res.ticket_id };
         this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
       }else{
-        alert(1);
         this.initLocalNotification(res);
       }
     })

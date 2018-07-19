@@ -3,9 +3,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { SettingService } from './../common/setting.service';
 import { AuthService } from './authentication/auth.service';
-//import { Case } from './../models/case';
 
-//Import RxJs required methods
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 

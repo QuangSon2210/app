@@ -44,9 +44,6 @@ export class ContactAddPage {
 
   }
   addContact(){
-    // let loader = this.loadingCtrl.create({
-    //   content:'Please wait ...',
-    // })
     let loader = this._dataService.createLoading({content:this._msgService._msg_loading});
     loader.present();
     this._contactService.addContact(this.modelContact).subscribe(res=>{

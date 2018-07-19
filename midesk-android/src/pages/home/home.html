@@ -80,13 +80,6 @@
   <ion-infinite-scroll *ngIf="modelTicket.loadMore" (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
-  <!-- <ion-row>
-    <ion-col col-12 text-center>
-      <button text-center class="no-background" ion-button *ngIf="modelTicket.loadMore" (click)="doLoadMore($type='next')">Next</button>       
-    </ion-col>
-
-  </ion-row> -->
-  <!-- <button ion-button secondary menuToggle>Toggle Menu</button> -->
   <ion-refresher *ngIf="modelTicket.dataLoading==false" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>

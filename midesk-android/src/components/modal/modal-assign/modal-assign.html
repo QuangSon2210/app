@@ -1,26 +1,6 @@
 <ion-header style="background: transparent!important">
 
   <ion-navbar>
-  	<!-- <ion-grid no-padding>
-  		<ion-row>
-  			<ion-col col-1 >
-  				<ion-icon color="dark" padding-left name="arrow-round-back" style="font-size:40px" *ngIf="members.length>0" (click)="clearMember()"></ion-icon>
-  			</ion-col>
-  			<ion-col col-8 >
-  				<ion-buttons>
-  					<ion-input  *ngIf="!members.length>0" [(ngModel)]="modelSearchAssigner.text" (keyup)="onSearchAssigner($event)" type="text" placeholder="Search"></ion-input>
-  				</ion-buttons>
-  			</ion-col>
-  			<ion-col col-1>
-  				<ion-buttons>
-  					<button *ngIf="modelSearchAssigner.text!=''" block ion-button (click)="clearSearch()"><ion-icon name="close" style="padding:10px 0"></ion-icon></button>
-  				</ion-buttons>
-  			</ion-col>
-  			<ion-col col-2>
-  				<ion-buttons end><button block ion-button color="dark" (click)="closeModal()">Close</button></ion-buttons>
-  			</ion-col>
-  		</ion-row>
-  	</ion-grid> -->
   	<ion-grid no-padding>
         <ion-row no-padding>
           <ion-col col-1><ion-buttons style="margin: 6px 0.2rem;"><button ion-button (click)="closeModal()"><ion-icon class="width-icon" color="dark" name="arrow-back"></ion-icon></button></ion-buttons></ion-col>

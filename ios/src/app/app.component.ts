@@ -89,16 +89,6 @@ export class MyApp {
     });
   }
   initFCMToken(){
-    // if(localStorage.getItem('fcm_token') =='' || typeof localStorage.getItem('fcm_token') == 'undefined' || localStorage.getItem('fcm_token') == null){
-    //   this._fcm.getToken().then(token=>{
-    //     localStorage.setItem('fcm_token',token);
-    //     this.token = token;
-        
-    //   })
-    // }
-    // else {
-    //   this.token = localStorage.getItem('fcm_token');
-    // }
     this.token = localStorage.getItem('fcm_token');
     this._userService.updateFCMToken({data:{fcm_token:this.token}}).subscribe();
   }
@@ -116,13 +106,6 @@ export class MyApp {
     this._socketService.listenEvent('disconnect').subscribe(()=>{
       window.setTimeout(this.connectSocket(),5000);
     })
-    // this._socketService.listenEvent('connect').subscribe(()=>{
-    //   this.initFCMToken();
-    //   this.listenEventNewNotifi();
-    //   this.listenEventUpdate();
-    //   this.handleNotification();
-    //   this.receiveNotification();
-    // })
   }
   logOut(){
     this.confirmLogout();
@@ -156,7 +139,6 @@ export class MyApp {
       team = team.split(',');
       if(userId == data[0]['id_user'] || team.indexOf(data[0]['id_team'],0)!=-1 && data[0]['del_agent'] != userId && data[0]['view'] != userId){
         this.countNotify+=1;
-        //this.initLocalNotification(data);
         let custom = JSON.parse(data[0]['custom']);
         this._localNotification.schedule({
           id:1,
@@ -169,46 +151,40 @@ export class MyApp {
             user_id: data[0]['del_agent']
           }
         })
-        // if(this._authService.enableNotify()){
-        //   this.pushNotifications(data);
-        //   this.vibrate = this._authService.enableVibrate();
-        // }
       }
     });
   }
-  pushNotifications(data){
-    let title = data[0]['title'];
-    var regex = /(<([^>]+)>)/ig;
-    let custom = JSON.parse(data[0]['custom']);
-    title = title.replace(regex, "");
-    let content = data[0]['content'];
-    let array = {
-      content: content,
-      title: title,
-      id:custom.id,
-      ticket_id: custom.ticket_id,
-      notify_id: data[0]['id'],
-      user_id: data[0]['del_agent']
-    }
-    let body={
-      "notification":{
-        "title":title,
-        "body":content,
-        "sound":"default",
-        "click_action":"FCM_PLUGIN_ACTIVITY",
-        "icon":"fcm_push_icon",
-        "forceStart": "1"
-      },
-      "data":array,
-      "to":this.token,
-      //"to":'/topics/all',
-      "priority":"high",
-      //"restricted_package_name":""
-    }
-    //alert(JSON.stringify(body));
-    //console.log(body);
-    this._notifyService.sendNotification(body).subscribe();
-  }
+  // pushNotifications(data){
+  //   let title = data[0]['title'];
+  //   var regex = /(<([^>]+)>)/ig;
+  //   let custom = JSON.parse(data[0]['custom']);
+  //   title = title.replace(regex, "");
+  //   let content = data[0]['content'];
+  //   let array = {
+  //     content: content,
+  //     title: title,
+  //     id:custom.id,
+  //     ticket_id: custom.ticket_id,
+  //     notify_id: data[0]['id'],
+  //     user_id: data[0]['del_agent']
+  //   }
+  //   let body={
+  //     "notification":{
+  //       "title":title,
+  //       "body":content,
+  //       "sound":"default",
+  //       "click_action":"FCM_PLUGIN_ACTIVITY",
+  //       "icon":"fcm_push_icon",
+  //       "forceStart": "1"
+  //     },
+  //     "data":array,
+  //     "to":this.token,
+  //     //"to":'/topics/all',
+  //     "priority":"high",
+  //     //"restricted_package_name":""
+  //   }
+  //   this._notifyService.sendNotification(body).subscribe();
+  // }
   initLocalNotification(data){
     this._localNotification.schedule({
       id:2,
@@ -227,26 +203,11 @@ export class MyApp {
   }
   receiveNotification(){
     let user_id = this._authService.getLoggedInUser().id.toString();
-    //alert(user_id);
     this._fcm.subscribeToTopic(user_id);
     this._fcm.onNotification().subscribe(res=>{
       let index = { id: res.ticket_id};
       if(res.wasTapped){
         this.nav.push(TicketDetailPage,{data:index, component:'TicketDetailPage'})
-      }else{
-        alert(1);
-        //this.initLocalNotification(res);
-        // this._localNotification.schedule({
-        //   title:'test',
-        //   text:'text 2',
-        // })
-        // let toast = this.toastCtrl.create({
-        //   message: res.title,
-        //   duration: 2000,
-        //   showCloseButton: true,
-        //   dismissOnPageChange: true,
-        // })
-        // toast.present();
       }
     });
   }

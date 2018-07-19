@@ -49,9 +49,6 @@ export class NotificationsPage {
   }
   updateViewNotify(index,i){
     let loader = this._dataService.createLoading({spinner:'dots'});
-    // let loader = this.loadingCtrl.create({
-    //   spinner:'dots',
-    // })
     loader.present();
   	this._notifyService.updateViewNotifications(index.id).subscribe(res=>{
   		if(res.code==200){
@@ -63,19 +60,11 @@ export class NotificationsPage {
   	})
   }
   deleteViewNotify(index,i){
-    console.log(this.modelNotify.dataItems.indexOf(index));
-    // let loader = this.loadingCtrl.create({
-    //   spinner:'dots',
-    // })
     let loader = this._dataService.createLoading({spinner:'dots'});
     loader.present();
   	this._notifyService.deleteViewNotifications(index.id).subscribe(res=>{
   		if(res.code==200){
-  			//this.presentToast(res.message,'success-toast');
-        //this.modelNotify.dataItems[i].del = 1;
         this.modelNotify.dataItems.splice(this.modelNotify.dataItems.indexOf(index),1);
-        //this.initListNotifications();
-      //this.events.publish('updateNotify',this.modelNotify.dataTotal);
       loader.dismiss();
   		}
   	})
@@ -83,7 +72,6 @@ export class NotificationsPage {
   viewTicketDetail(index,i){
   	let custom = (JSON.parse(index.custom));
     this._notifyService.updateViewNotifications(index.id).subscribe(res=>{
-      //this.initListNotifications();
       this._dataService.publishEvent('UPDATE NOTIFI');
       this.modelNotify.dataItems[i].seen = 1;
     });
@@ -95,17 +83,4 @@ export class NotificationsPage {
     this.initListNotifications();
     refresher.complete();
   }
-  // presentToast(mess,css) {
-  //   let toast = this.toastCtrl.create({
-  //     message: mess,
-  //     duration: 3000,
-  //     position: 'bottom',
-  //     cssClass: css
-  //   });
-  //   toast.onDidDismiss(() => {
-  //     console.log('Dismissed toast');
-  //   });
-  //   toast.present();
-  // } 
-
 }

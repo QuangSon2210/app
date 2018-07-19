@@ -3,8 +3,6 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-//import { AuthService } from './authentication/auth.service';
-//import { User } from './../models/user';
 import { SettingService } from './../common/setting.service';
 
 @Injectable()
@@ -87,7 +85,6 @@ export class UserService {
 
     private handleError = (error: any) => {
         if (error.status == 400 || error.status == 401 || error.status == 403) {
-            // localStorage.clear();
         }
         else if (error.status == 406) {
             return Observable.of(JSON.parse(error._body));

@@ -5,7 +5,6 @@ import 'rxjs/add/operator/catch';
 //import { CookieService } from 'angular2-cookie/core';
 import { User } from './../../models/user';
 import { FCM } from '@ionic-native/fcm';
-import { Platform } from 'ionic-angular';
 
 export const TOKEN_NAME: string = 'jwt_token';
 
@@ -15,19 +14,9 @@ export class AuthService {
     private isloggedIn: boolean = false;
     private loggedInUser: any; //User
     constructor(
-        //public _cookieService: CookieService,
         private _fcm: FCM,
-        //private _platform: Platform
     ){
-        //this.initFCMToken();
     }
-    // initFCMToken(){
-    //     this._platform.ready().then(()=>{
-    //         this._fcm.getToken().then(token=>{
-    //             this.fcm_token = token;
-    //         })
-    //     })
-    // }
     getToken(): string {
         //return this._cookieService.get(TOKEN_NAME);
         return localStorage.getItem(TOKEN_NAME);
@@ -53,7 +42,6 @@ export class AuthService {
             else{
                 localStorage.setItem('fcm_token',this.loggedInUser.user['fcm_token']);
             }
-            //alert(localStorage.getItem('fcm_token'));
             localStorage.setItem('setting',JSON.stringify({ notify:this.loggedInUser.user.is_notification,vibrate:'1'}));
         } else {
             console.log('Empty token ---');

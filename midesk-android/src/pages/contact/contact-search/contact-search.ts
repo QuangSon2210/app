@@ -56,9 +56,7 @@ export class ContactSearchPage {
       })
     }
   }
-  ionViewWillLoad() {
-    
-  }
+
   doInfinite(infiniteScroll){
     this.modelSearch.dataPage += 1;
   	this._contactService.searchContact(this.modelSearch).subscribe(res=>{
@@ -69,9 +67,4 @@ export class ContactSearchPage {
       this.modelSearch.dataLoading = false;
     })
   }
-  // clickTicket(index){
-  // 	console.log(index);
-  //   this.navCtrl.push(TicketDetailPage,{data:index});
-  // }
-
 }

@@ -94,9 +94,6 @@ export class TicketDetailPage {
     console.log(this.navCtrl.getActive().name);
   }
   initApp(){
-    // if(this._platform.ready()){
-    //   this.listenEventUpdateTicket();
-    // }
     this._platform.ready().then(()=>{
       this.listenEventUpdateTicket();
     })
@@ -203,9 +200,6 @@ export class TicketDetailPage {
           })
         }
       }
-      //console.log(data[0]['ticket_id']+'------'+this.navParamsCtrl.get('data').id);
-      //if(this.navCtrl.getActive().name == 'TicketDetailPage' && data[0]['ticket_id'] == this.navParamsCtrl.get('data').id && JSON.parse(data[0].content)['createby']['id'] != this._authService.getLoggedInUser().id){
-      //if(pageName == 'TicketDetailPage' && data[0]['ticket_id'] == this.navParamsCtrl.get('data').id && JSON.parse(data[0].content)['createby']['id'] != this._authService.getLoggedInUser().id){
       if(pageName == 'TicketDetailPage'){
         this.ticketUpdate = this.ticketUpdateDetail = [];
         this.countChange = Object.keys(this.ticketUpdateDetail).length + Object.keys(this.ticketUpdate).length;
