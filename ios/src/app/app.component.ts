@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, ToastController } from 'ionic-angular';
+import { Nav, Platform, ViewController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -49,7 +49,7 @@ export class MyApp {
     private _notifyService: NotificationsService,
     private _localNotification: LocalNotifications,
     private _fcm: FCM,
-    private toastCtrl: ToastController,
+    private viewCtrl: ViewController
   ) {
     this.initializeApp();
 
@@ -158,13 +158,14 @@ export class MyApp {
       if(userId == data[0]['id_user'] || team.indexOf(data[0]['id_team'],0)!=-1 && data[0]['del_agent'] != userId && data[0]['view'] != userId){
         this.countNotify+=1;
         //this.initLocalNotification(data);
+        alert(this.viewCtrl.name);
         this._localNotification.schedule({
           id:1,
           title: data[0]['title'].replace(/(<([^>]+)>)/ig,""),
           text: data[0]['content'],
           data:{
-            id:JSON.parse(data[0]['custom']).id,
-            ticket_id:JSON.parse(data[0]['custom']).ticket_id,
+            id:(JSON.parse(data[0]['custom'])).id,
+            ticket_id:(JSON.parse(data[0]['custom'])).ticket_id,
             notify_id:data[0]['id'],
             user_id: data[0]['del_agent']
           }
