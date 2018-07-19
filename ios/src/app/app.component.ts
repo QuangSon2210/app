@@ -225,19 +225,19 @@ export class MyApp {
       if(res.wasTapped){
         this.nav.push(TicketDetailPage,{data:index, component:'TicketDetailPage'})
       }else{
-        //alert(JSON.stringify(res));
+        alert(JSON.stringify(res));
         //this.initLocalNotification(res);
         // this._localNotification.schedule({
         //   title:'test',
         //   text:'text 2',
         // })
-        let toast = this.toastCtrl.create({
-          message: res.title,
-          duration: 2000,
-          showCloseButton: true,
-          dismissOnPageChange: true,
-        })
-        toast.present();
+        // let toast = this.toastCtrl.create({
+        //   message: res.title,
+        //   duration: 2000,
+        //   showCloseButton: true,
+        //   dismissOnPageChange: true,
+        // })
+        // toast.present();
       }
     });
   }
