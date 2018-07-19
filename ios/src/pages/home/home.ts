@@ -220,7 +220,8 @@ export class HomePage {
       let userId = this._authService.getLoggedInUser().id;
       let teamId = JSON.parse(this._authService.getLoggedInRoom()).array_team.split(',');
       console.log(res);
-      if(res[0]['view'] != userId && res[0]['del_agent'] != userId && teamId.indexOf(res[0]['id_team'],0)!=-1 || userId == res[0]['id_user']){
+      //if(res[0]['view'] != userId && res[0]['del_agent'] != userId && teamId.indexOf(res[0]['id_team'],0)!=-1 || userId == res[0]['id_user']){
+      if(res[0]['view'] != userId && res[0]['del_agent'] != userId && userId == res[0]['id_user']){
         this.countNotify+=1;
         this.loadCountTicket();
       }
