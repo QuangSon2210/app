@@ -17,7 +17,7 @@ export class AuthService {
         //public _cookieService: CookieService,
         private _fcm: FCM,
     ){
-        //this.initFCMToken();
+        this.initFCMToken();
     }
     initFCMToken(){
           this._fcm.getToken().then(token=>{
@@ -59,7 +59,7 @@ export class AuthService {
 
     isUserLoggedIn(): boolean {
         if (this.getToken()) {
-            this.isloggedIn = true;
+            this.isloggedIn = true; 
         }
         return this.isloggedIn;
     }
