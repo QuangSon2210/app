@@ -131,6 +131,7 @@ export class MyApp {
       let userId = this._authService.getLoggedInUser().id;
       let team = JSON.parse(this._authService.getLoggedInRoom()).array_team;
       team = team.split(',');
+      alert(this.nav.getActive().name);
       //if(userId == data[0]['id_user'] || team.indexOf(data[0]['id_team'],0)!=-1 && data[0]['del_agent'] != userId && data[0]['view'] != userId){      
       if(userId == data[0]['id_user'] && data[0]['del_agent'] != userId && data[0]['view'] != userId){
         this.countNotify+=1;
