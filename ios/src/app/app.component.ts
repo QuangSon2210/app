@@ -215,7 +215,9 @@ export class MyApp {
   handleNotification(){
     this._localNotification.on('click').subscribe(res=>{
       let index = { id: res.data.ticket_id };
-      this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
+      if(this.nav.getActive().name!='TicketDetailPage'){
+        this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
+      }
     })
   }
   listenEventUpdate(){
