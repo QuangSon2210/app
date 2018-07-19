@@ -231,7 +231,6 @@ export class MyApp {
         //   title:'test',
         //   text:'text 2',
         // })
-        
         let toast = this.toastCtrl.create({
           message: res.title,
           duration: 2000,
