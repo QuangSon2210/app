@@ -194,7 +194,7 @@ export class MyApp {
     this._fcm.onNotification().subscribe(res=>{
       if(res.wasTapped){
         let index = { id: res.ticket_id };
-        if(this.nav.getActive().name!='TicketDetailPage'){
+        if(this.nav.getActive().name!=="TicketDetailPage"){
           this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
         }
       }else{
@@ -205,7 +205,7 @@ export class MyApp {
   handleNotification(){
     this._localNotification.on('click').subscribe(res=>{
       let index = { id: res.data.ticket_id };
-      if(this.nav.getActive().name!='TicketDetailPage'){
+      if(this.nav.getActive().name !== "TicketDetailPage"){
         this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
       }
     })
