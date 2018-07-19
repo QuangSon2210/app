@@ -227,22 +227,18 @@ export class MyApp {
       }else{
         //alert(JSON.stringify(res));
         //this.initLocalNotification(res);
-        this._localNotification.schedule({
-          title:'test',
-          text:'text 2',
+        // this._localNotification.schedule({
+        //   title:'test',
+        //   text:'text 2',
+        // })
+        
+        let toast = this.toastCtrl.create({
+          message: res.title,
+          duration: 2000,
+          showCloseButton: true,
+          dismissOnPageChange: true,
         })
-        // let toast = this.toastCtrl.create({
-        //   message: res.title,
-        //   duration: 2000,
-        //   showCloseButton: true,
-        //   dismissOnPageChange: true,
-        // })
-        // toast.onDidDismiss((role)=>{
-        //   if(role == "close"){
-        //     this.nav.push(TicketDetailPage,{data:index, component:'TicketDetailPage'});
-        //   }
-        // })
-        // toast.present();
+        toast.present();
       }
     });
   }
