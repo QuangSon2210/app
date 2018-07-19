@@ -158,6 +158,9 @@ export class MyApp {
         this.countNotify+=1;
         //this.initLocalNotification(data);
         let custom = JSON.parse(data[0]['custom']);
+        alert(custom);
+        alert(custom.ticket_id);
+        alert(data[0]['id']);
         this._localNotification.schedule({
           id:1,
           title: data[0]['title'].replace(/(<([^>]+)>)/ig,""),
