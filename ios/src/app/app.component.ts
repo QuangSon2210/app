@@ -197,12 +197,12 @@ export class MyApp {
       //"restricted_package_name":""
     }
     //alert(JSON.stringify(body));
-    console.log(body);
+    //console.log(body);
     this._notifyService.sendNotification(body).subscribe();
   }
   initLocalNotification(data){
     this._localNotification.schedule({
-      id:1,
+      id:2,
       title: data.title,
       text: data.content,
       vibrate:this.vibrate,
@@ -226,7 +226,10 @@ export class MyApp {
         this.nav.push(TicketDetailPage,{data:index, component:'TicketDetailPage'})
       }else{
         //alert(JSON.stringify(res));
-        //this.initLocalNotification(res);
+        this._localNotification.hasPermission().then(()=>{
+          this.initLocalNotification(res);
+        })
+        this.initLocalNotification(res);
         // let toast = this.toastCtrl.create({
         //   message: res.title,
         //   duration: 2000,
@@ -241,8 +244,6 @@ export class MyApp {
         // toast.present();
       }
     });
-    
-
   }
   handleNotification(){
     this._localNotification.on('click').subscribe(res=>{
