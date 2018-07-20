@@ -197,7 +197,7 @@ export class MyApp {
       if(res.wasTapped){
         let index = { id: res.ticket_id };
         //if(this.nav.getActive().id!=="n4-2"){
-        if(this.nav.getActive().instance !instanceof TicketDetailPage){
+        if(!(this.nav.getActive().instance instanceof TicketDetailPage)){
           this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
         }
       }else{
@@ -208,7 +208,7 @@ export class MyApp {
   handleNotification(){
     this._localNotification.on('click').subscribe(res=>{
       let index = { id: res.data.ticket_id }; 
-      if(this.nav.getActive().instance !instanceof TicketDetailPage){
+      if(!(this.nav.getActive().instance instanceof TicketDetailPage)){
         this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
       }
     })
