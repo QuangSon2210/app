@@ -204,12 +204,14 @@ export class MyApp {
     })
   }
   handleNotification(){
-    if(this.nav.getActive().id !== 'n4-2'){
+    
     this._localNotification.on('click').subscribe(res=>{
       let index = { id: res.data.ticket_id }; 
+      if(this.nav.getActive().id !== 'n4-2'){
         this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'}); 
+      }
     })
-    }
+    
   }
   listenEventUpdate(){
     this._dataService.listenEvent('UPDATE PROFILE').subscribe(res=>{
