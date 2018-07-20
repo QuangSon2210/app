@@ -69,8 +69,8 @@ export class MyApp {
         this.initFCMToken();
         this.listenEventNewNotifi();
         this.listenEventUpdate();
-        //this.handleNotification();
-        //this.receiveNotification();
+        this.handleNotification();
+        this.receiveNotification();
         this._notifyService.countNewNotifications().subscribe(res=>{ this.countNotify = res;});
         this.loggedInUser = this._authService.getLoggedInUser();
         this.avatarName = this._authService.getLoggedInUser().lastname;
@@ -134,7 +134,7 @@ export class MyApp {
       //if(userId == data[0]['id_user'] || team.indexOf(data[0]['id_team'],0)!=-1 && data[0]['del_agent'] != userId && data[0]['view'] != userId){      
       if(userId == data[0]['id_user'] && data[0]['del_agent'] != userId && data[0]['view'] != userId){
         this.countNotify+=1;
-        alert(this.nav.getActive().id);
+        //alert(this.nav.getActive().id!=='n4-2');
         // if(this._authService.enableNotify()){
         //   this.pushNotifications(data);
         //   this.vibrate = this._authService.enableVibrate();
@@ -195,17 +195,16 @@ export class MyApp {
     this._fcm.onNotification().subscribe(res=>{
       if(res.wasTapped){
         let index = { id: res.ticket_id };
-        //if(this.nav.getActive().name!=="TicketDetailPage"){
+        if(this.nav.getActive().id!=="n4-2"){
           this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
-        //}
+        }
       }else{
         this.initLocalNotification(res);
       }
     })
   }
   handleNotification(){
-    
-    if(this.nav.getActive().name !== "TicketDetailPage"){
+    if(this.nav.getActive().id !== 'n4-2'){
     this._localNotification.on('click').subscribe(res=>{
       let index = { id: res.data.ticket_id }; 
         this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'}); 
