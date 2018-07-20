@@ -175,7 +175,7 @@ export class TicketAddPage {
     let propertiesModal = this.modalCtrl.create(ModalProperties,{data:data});
     propertiesModal.onDidDismiss(data=>{
       let self = this;
-      let flag = false;
+      //let flag = false;
       if(Object.keys(data).length>0){
         Object.keys(data).forEach(function(key){
           switch(key){

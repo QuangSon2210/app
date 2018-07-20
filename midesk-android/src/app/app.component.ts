@@ -134,6 +134,7 @@ export class MyApp {
       //if(userId == data[0]['id_user'] || team.indexOf(data[0]['id_team'],0)!=-1 && data[0]['del_agent'] != userId && data[0]['view'] != userId){      
       if(userId == data[0]['id_user'] && data[0]['del_agent'] != userId && data[0]['view'] != userId){
         this.countNotify+=1;
+        alert(this.nav.getActive().name);
         // if(this._authService.enableNotify()){
         //   this.pushNotifications(data);
         //   this.vibrate = this._authService.enableVibrate();
@@ -203,7 +204,7 @@ export class MyApp {
     })
   }
   handleNotification(){
-    alert(this.nav.getActive().name);
+    
     if(this.nav.getActive().name !== "TicketDetailPage"){
     this._localNotification.on('click').subscribe(res=>{
       let index = { id: res.data.ticket_id }; 
