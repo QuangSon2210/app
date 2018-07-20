@@ -69,8 +69,8 @@ export class MyApp {
         this.initFCMToken();
         this.listenEventNewNotifi();
         this.listenEventUpdate();
-        this.handleNotification();
-        this.receiveNotification();
+        //this.handleNotification();
+        //this.receiveNotification();
         this._notifyService.countNewNotifications().subscribe(res=>{ this.countNotify = res;});
         this.loggedInUser = this._authService.getLoggedInUser();
         this.avatarName = this._authService.getLoggedInUser().lastname;
@@ -129,8 +129,8 @@ export class MyApp {
   listenEventNewNotifi(){
     this._socketService.listenEvent('NEW NOTIFI').subscribe(data=>{
       let userId = this._authService.getLoggedInUser().id;
-      let team = JSON.parse(this._authService.getLoggedInRoom()).array_team;
-      team = team.split(',');
+      //let team = JSON.parse(this._authService.getLoggedInRoom()).array_team;
+     // team = team.split(',');
       //if(userId == data[0]['id_user'] || team.indexOf(data[0]['id_team'],0)!=-1 && data[0]['del_agent'] != userId && data[0]['view'] != userId){      
       if(userId == data[0]['id_user'] && data[0]['del_agent'] != userId && data[0]['view'] != userId){
         this.countNotify+=1;
