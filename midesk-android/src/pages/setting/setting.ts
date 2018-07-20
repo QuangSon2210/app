@@ -35,7 +35,6 @@ export class SettingPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingPage');
   }
   changeStatusNotify(){
     this.data['is_notification'] = (this.enableNotify==true)?'1':'0';

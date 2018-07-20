@@ -40,8 +40,6 @@ export class ContactAddPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CustomerAddPage');
-
   }
   addContact(){
     // let loader = this.loadingCtrl.create({

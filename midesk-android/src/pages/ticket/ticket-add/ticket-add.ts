@@ -80,7 +80,7 @@ export class TicketAddPage {
     }
   }
   changeCategory(){
-    console.log(this.filterCategory.selected);
+    //console.log(this.filterCategory.selected);
     this._ticketService.getTicketCategory(this.filterCategory.selected).subscribe(res=>{
       if(res.data!=null){
         this.filterCategory.dataChildItems = res.data;
@@ -91,7 +91,7 @@ export class TicketAddPage {
     let requesterModal = this.modalCtrl.create(ModalRequester,{data:this.ticketParams.requester});
     requesterModal.onDidDismiss(data=>{
       if(!data.cancel){
-        console.log(data);
+        //console.log(data);
         this.requesterName = data.requester.name;
         this.ticketParams.requester = data.requester.id;
         this.ticketParams.requester_type = data.requester.level;
@@ -151,7 +151,7 @@ export class TicketAddPage {
       if(!data.cancel){
         this.ticketParams.category='';
         this.categoryName='';
-        console.log(data);
+        //console.log(data);
           for(let i = 0; i<data.data.length;i++){
             //this.ticketParams.category+=data.data[i].id+',';
             this.categoryName +=data.data[i].name+'/';
@@ -224,7 +224,7 @@ export class TicketAddPage {
     this.fileName = $event.target.files[0].name;
   }
   createTicket(){
-    console.log(this.ticketParams);
+    //console.log(this.ticketParams);
     let loader = this._dataService.createLoading({content:this._msgService._msg_loading});
     var formData = new FormData();
     formData.append('title',this.ticketParams.title);

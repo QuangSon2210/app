@@ -3,12 +3,6 @@
 		<ion-title>#{{ticketInfo.ticket_id}}</ion-title>
 		<ion-buttons *ngIf="ticketInfo.is_delete==0" padding-right end><button ion-button [disabled]="countChange<=0" (click)="actionTicket()"><ion-icon class="send-icon" color="light" name="paper-plane"></ion-icon><ion-badge class="badge-count" *ngIf="countChange>0" id="send-badge">{{countChange}}</ion-badge></button></ion-buttons>
 		<ion-buttons class="padding-button" end><button ion-button (click)="openActionSheet()"><ion-icon class="send-icon" color="light" name="more"></ion-icon></button></ion-buttons>
-	    <!-- <button ion-button menuToggle>
-	      <ion-icon name="menu"></ion-icon>
-	    </button>
-	    <ion-title>Ticket Detail</ion-title>
-	    <ion-buttons end><button id="send-btn" class="bg-transparent" [disabled]="countChange<=0" (click)="actionTicket()"><ion-icon class="icon-size" color="light" name="send"></ion-icon><ion-badge *ngIf="countChange>0" id="send-badge">{{countChange}}</ion-badge></button></ion-buttons>
-	    <ion-buttons end><button class="bg-transparent"><ion-icon class="icon-size" color="light" (click)="openActionSheet()" name="more"></ion-icon></button></ion-buttons> -->
   </ion-navbar>
 </ion-header>
 <ion-content>
@@ -57,7 +51,7 @@
 				</ion-item>
 	 			<ion-item (click)="changePriority()">
 					<ion-row class="item-inner" style="border:0!important;padding-right:0px;" no-padding>
-						<ion-col no-padding col-6>Mức độ ưu tiên</ion-col>
+						<ion-col no-padding col-6>Độ ưu tiên</ion-col>
 						<ion-col no-padding text-right col-6><p><ion-badge [ngStyle]="{'background-color':priorityDefault.color}" >{{priorityDefault.name}}</ion-badge></p></ion-col>
 						<!-- <img src="../assets/imgs/caret-down.png" style="width:25px"> -->
 					</ion-row>

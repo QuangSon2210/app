@@ -79,17 +79,8 @@ export class HomePage {
     ) {
     this.initApp();
   }
-  // ionViewWillEnter(){
-  //   this.initApp();
-  // }
   initApp(){
     this._platform.ready().then(()=>{
-      // this.room=JSON.parse(this._authService.getLoggedInRoom());
-      // let self = this;
-      // setTimeout(function(){
-      //   self._socketService.connect();
-      //   self._socketService.emitData('room',self.room);
-      // },2000);
       this.listenEventNewNotifi();
       this.listenEventUpdate();
       this._notifyService.countNewNotifications().subscribe(res=>{ this.countNotify = res;});
@@ -140,7 +131,7 @@ export class HomePage {
       else this.modelTicket.loadMore = false;
       this.modelTicket.dataLoading = false;
       this.initListTicket();
-      console.log(this.modelTicket.dataItems);
+      //console.log(this.modelTicket.dataItems);
       infiniteScroll.complete();
     })
   }
@@ -153,7 +144,7 @@ export class HomePage {
         else this.modelTicket.loadMore = false;
         this.modelTicket.dataLoading = false;
         this.initListTicket();
-        console.log(this.modelTicket.dataItems);
+        //console.log(this.modelTicket.dataItems);
       })
     }
   }
@@ -165,7 +156,7 @@ export class HomePage {
   	this.sectionSelect.open();
   }
   clickTicket(index){
-    console.log(index);
+    //console.log(index);
     this.navCtrl.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
   }
   doFilter(){
@@ -173,12 +164,6 @@ export class HomePage {
     this.modelTicket.dataPage=1;
     this.modelTicket.dataTotal=0;
     this.initListTicket();
-    //alert(this._authService.getToken2().then((res=>{return (res)})));
-    // this._authService.getToken2().then((token)=>{
-    //   alert(token);
-    // }).catch(error=>{
-    //   console.log(error);
-    // });
   }
   openPopoverSort(myEvent) {
     let data = {priority:this.priority,status:this.status,orderBy: this.orderBy}
@@ -194,9 +179,8 @@ export class HomePage {
         this.modelTicket.dataTotal=0;
         this.initListTicket();
       }
-      console.log(this.modelTicket);
-      console.log(data);
-      //
+      //console.log(this.modelTicket);
+      //console.log(data);
     });
   }
   openPopoverChannel(myEvent){
@@ -218,8 +202,8 @@ export class HomePage {
     //console.log(JSON.parse(this._authService.getLoggedInRoom()).array_agent.split(','));
     this._socketService.listenEvent('NEW NOTIFI').subscribe(res=>{
       let userId = this._authService.getLoggedInUser().id;
-      let teamId = JSON.parse(this._authService.getLoggedInRoom()).array_team.split(',');
-      console.log(res);
+      //let teamId = JSON.parse(this._authService.getLoggedInRoom()).array_team.split(',');
+      //console.log(res);
       //if(res[0]['view'] != userId && res[0]['del_agent'] != userId && teamId.indexOf(res[0]['id_team'],0)!=-1 || userId == res[0]['id_user']){
       if(res[0]['view'] != userId && res[0]['del_agent'] != userId && userId == res[0]['id_user']){
         this.countNotify+=1;

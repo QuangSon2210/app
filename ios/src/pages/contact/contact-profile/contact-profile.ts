@@ -44,8 +44,6 @@ export class ContactProfilePage {
     this.initListTicketBycontact();
   }
   ionViewDidLoad() {
-    console.log('ionViewDidLoad contactProfilePage');
-    
   }
   initcontactProfile(){
     this.loading = true;

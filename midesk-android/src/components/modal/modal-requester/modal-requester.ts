@@ -101,7 +101,7 @@ export class ModalRequester {
     this.selected_requester = index;
     this.selected_requesterId = index.id;
     this.loading = true;
-    console.log(this.selected_requester);
+    //console.log(this.selected_requester);
     this._contactService.getCustomer(this.selected_requesterId).subscribe(res=>{
       if(res.length>0){
         this.modelCustomer = res;

@@ -64,25 +64,28 @@ export class MyApp {
   }
   initializeApp() {
     this.platform.ready().then(() => {
-      if(this._authService.isUserLoggedIn()){
-        this.connectSocket();
-        this.initFCMToken();
-        this.listenEventNewNotifi();
-        this.listenEventUpdate();
-        this.handleNotification();
-        this.receiveNotification();
-        this._notifyService.countNewNotifications().subscribe(res=>{ this.countNotify = res;});
-        this.loggedInUser = this._authService.getLoggedInUser();
-        this.avatarName = this._authService.getLoggedInUser().lastname;
-        this.avatarName = this.avatarName.substr(0,1); 
-        this.rootPage = HomePage;
-      }else{
-        this.loggedInUser = {};
-        this.rootPage = LoginPage;
-      } 
+      this.checkLogin();
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+  checkLogin(){
+    if(this._authService.isUserLoggedIn()){
+      this.connectSocket();
+      this.initFCMToken();
+      this.listenEventNewNotifi();
+      this.listenEventUpdate();
+      this.handleNotification();
+      this.receiveNotification();
+      this._notifyService.countNewNotifications().subscribe(res=>{ this.countNotify = res;});
+      this.loggedInUser = this._authService.getLoggedInUser();
+      this.avatarName = this._authService.getLoggedInUser().lastname;
+      this.avatarName = this.avatarName.substr(0,1); 
+      this.rootPage = HomePage;
+    }else{
+      this.loggedInUser = {};
+      this.rootPage = LoginPage;
+    } 
   }
   connectSocket(){
     this.room=JSON.parse(this._authService.getLoggedInRoom());
@@ -129,17 +132,9 @@ export class MyApp {
   listenEventNewNotifi(){
     this._socketService.listenEvent('NEW NOTIFI').subscribe(data=>{
       let userId = this._authService.getLoggedInUser().id;
-      //let team = JSON.parse(this._authService.getLoggedInRoom()).array_team;
-      //team = team.split(',');
       //if(userId == data[0]['id_user'] || team.indexOf(data[0]['id_team'],0)!=-1 && data[0]['del_agent'] != userId && data[0]['view'] != userId){      
       if(userId == data[0]['id_user'] && data[0]['del_agent'] != userId && data[0]['view'] != userId){
         this.countNotify+=1;
-        //console.log(this.nav.getActive().instance);
-        //alert(JSON.stringify(this.nav.getActive().instance));
-        // if(this._authService.enableNotify()){
-        //   this.pushNotifications(data);
-        //   this.vibrate = this._authService.enableVibrate();
-        // }
       }
     });
   }
@@ -196,7 +191,6 @@ export class MyApp {
     this._fcm.onNotification().subscribe(res=>{
       if(res.wasTapped){
         let index = { id: res.ticket_id };
-        //if(this.nav.getActive().id!=="n4-2"){
         if(!(this.nav.getActive().instance instanceof TicketDetailPage)){
           this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
         }
@@ -204,6 +198,7 @@ export class MyApp {
         this.initLocalNotification(res);
       }
     })
+    
   }
   handleNotification(){
     this._localNotification.on('click').subscribe(res=>{

@@ -8,9 +8,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 export class ConvertTimeListTicket implements PipeTransform {
     transform(val:any) {
-        // if(typeof val == 'string'){
-        //     val = Date.parse(val)/1000;
-        // }
         var tmp =  new Date().toString();
         var now = Date.parse(tmp)/1000;
         var compare = now - val;

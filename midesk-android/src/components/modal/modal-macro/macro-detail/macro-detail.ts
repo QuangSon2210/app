@@ -43,7 +43,7 @@ export class MacroDetail {
   ionViewDidLoad() {
     this.checkPriority = this._authService.getPriority();
     this.macro = this.navParams.get('data');
-    console.log(this.macro);
+    //console.log(this.macro);
     this.initDetail();
   }
   initDetail(){
@@ -86,7 +86,7 @@ export class MacroDetail {
           break;
       }
     }
-    console.log(this.dataMacro);
+    //console.log(this.dataMacro);
   }
   actionDetail(){
     this._event.publish('MACRO',{dataMacro:this.dataMacro,assignName:this.assignName,teamName: this.teamName});

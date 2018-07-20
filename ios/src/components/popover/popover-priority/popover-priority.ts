@@ -41,7 +41,7 @@ export class PopoverPriority {
     ) {
   	this.priority = _authService.getPriority();
     this.selectedId = navParams.get('data');
-    console.log(this.selectedId);
+    //console.log(this.selectedId);
   }
   choosePriority(index){
     this.selected_priority = index;

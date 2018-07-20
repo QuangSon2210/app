@@ -3,9 +3,6 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { SettingService } from './../common/setting.service';
 import { AuthService } from './authentication/auth.service';
-//import { Case } from './../models/case';
-
-//Import RxJs required methods
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -96,16 +93,6 @@ export class TicketService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    // pushNotifications(data:any){
-    //     let headers = new Headers();
-    //     headers.append('Content-Type','application/json');
-    //     headers.append('Authorization','key=AAAAeKKOKTg:APA91bHa9BgAUJKKI_72iAsyzy8iVXRceq2JWg_u6QOcxSgSpB9gm32lx7qcdX2c2WNPXcxYQceAh-iDnvJwHoNu0vOtCgKoqV6rG72hBTdfpNRTbcVbOEAePHPGsmzoc8ZRLhYSQFvF');
-    //     //headers.append('Authorization','key='+deviceToken);
-    //     let options = new RequestOptions({ headers : headers });
-    //     return this._http.post(this._settingGlobal._api_notification,data,options)
-    //         .map(this.extractData)
-    //         .catch(this.handleError);
-    // }
     countTicket(){
         return this._http.get(this._settingGlobal._api_count_ticket)
             .map(this.extractData)

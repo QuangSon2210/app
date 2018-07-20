@@ -1,23 +1,18 @@
 modal-properties{
 	ion-badge{
 		border-radius:2px!important;
-		//margin:0 0 15px 7px!important;
 		padding:2px 5px!important;
 		color:white!important;
     }
     .input-edit{
-		//border-bottom:1px solid #CCC!important;
 		caret-color: #2cd094;
 		color: #666;
-		// font-size: 1.3rem!important;
     }
     .text-input-md{
         margin:5px 0px 0px 0px;
     }
 	.input-edit:focus{
         color:#2cd094;
-		//border-bottom:1px solid #2cd094!important;
-		//box-shadow: inset 0 -1px 0 0 #2cd094!important;
 	}
 	.box-avatar{
 		min-width:35px!important;

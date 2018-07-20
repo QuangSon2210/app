@@ -39,7 +39,7 @@ export class AccountPage {
     this.modelUser = this._authService.getLoggedInUser();
     this.nameAvatar = this._authService.getLoggedInUser().lastname.substr(0,1);
     this.colorAvatar = this.modelUser.datecreate.toString().substr(4,6);
-    console.log(this.modelUser);
+    //console.log(this.modelUser);
   }
   editAccount(){
     this.edit = true;

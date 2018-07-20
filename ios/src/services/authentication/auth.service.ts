@@ -44,7 +44,7 @@ export class AuthService {
             }
             localStorage.setItem('setting',JSON.stringify({ notify:this.loggedInUser.user.is_notification,vibrate:'1'}));
         } else {
-            console.log('Empty token ---');
+            //console.log('Empty token ---');
             localStorage.clear();
             this.isloggedIn = false;
         }

@@ -91,7 +91,7 @@ export class TicketDetailPage {
     this.urlFile = this._settingService._baseUrl+'/public/upload/';
     _dataService.createLoading({duration:100}).present();
     this.initApp();
-    console.log(this.navCtrl.getActive().name);
+    //console.log(this.navCtrl.getActive().name);
   }
   initApp(){
     this._platform.ready().then(()=>{
@@ -105,7 +105,7 @@ export class TicketDetailPage {
   }
   listenEventUpdateTicket(){
       this._socketService.listenEvent('NEW_UPDATE_TICKET').subscribe(data=>{
-      console.log(data);
+      //console.log(data);
       let pageName = this.navCtrl.getActive().name;
       let arr:any = data;
       for(let i=0;i<arr.length;i++){
@@ -124,8 +124,6 @@ export class TicketDetailPage {
                     delete self.ticketUpdate[key];
                     delete self.ticketUpdate['assign_team'];
                   }
-                  
-                  //flag = true;
                 }
                 break;
               case 'assign_team':
@@ -137,7 +135,6 @@ export class TicketDetailPage {
                     delete self.ticketUpdate[key];
                     self.reChoose = true;
                   }
-                  //flag = true;
                 }
                 break;
               case 'priority':
@@ -148,14 +145,12 @@ export class TicketDetailPage {
                   if(typeof self.ticketUpdate[key] !== 'undefined'){
                     delete self.ticketUpdate[key];
                   }
-                  //flag = true;
                 }
                 break;
               case 'status':
                 if(content[key]!=self.ticketInfo.status){
                   self.ticketInfo.status = content[key];
                   self.statusDefault = self.checkStatus[content[key]];
-                  //flag = true;
                   if(typeof self.ticketUpdate[key] !== 'undefined'){
                     delete self.ticketUpdate[key];
                   }
@@ -164,7 +159,6 @@ export class TicketDetailPage {
               case 'title':
                 if(content[key] != self.ticketInfo.title){
                   self.ticketInfo.title = content[key];
-                  //flag = true;
                 }
                 break;
               case 'category':
@@ -172,13 +166,12 @@ export class TicketDetailPage {
                 self.ticketDefault.parent2 = content[key]['parent2'];
                 self.ticketInfo.category = content[key]['id'];
                 self.ticketInfo.parent2 = content[key]['parent2'];
-                //flag = true;
                 if(typeof self.ticketUpdate[key]!== 'undefined'){
                   delete self.ticketUpdate[key];
                 }
                 break;
               case 'content':
-                console.log(content['createby']['id']+'----'+self._authService.getLoggedInUser().id);
+                //console.log(content['createby']['id']+'----'+self._authService.getLoggedInUser().id);
                 if(content['createby']['id'] != self._authService.getLoggedInUser().id){
                   var tmp =  new Date().toString();
                   var now = Date.parse(tmp)/1000;
@@ -193,7 +186,6 @@ export class TicketDetailPage {
                     type:'text'
                   }
                   self.ticketDetail.unshift(detail);
-                  //flag = true;
                 }
                 break;
             }
@@ -211,7 +203,7 @@ export class TicketDetailPage {
   initTicketDetail(){
     let navData = (this.navParamsCtrl.get('data'));
     this._ticketService.getTicketDetail(navData).subscribe(res=>{
-      console.log(res.success);
+      //console.log(res.success);
       if(res.code == 200){
         this.ticketInfo = res.success;
         this.ticketDefault.category = res.success.category;
@@ -275,7 +267,7 @@ export class TicketDetailPage {
     let contactModal = this.modalCtrl.create(ModalAssign,{data:data});
     contactModal.onDidDismiss(data=>{
       if(data!=null && typeof data != undefined){
-        console.log(data);
+        //console.log(data);
         if(this.ticketDefault.assign_team==data.assign_team.team_id){
           if(data.assign_agent.id!='' && data.assign_agent.id != this.ticketDefault.assign_agent){
             this.ticketUpdate['assign_agent']=data.assign_agent.id;
@@ -350,7 +342,7 @@ export class TicketDetailPage {
             icon: 'close',
             role: 'cancel',
             handler: () => {
-              console.log('Cancel clicked');
+              //console.log('Cancel clicked');
             }
           }
         ]
@@ -377,7 +369,7 @@ export class TicketDetailPage {
             icon: 'close',
             role: 'cancel',
             handler: () => {
-              console.log('Cancel clicked');
+              //console.log('Cancel clicked');
             }
           }
         ]
@@ -447,7 +439,7 @@ export class TicketDetailPage {
     this.countChange = Object.keys(this.ticketUpdateDetail).length + Object.keys(this.ticketUpdate).length;
    }
    actionTicket(){
-     console.log(this.ticketUpdate);
+     //console.log(this.ticketUpdate);
      let ticketId = this.navParamsCtrl.get('data').id;
      let loader = this._dataService.createLoading({content:this._msgService._msg_loading});
      loader.present();
@@ -478,7 +470,7 @@ export class TicketDetailPage {
   }
   trashOrResolveTicket(){
     let id = this.navParamsCtrl.get('data').id;
-    console.log(id);
+    //console.log(id);
     this._ticketService.trashOrResolveTicket(id).subscribe(res=>{
       if(res.code==200){
         this.initTicketDetail();

@@ -37,10 +37,10 @@ export class ContactPage {
     this.initListContact();
   }
   initListContact(){
-    console.log(this._authService.getRelation());
+    //console.log(this._authService.getRelation());
   	this.loading = true;
   	this._contactService.getListContact(this.modelContact.dataPage).subscribe(res=>{
-  		console.log(res.data);
+  		//console.log(res.data);
   		this.modelContact.dataItems = res.data;
       if(res.next_page_url!==null) this.modelContact.loadMore = true;
       else this.modelContact.loadMore = false;

@@ -3,8 +3,6 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-//import { AuthService } from './authentication/auth.service';
-//import { User } from './../models/user';
 import { SettingService } from './../common/setting.service';
 
 @Injectable()

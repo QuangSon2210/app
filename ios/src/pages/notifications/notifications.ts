@@ -58,7 +58,7 @@ export class NotificationsPage {
   	})
   }
   deleteViewNotify(index,i){
-    console.log(this.modelNotify.dataItems.indexOf(index));
+    //console.log(this.modelNotify.dataItems.indexOf(index));
     let loader = this._dataService.createLoading({spinner:'dots'});
     loader.present();
   	this._notifyService.deleteViewNotifications(index.id).subscribe(res=>{

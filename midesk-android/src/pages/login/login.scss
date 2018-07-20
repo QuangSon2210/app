@@ -8,20 +8,6 @@ page-login {
 		padding-bottom:10%;
 		width:70%;
 	}
-	// .scroll-content{
-	// 	text-align: center;
-	// 	display:flex;
-	// 	flex-direction:column;
-	// 	justify-content:center;
-	// 	padding:0!important;
-	// }
-	// ion-card.card{
-	// 	background:rgba(232,230,230,0.6);
-	// 	border-radius:5px;
-	// }
-	// .item{
-	// 	background: rgba(232,230,230,0px);
-	// }
 	.scroll-content{
 		align-content:center;
 		display:flex;
@@ -32,7 +18,6 @@ page-login {
 	}
 	ion-card.card{
 		box-shadow: none;
-		//background: rgba( 0 , 0 , 0 , 0.5 );
 		background: rgb(248,248,255);
 		border-radius:5px;
 	}
@@ -49,7 +34,6 @@ page-login {
 
 	.item{
 		margin-bottom:10px;
-		//background:rbga(255,255,255,0.5);
 		background:hsla(0, 100%, 90%,0);
 		border:medium none;
 		.text-input,

@@ -3,8 +3,6 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-//import { AuthService } from './authentication/auth.service';
-//import { User } from './../models/user';
 import { SettingService } from './../common/setting.service';
 
 @Injectable()
@@ -15,7 +13,6 @@ export class UserService {
     }
 
     checkUserLogin(email: string, password: string): Observable<any> {
-        // console.log(this._settingGlobal._api_auth_login);
         return this._http.post(this._settingGlobal._api_auth_login, JSON.stringify({ email: email, password: password }))//, this.options)
             .map(this.extractData)
             .catch(this.handleError);

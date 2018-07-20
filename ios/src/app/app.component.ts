@@ -68,25 +68,28 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      if(this._authService.isUserLoggedIn()){
-        this.connectSocket();
-        this.initFCMToken();
-        this.listenEventNewNotifi();
-        this.listenEventUpdate();
-        this.handleNotification();
-        this.receiveNotification();
-        this._notifyService.countNewNotifications().subscribe(res => { this.countNotify = res;});
-        this.loggedInUser = this._authService.getLoggedInUser();
-        this.avatarName = this._authService.getLoggedInUser().lastname;
-        this.avatarName = this.avatarName.substr(0,1);
-        this.rootPage = HomePage;
-      }else{
-        this.loggedInUser = {};
-        this.rootPage = LoginPage;
-      }
+      this.checkLogin();
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+  checkLogin(){
+    if(this._authService.isUserLoggedIn()){
+      this.connectSocket();
+      this.initFCMToken();
+      this.listenEventNewNotifi();
+      this.listenEventUpdate();
+      this.handleNotification();
+      this.receiveNotification();
+      this._notifyService.countNewNotifications().subscribe(res => { this.countNotify = res;});
+      this.loggedInUser = this._authService.getLoggedInUser();
+      this.avatarName = this._authService.getLoggedInUser().lastname;
+      this.avatarName = this.avatarName.substr(0,1);
+      this.rootPage = HomePage;
+    }else{
+      this.loggedInUser = {};
+      this.rootPage = LoginPage;
+    }
   }
   initFCMToken(){
     this.token = localStorage.getItem('fcm_token');
@@ -155,37 +158,6 @@ export class MyApp {
       }
     });
   }
-  // pushNotifications(data){
-  //   let title = data[0]['title'];
-  //   var regex = /(<([^>]+)>)/ig;
-  //   let custom = JSON.parse(data[0]['custom']);
-  //   title = title.replace(regex, "");
-  //   let content = data[0]['content'];
-  //   let array = {
-  //     content: content,
-  //     title: title,
-  //     id:custom.id,
-  //     ticket_id: custom.ticket_id,
-  //     notify_id: data[0]['id'],
-  //     user_id: data[0]['del_agent']
-  //   }
-  //   let body={
-  //     "notification":{
-  //       "title":title,
-  //       "body":content,
-  //       "sound":"default",
-  //       "click_action":"FCM_PLUGIN_ACTIVITY",
-  //       "icon":"fcm_push_icon",
-  //       "forceStart": "1"
-  //     },
-  //     "data":array,
-  //     "to":this.token,
-  //     //"to":'/topics/all',
-  //     "priority":"high",
-  //     //"restricted_package_name":""
-  //   }
-  //   this._notifyService.sendNotification(body).subscribe();
-  // }
   initLocalNotification(data){
     this._localNotification.schedule({
       id:2,
@@ -208,18 +180,19 @@ export class MyApp {
     this._fcm.onNotification().subscribe(res=>{
       let index = { id: res.ticket_id};
       if(res.wasTapped){
-        this.nav.push(TicketDetailPage,{data:index, component:'TicketDetailPage'})
+        if(!(this.nav.getActive().instance instanceof TicketDetailPage)){
+          this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
+        }
       }
     });
   }
   handleNotification(){
-    alert(this.nav.getActive().name);
-    if(this.nav.getActive().name!=="TicketDetailPage"){
     this._localNotification.on('click').subscribe(res=>{
-      let index = { id: res.data.ticket_id };
-      this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});  
+      let index = { id: res.data.ticket_id }; 
+      if(!(this.nav.getActive().instance instanceof TicketDetailPage)){
+        this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
+      }
     })
-    }
   }
   listenEventUpdate(){
     this._dataService.listenEvent('UPDATE PROFILE').subscribe(res=>{

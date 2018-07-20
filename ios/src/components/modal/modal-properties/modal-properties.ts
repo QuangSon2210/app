@@ -49,7 +49,6 @@ export class ModalProperties{
 	}
 	ionViewWillLoad() {
 		let data = (this.navParams.get('data'));
-		console.log(data);
 		this.statusDefault = data.status;
 		this.priorityDefault = data.priority;
 		this.titleDefault = data.title;
@@ -78,13 +77,10 @@ export class ModalProperties{
 	}
 	listenEventUpdateTicket(){
     this._socketService.listenEvent('NEW_UPDATE_TICKET').subscribe(data=>{
-      console.log(data);
       let arr:any = data;
       for(let i=0;i<arr.length;i++){
-        //console.log(this.navParamsCtrl.get('data'));
         if(data[i].ticket_id==this.navParams.get('data').id){
           let content =JSON.parse(data[i].content);
-          console.log(content);
           let self = this;
           Object.keys(content).forEach(function(key){
             if(key == 'assign_agent' && content['assign_agent']['id']!=self.assign.assign_agent){
@@ -131,7 +127,6 @@ export class ModalProperties{
     })
   }
 	closeModal(){
-		console.log(this.dataUpdate);
   	this.viewCtrl.dismiss(this.dataUpdate);
 	}
 	changeTitle($event){
@@ -168,8 +163,6 @@ export class ModalProperties{
 					this.category = data;
 					this.categoryDefault = tmp;
 					this.dataUpdate['category'] = {id:tmp,data:data}
-					console.log(this.dataUpdate);
-					console.log(tmp);
 				}	
 			}
 		})
@@ -180,13 +173,11 @@ export class ModalProperties{
 		let contactModal = this.modalCtrl.create(ModalAssign,{data:data});
 		contactModal.onDidDismiss(data=>{
 			if(data!=null && typeof data != undefined){
-				console.log(data);
 				if(this.assign.assign_team==data.assign_team.team_id){
 					if(data.assign_agent.id!=''){
 						this.name = data.assign_agent.name;
 						this.dataUpdate['assign'] = { agent: data.assign_agent.id, team: data.assign_team.team_id, name: this.name };
 					}else{
-						console.log('không chọn agent');
 					}
 				}
 				else{
@@ -208,7 +199,6 @@ export class ModalProperties{
 			let requesterModal = this.modalCtrl.create(ModalRequester,{data:this.requesterId});
 			requesterModal.onDidDismiss(data=>{
 				if(!data.cancel){
-					console.log(data);
 					this.requesterName = data.requester.name;
 					this.customerName = data.customer.customer_name;
 					if(data.requester.id!=0){

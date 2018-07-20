@@ -31,7 +31,7 @@ export class SocketService {
     }
     
     public listEvent(eventName, requiredConnect = true) {
-        console.log('--> listen eventName: ', eventName);
+        //console.log('--> listen eventName: ', eventName);
         if(requiredConnect && this.statusConnect == false)
             return (new Observable(null));
         let observable = new Observable(observer => {

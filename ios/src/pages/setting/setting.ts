@@ -35,7 +35,6 @@ export class SettingPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingPage');
   }
   changeStatusNotify(){
     // if(this._authService.getFCMToken()==''){

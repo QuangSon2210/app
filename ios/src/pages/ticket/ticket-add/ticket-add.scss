@@ -79,25 +79,6 @@ page-ticket-add{
 	.send-icon{
 		font-size:2.5rem;
 	}
-	// .chip-assign{
-	// 	ion-chip{
-	// 		margin:0;
-	// 		height: 27px;
-	// 		line-height: 27px;
-	// 		font-size: 13px;
-	// 		color:#FFF;
-	// 		ion-avatar{
-	// 			width:27px;
-	// 			height: 27px;
-	// 			min-width: 27px;
-	// 			min-height: 27px;
-	// 		}
-	// 		.button{
-	// 			width:27px!important;
-	// 			height: 27px!important;
-	// 		}
-	// 	}
-	// }
 	.chip-assign{
 		ion-chip{
 			margin:0;
@@ -135,7 +116,6 @@ page-ticket-add{
 	}
 	ion-badge{
 		border-radius:2px!important;
-		//margin:0 0 15px 7px!important;
 		padding:2px 5px!important;
 		color:white!important;
 	}

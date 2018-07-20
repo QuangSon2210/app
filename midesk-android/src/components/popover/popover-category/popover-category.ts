@@ -66,7 +66,7 @@ export class PopoverCategory {
       this._ticketService.getTicketCategory(this.filterCategory.parentId).subscribe(res=>{
         this.filterCategory.dataItems = res.data;
         this.filterCategory.parentId = res.lastId;
-        console.log(this.filterCategory.dataChoose);
+        //console.log(this.filterCategory.dataChoose);
         this.loading = false;
       })
     }
@@ -81,7 +81,7 @@ export class PopoverCategory {
         else{
           this.loading = false;
           this.doCategory();
-          console.log(this.filterCategory.dataChoose);
+          //console.log(this.filterCategory.dataChoose);
         }
         this.filterCategory.parentId = res.lastId;
       });

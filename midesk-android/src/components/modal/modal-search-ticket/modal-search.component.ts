@@ -75,7 +75,7 @@ export class ModalSearchTicket {
     })
   }
   clickTicket(index){
-  	console.log(index);
+  	//console.log(index);
     this.navCtrl.push(TicketDetailPage,{data:index});
   }
 }
