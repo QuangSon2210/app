@@ -104,10 +104,11 @@ export class TicketDetailPage {
   }
   listenEventUpdateTicket(){
       this._socketService.listenEvent('NEW_UPDATE_TICKET').subscribe(data=>{
-      console.log(data);
+      //console.log(data);
       //let pageName = this.navCtrl.getActive().name;
       let arr:any = data;
       for(let i=0;i<arr.length;i++){
+        //console.log(this.navParamsCtrl.get('data'));
         if(data[i].ticket_id==this.navParamsCtrl.get('data').id){
           let content =JSON.parse(data[i].content);
           let self = this;
@@ -169,6 +170,7 @@ export class TicketDetailPage {
                 }
                 break;
               case 'content':
+                //console.log(content['createby']['id']+'----'+self._authService.getLoggedInUser().id);
                 if(content['createby']['id'] != self._authService.getLoggedInUser().id){
                   var tmp =  new Date().toString();
                   var now = Date.parse(tmp)/1000;
@@ -200,7 +202,7 @@ export class TicketDetailPage {
   initTicketDetail(){
     let navData = (this.navParamsCtrl.get('data'));
     this._ticketService.getTicketDetail(navData).subscribe(res=>{
-      console.log(res.success);
+      //console.log(res.success);
       if(res.code == 200){
         this.ticketInfo = res.success;
         this.ticketDefault.category = res.success.category;
@@ -264,7 +266,7 @@ export class TicketDetailPage {
     let contactModal = this.modalCtrl.create(ModalAssign,{data:data});
     contactModal.onDidDismiss(data=>{
       if(data!=null && typeof data != undefined){
-        console.log(data);
+        //console.log(data);
         if(this.ticketDefault.assign_team==data.assign_team.team_id){
           if(data.assign_agent.id!='' && data.assign_agent.id != this.ticketDefault.assign_agent){
             this.ticketUpdate['assign_agent']=data.assign_agent.id;
@@ -338,7 +340,7 @@ export class TicketDetailPage {
             icon: 'close',
             role: 'cancel',
             handler: () => {
-              console.log('Cancel clicked');
+              //console.log('Cancel clicked');
             }
           }
         ]
@@ -365,7 +367,7 @@ export class TicketDetailPage {
             icon: 'close',
             role: 'cancel',
             handler: () => {
-              console.log('Cancel clicked');
+             // console.log('Cancel clicked');
             }
           }
         ]
