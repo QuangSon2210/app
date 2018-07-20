@@ -194,21 +194,22 @@ export class MyApp {
     this._fcm.onNotification().subscribe(res=>{
       if(res.wasTapped){
         let index = { id: res.ticket_id };
-        if(this.nav.getActive().name!=="TicketDetailPage"){
+        //if(this.nav.getActive().name!=="TicketDetailPage"){
           this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
-        }
+        //}
       }else{
         this.initLocalNotification(res);
       }
     })
   }
   handleNotification(){
+    alert(this.nav.getActive().name);
+    if(this.nav.getActive().name !== "TicketDetailPage"){
     this._localNotification.on('click').subscribe(res=>{
-      let index = { id: res.data.ticket_id };
-      if(this.nav.getActive().name !== "TicketDetailPage"){
-        this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
-      }
+      let index = { id: res.data.ticket_id }; 
+        this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'}); 
     })
+    }
   }
   listenEventUpdate(){
     this._dataService.listenEvent('UPDATE PROFILE').subscribe(res=>{
