@@ -46,7 +46,7 @@ export class MyApp {
     private _fcm: FCM,
     private _localNotification: LocalNotifications,
     private _socketService: SocketService,
-    private _userService: UserService
+    private _userService: UserService,
     ) {
     this.initializeApp();
     // used for an example of ngFor and navigation
@@ -130,11 +130,12 @@ export class MyApp {
     this._socketService.listenEvent('NEW NOTIFI').subscribe(data=>{
       let userId = this._authService.getLoggedInUser().id;
       //let team = JSON.parse(this._authService.getLoggedInRoom()).array_team;
-     // team = team.split(',');
+      //team = team.split(',');
       //if(userId == data[0]['id_user'] || team.indexOf(data[0]['id_team'],0)!=-1 && data[0]['del_agent'] != userId && data[0]['view'] != userId){      
       if(userId == data[0]['id_user'] && data[0]['del_agent'] != userId && data[0]['view'] != userId){
         this.countNotify+=1;
-        alert(JSON.stringify(this.nav.getActive().instance));
+        //console.log(this.nav.getActive().instance);
+        //alert(JSON.stringify(this.nav.getActive().instance));
         // if(this._authService.enableNotify()){
         //   this.pushNotifications(data);
         //   this.vibrate = this._authService.enableVibrate();
@@ -195,7 +196,8 @@ export class MyApp {
     this._fcm.onNotification().subscribe(res=>{
       if(res.wasTapped){
         let index = { id: res.ticket_id };
-        if(this.nav.getActive().id!=="n4-2"){
+        //if(this.nav.getActive().id!=="n4-2"){
+        if(this.nav.getActive().instance instanceof TicketDetailPage){
           this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
         }
       }else{
@@ -204,14 +206,12 @@ export class MyApp {
     })
   }
   handleNotification(){
-    
     this._localNotification.on('click').subscribe(res=>{
       let index = { id: res.data.ticket_id }; 
-      if(this.nav.getActive().id !== 'n4-2'){
-        this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'}); 
+      if(this.nav.getActive().instance instanceof TicketDetailPage){
+        this.nav.push(TicketDetailPage,{data:index,component:'TicketDetailPage'});
       }
     })
-    
   }
   listenEventUpdate(){
     this._dataService.listenEvent('UPDATE PROFILE').subscribe(res=>{
