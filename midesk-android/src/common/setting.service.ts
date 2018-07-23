@@ -9,6 +9,7 @@ export class SettingService {
     //Authentication
     public _api_auth_login = this._baseAPIUrl + "login";
     public _api_auth_logout = this._baseAPIUrl + "logout";
+    public _api_auth_check_token = this._baseAPIUrl + "checkToken/";
     //user service
     public _api_requester_getList = this._baseAPIUrl + 'getListRequester';
     public _api_user_getListTeam = this._baseAPIUrl + 'getListTeam';

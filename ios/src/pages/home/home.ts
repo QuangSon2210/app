@@ -130,7 +130,7 @@ export class HomePage {
   		if(res.next_page_url!==null) this.modelTicket.loadMore = true;
       else this.modelTicket.loadMore = false;
       this.modelTicket.dataLoading = false;
-      this.initListTicket();
+      //this.initListTicket();
       //console.log(this.modelTicket.dataItems);
       infiniteScroll.complete();
     })

@@ -1,8 +1,4 @@
 import { Injectable } from '@angular/core';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-//import { CookieService } from 'angular2-cookie/core';
 import { User } from './../../models/user';
 import { FCM } from '@ionic-native/fcm';
 
@@ -20,9 +16,9 @@ export class AuthService {
         this.initFCMToken();
     }
     initFCMToken(){
-          this._fcm.getToken().then(token=>{
+        this._fcm.getToken().then(token=>{
             localStorage.setItem('fcm_token',token);
-          }) 
+        }) 
       }
     getToken(): string {
         //return this._cookieService.get(TOKEN_NAME);

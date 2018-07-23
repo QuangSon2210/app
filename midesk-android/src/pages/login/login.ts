@@ -42,7 +42,7 @@ export class LoginPage {
         this.submitLoading = false;
         if (this._authService.setUserAuthenticated(res)) {
           this._dataService.createLoading({content:'Vui lòng chờ...'}).present();
-          window.location.reload();
+            window.location.reload();
         } 
         else {
           if(typeof res.error != 'undefined'){
