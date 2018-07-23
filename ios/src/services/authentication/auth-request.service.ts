@@ -17,8 +17,6 @@ export class AuthRequestOptions extends BaseRequestOptions {
           //Auto append token to header
           let token = this._authService.getToken();
           if (token) {
-            //    console.log("Token: "+token);
-               // console.log(this._authService.getLoggedInUser());
                this.headers.append(AUTH_HEADER_KEY, `${AUTH_PREFIX} ${token}`);
           }
      }

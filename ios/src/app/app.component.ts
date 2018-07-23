@@ -81,6 +81,7 @@ export class MyApp {
       this.listenEventUpdate();
       this.handleNotification();
       this.receiveNotification();
+      this.checkTokenExpired();
       this._notifyService.countNewNotifications().subscribe(res => { this.countNotify = res;});
       this.loggedInUser = this._authService.getLoggedInUser();
       this.avatarName = this._authService.getLoggedInUser().lastname;
@@ -90,6 +91,22 @@ export class MyApp {
       this.loggedInUser = {};
       this.rootPage = LoginPage;
     }
+  }
+  checkTokenExpired(){
+    this._userService.checkToken(this._authService.getToken()).subscribe(res=>{
+      if(res.code == 401){
+        let alert = this._dataService.createAlertWithHandle('Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại');
+        alert.present();
+        alert.onDidDismiss(data=>{
+          this._userService.logout(this._authService.getUserLastlogId()).subscribe(res=>{
+            this._fcm.unsubscribeFromTopic(this._authService.getLoggedInUser().id.toString());
+            this._socketService.disconnect();
+            this._authService.logoutUser();
+            window.location.reload();
+          })
+        })
+      }
+    });
   }
   initFCMToken(){
     this.token = localStorage.getItem('fcm_token');
@@ -111,9 +128,6 @@ export class MyApp {
     })
   }
   logOut(){
-    this.confirmLogout();
-  }
-  confirmLogout(){
     let promt = this._dataService.createAlertWithHandle(this._msgService._msg_user_logout);
     promt.present();
     promt.onDidDismiss(data=>{

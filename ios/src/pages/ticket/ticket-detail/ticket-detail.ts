@@ -106,7 +106,7 @@ export class TicketDetailPage {
       this._socketService.listenEvent('NEW_UPDATE_TICKET').subscribe(data=>{
       //console.log(data);
       //let pageName = this.navCtrl.getActive().name;
-      let arr:any = data;
+      let arr:any = data; 
       for(let i=0;i<arr.length;i++){
         //console.log(this.navParamsCtrl.get('data'));
         if(data[i].ticket_id==this.navParamsCtrl.get('data').id){
@@ -192,9 +192,11 @@ export class TicketDetailPage {
         }
       }
       if(this.navCtrl.getActive().instance instanceof TicketDetailPage){
-        this.ticketUpdate = this.ticketUpdateDetail = [];
-        this.countChange = Object.keys(this.ticketUpdateDetail).length + Object.keys(this.ticketUpdate).length;
-        this._dataService.createToast('Thông tin phiếu vừa được thay đổi bởi ' + JSON.parse(data[0].content)['createby']['name']+'.',3000,'fail-toast');
+        if(data[0]['ticket_id'] == this.navParamsCtrl.get('data').id && JSON.parse(data[0].content)['createby']['id'] != this._authService.getLoggedInUser().id){
+          this.ticketUpdate = this.ticketUpdateDetail = [];
+          this.countChange = Object.keys(this.ticketUpdateDetail).length + Object.keys(this.ticketUpdate).length;
+          this._dataService.createToast('Thông tin phiếu vừa được thay đổi bởi ' + JSON.parse(data[0].content)['createby']['name']+'.',3000,'fail-toast');
+        }
       }
       this.assign = (this.ticketInfo.assign_agent==0)?this.ticketInfo.team_name:this.ticketInfo.agent_name;
     })

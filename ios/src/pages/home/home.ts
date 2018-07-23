@@ -130,24 +130,21 @@ export class HomePage {
   		if(res.next_page_url!==null) this.modelTicket.loadMore = true;
       else this.modelTicket.loadMore = false;
       this.modelTicket.dataLoading = false;
-      //this.initListTicket();
-      //console.log(this.modelTicket.dataItems);
       infiniteScroll.complete();
     })
   }
-  doLoadMore($type){
-    if(this.modelTicket.dataPage>1){
-      this.modelTicket.dataPage = ($type='next')?this.modelTicket.dataPage+1:this.modelTicket.dataPage-1;
-      this._ticketService.getListTicket(this.modelTicket).subscribe(res=>{
-        this.modelTicket.dataItems = res.data;
-        if(res.next_page_url!==null) this.modelTicket.loadMore = true;
-        else this.modelTicket.loadMore = false;
-        this.modelTicket.dataLoading = false;
-        this.initListTicket();
-        //console.log(this.modelTicket.dataItems);
-      })
-    }
-  }
+  // doLoadMore($type){
+  //   if(this.modelTicket.dataPage>1){
+  //     this.modelTicket.dataPage = ($type='next')?this.modelTicket.dataPage+1:this.modelTicket.dataPage-1;
+  //     this._ticketService.getListTicket(this.modelTicket).subscribe(res=>{
+  //       this.modelTicket.dataItems = res.data;
+  //       if(res.next_page_url!==null) this.modelTicket.loadMore = true;
+  //       else this.modelTicket.loadMore = false;
+  //       this.modelTicket.dataLoading = false;
+  //       this.initListTicket();
+  //     })
+  //   }
+  // }
   openModal(){
     let contactModal = this.modalCtrl.create(ModalSearchTicket);
     contactModal.present();
@@ -199,7 +196,6 @@ export class HomePage {
     });
   }
   listenEventNewNotifi(){
-    //console.log(JSON.parse(this._authService.getLoggedInRoom()).array_agent.split(','));
     this._socketService.listenEvent('NEW NOTIFI').subscribe(res=>{
       let userId = this._authService.getLoggedInUser().id;
       //let teamId = JSON.parse(this._authService.getLoggedInRoom()).array_team.split(',');

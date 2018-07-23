@@ -17,6 +17,11 @@ export class UserService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    checkToken(token:string){
+        return this._http.get(this._settingGlobal._api_auth_check_token+token)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     logout(id: any) {
         return this._http.post(this._settingGlobal._api_auth_logout, { id: id })
             .map(this.extractData)
