@@ -4,7 +4,6 @@ import { ContactService } from './../../services/contact.service';
 import { ContactProfilePage } from'./contact-profile/contact-profile';
 import { ContactAddPage } from'./contact-add/contact-add';
 import { ContactSearchPage } from './contact-search/contact-search';
-import { AuthService } from '../../services/authentication/auth.service';
 
 /**
  * Generated class for the CustomerPage page.

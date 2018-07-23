@@ -158,17 +158,19 @@ export class MyApp {
       if(userId == data[0]['id_user'] && data[0]['del_agent'] != userId && data[0]['view'] != userId){      
         this.countNotify+=1;
         let custom = JSON.parse(data[0]['custom']);
-        this._localNotification.schedule({
-          id:1,
-          title: data[0]['title'].replace(/(<([^>]+)>)/ig,""),
-          text: data[0]['content'],
-          data:{
-            id: custom.id,
-            ticket_id: custom.id,
-            notify_id: data[0]['id'],
-            user_id: data[0]['del_agent']
-          }
-        })
+        if(this._authService.enableNotify()){
+          this._localNotification.schedule({
+            id:1,
+            title: data[0]['title'].replace(/(<([^>]+)>)/ig,""),
+            text: data[0]['content'],
+            data:{
+              id: custom.id,
+              ticket_id: custom.id,
+              notify_id: data[0]['id'],
+              user_id: data[0]['del_agent']
+            }
+          })
+        }
       }
     });
   }

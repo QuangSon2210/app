@@ -62,14 +62,17 @@ export class MyApp {
   ngOnInit(){
     
   }
+  test(){
+    console.log(123456);
+  }
   initializeApp() {
     this.platform.ready().then(() => {
       if(this._authService.isUserLoggedIn()){
         this.connectSocket();
         this.listenEventNewNotifi();
         this.listenEventUpdate();
-        this.handleNotification();
-        this.receiveNotification();
+        //this.handleNotification();
+        //this.receiveNotification();
         this._notifyService.countNewNotifications().subscribe(res=>{ this.countNotify = res;});
         this.loggedInUser = this._authService.getLoggedInUser();
         this.avatarName = this._authService.getLoggedInUser().lastname;

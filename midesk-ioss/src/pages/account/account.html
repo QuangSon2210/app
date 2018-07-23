@@ -8,7 +8,7 @@
   </ion-navbar>
   <ion-grid no-padding class="background-midesk">
 		<ion-row>
-			<ion-col col-12 text-center><ion-avatar text-center [ngStyle]="{'background':colorAvatar}" class="customer-avatar">{{nameAvatar}}</ion-avatar></ion-col>
+			<ion-col col-12 text-center><ion-avatar text-center [ngStyle]="{'background':colorAvatar}" class="customer-avatar">{{nameAvatar}}<label for="aaa"><ion-icon name="camera" style="position: absolute;font-size: 15px"></ion-icon></label><input id="aaa" type="file" hidden></ion-avatar></ion-col>
 			<ion-col col-12 text-center><p class="name" margin-bottom>{{modelUser.firstname+' '+modelUser.lastname}}</p></ion-col>
 		</ion-row>
 		<!-- <ion-row>

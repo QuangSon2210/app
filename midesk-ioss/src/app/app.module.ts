@@ -56,6 +56,7 @@ import { ConvertTimeListTicket } from '../pipes/convert-time-list-ticket.pipe';
 import { SearchFilter } from '../pipes/search-filter.pipe';
 import { GroupByPipe } from '../pipes/group-by.pipe';
 import { HighlightPipe } from '../pipes/highlight-search.pipe';
+import { Camera } from '@ionic-native/camera';
 
 const config: SocketIoConfig = { url: 'https://socketprod.midesk.vn', options: {} };
 export function cookieServiceFactory() {
@@ -161,6 +162,7 @@ export function cookieServiceFactory() {
     SplashScreen,
     LocalNotifications,
     FCM,
+    Camera,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: CookieService, useFactory: cookieServiceFactory },
     { provide: RequestOptions, useClass: AuthRequestOptions },

@@ -17,7 +17,7 @@ export class AuthService {
         public _cookieService: CookieService,
         private _fcm: FCM,
     ){
-        this.initFCMToken();
+        //this.initFCMToken();
     }
     initFCMToken(){
         this._fcm.getToken().then(token=>{
