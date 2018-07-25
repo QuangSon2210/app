@@ -117,7 +117,7 @@ export class ModalProperties{
 								}
 								break;
 							case 'status':
-								if(content[key]!=self.statusDefault.value){
+								if(content[key] != self.statusDefault.value){
 									self.statusDefault = self.checkStatus[content[key]];
 									if(typeof self.dataUpdate[key] != 'undefined' && self.dataUpdate[key] != content[key]){
 										self.dataUpdate[key] = content[key];
@@ -125,6 +125,16 @@ export class ModalProperties{
 								}
 								break;
 							case 'category':
+								if(content[key] != self.categoryDefault.id){
+									self.categoryDefault.id = content[key];
+									self._ticketService.getCategoryName2(content[key]).subscribe(res=>{
+										self.category = res.name2;
+										self.categoryDefault.parent2 = res.parent2;
+										if(typeof self.dataUpdate[key] != 'undefined' && self.dataUpdate[key] != content[key]){
+											self.dataUpdate[key] = content[key];
+										}
+									}) 
+								}
 								break;
 						}
 					})
