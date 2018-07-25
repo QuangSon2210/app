@@ -7,7 +7,7 @@
       <ion-row no-padding color="light">
         <ion-col class="filter" col-9>
           <ion-select *ngIf="modelTicket.dataLoading==false" [selectOptions]="filterOption" interface="popover" no-padding (ionChange)="doFilter()" [(ngModel)]="modelTicket.filterBy">
-            <ion-option *ngFor="let item of arrayFilter"  [value]="item.value">{{item.name+' ('+countList[item.id]+')'}}</ion-option>
+            <ion-option (touchstart)="touchstart($event)" (touchend)="touchend($event)" *ngFor="let item of arrayFilter"  [value]="item.value">{{item.name+' ('+countList[item.id]+')'}}</ion-option>
           </ion-select>
         </ion-col>
         <ion-col col-3>
@@ -29,7 +29,7 @@
   <div *ngFor="let item of modelTicket.dataItems|groupBy:'assign_name'">
     <ion-item-divider *ngIf="item.key!='null'">Người xử lý: {{item.key}}</ion-item-divider>
     <ion-item-divider *ngIf="item.key=='null'">Bộ phận xử lý: {{item.value[0].assign_team}}</ion-item-divider>
-        <ion-item *ngFor="let child of item.value" (click)="clickTicket(child)">
+        <ion-item *ngFor="let child of item.value" draggable="true"  (click)="clickTicket(child)">
           <ion-avatar item-start [ngStyle]="{'background-color':'#'+child.date}" class="box-avatar" *ngIf="child.request!==null">{{child.request | firstNlast}}
           </ion-avatar>
           <ion-avatar item-start class="box-avatar" *ngIf="child.request===null">
@@ -49,8 +49,7 @@
   </div>
   </div>
   <div *ngIf="modelTicket.orderBy!='assign_agent'">
-    <ion-card *ngFor="let item of modelTicket.dataItems" (click)="clickTicket(item)">
-      <ion-item>
+      <ion-item style="border-bottom: 0.55px solid #c8c7cc;" *ngFor="let item of modelTicket.dataItems" (click)="clickTicket(item)">
           <ion-avatar item-start [ngStyle]="{'background-color':'#'+item.date}" class="box-avatar" *ngIf="item.request!==null">{{item.request | firstNlast}}
           </ion-avatar>
           <ion-avatar item-start class="box-avatar" *ngIf="item.request===null">
@@ -67,7 +66,6 @@
             <br><span *ngIf="modelTicket.orderBy!='dateupdate'">{{item.created_at| toTime2}}</span><span *ngIf="modelTicket.orderBy=='dateupdate'">{{item.dateupdate| toTime2}}</span>
           </p>
       </ion-item>
-    </ion-card>
   </div>
   </div>
   

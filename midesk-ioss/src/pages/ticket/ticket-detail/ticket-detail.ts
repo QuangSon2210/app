@@ -71,8 +71,10 @@ export class TicketDetailPage {
   requesterName2 = '';
   loading = false;
   content = '';
-  urlFile ='';
-  contentCompact = ''; 
+  //urlFile ='';
+  fileURL = '';
+  contentCompact = '';
+  is_follow = true; 
   constructor(
     private navCtrl: NavController,
   	private _ticketService: TicketService,
@@ -86,9 +88,10 @@ export class TicketDetailPage {
     private _dataService: DataService,
     private _msgService: MessageService,
     private _socketService: SocketService,
-    private _platform: Platform
+    private _platform: Platform,
   	){
-    this.urlFile = this._settingService._baseUrl+'/public/upload/';
+    //this.urlFile = this._settingService._baseUrl+'/public/upload/';
+    this.fileURL = this._settingService._fileUrl+this._authService.getLoggedInUser().groupid+'/';
     _dataService.createLoading({duration:100}).present();
     this.initApp();
     console.log(this.navCtrl.getActive().name);
@@ -331,19 +334,33 @@ export class TicketDetailPage {
       action = this.actsheetCtrl.create({
         buttons: [
           {
-            text: 'Theo dõi phiếu',
+            text: (this.is_follow)?'Theo dõi phiếu':'Hủy theo dõi',
             icon: 'logo-rss',
             handler: () => {
-              this._dataService.createToast('Đã theo dõi',2000,'success-toast');
+              let data = {
+                user_name: this._authService.getLoggedInUser().fullname,
+                groupid: this._authService.getLoggedInUser().groupid,
+                user_id: this._authService.getLoggedInUser().id,
+                is_follow: this.is_follow,
+                ticket_id : this.navParamsCtrl.get('data').ticket_id,
+              }
+              if(this.is_follow) {
+                this._dataService.createToast('Đã theo dõi',2000,'success-toast');
+              }
+              else{
+                this._dataService.createToast('Hủy theo dõi',2000,'fail-toast');
+              }
+              this.actionFollow(data);
+              this.is_follow = !this.is_follow;
             }
           },
-          {
-            text: 'Hủy theo dõi',
-            icon: 'logo-rss',
-            handler: () => {
-              this._dataService.createToast('Đã theo dõi',2000,'fail-toast');
-            }
-          },
+          // {
+          //   text: 'Hủy theo dõi',
+          //   icon: 'logo-rss',
+          //   handler: () => {
+          //     this._dataService.createToast('Đã theo dõi',2000,'fail-toast');
+          //   }
+          // },
           {
             text: 'Xóa phiếu',
             icon: 'trash',
@@ -492,6 +509,9 @@ export class TicketDetailPage {
         this._dataService.publishEvent('UPDATE TICKET');
       }
     });
+  }
+  actionFollow(data){
+    this._ticketService.followTicket(data).subscribe(res=>{});
   }
   openModalProperties(){
     let data={

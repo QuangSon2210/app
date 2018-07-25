@@ -76,6 +76,11 @@ export class TicketService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    followTicket(data:any){
+        return this._http.put(this._settingGlobal._api_follow_ticket,data)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     getTicketByContact(contactId:number){
         return this._http.get(this._settingGlobal._api_ticket_contact + contactId)
             .map(this.extractData)

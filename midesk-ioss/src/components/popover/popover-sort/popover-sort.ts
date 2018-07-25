@@ -25,7 +25,7 @@ import { NavParams, ViewController } from 'ionic-angular';
       <ion-row>
         <ion-col>
           <ion-label padding-left>Sắp xếp theo:</ion-label>
-          <ion-item *ngFor="let item of orderBy; let i = index">
+          <ion-item class="sort-by"  *ngFor="let item of orderBy; let i = index">
             <ion-label>{{item.name}}</ion-label>
             <ion-radio (ionSelect)="changeSort(item)" [checked]="item.checked"></ion-radio>
           </ion-item>

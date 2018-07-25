@@ -30,7 +30,7 @@ export class HomePage {
     { id:'filter5', name:'Phiếu đã xử lý', value: 'yêu cầu đã xử lý' },
     { id:'filter6', name:'Phiếu tạo bởi bạn', value: 'yêu cầu tạo bởi bạn' },
     { id:'filter7', name:'Phiếu đã xóa', value: 'yêu cầu đã xóa'}
-];
+  ];
   status:any=[
       { id : 1, name : 'Mở mới', value : 'new', color : '#C8C800', alias: 'n', checked: false  },
       { id : 2, name : 'Đang mở', value : 'open', color : '#C80000', alias: 'o', checked: false },
@@ -74,13 +74,19 @@ export class HomePage {
     private _notifyService: NotificationsService,
     private _socketService: SocketService,
     private _dataService: DataService,
-    private _platform: Platform
+    private _platform: Platform,
     ) {
     this.initApp();
   }
   // ionViewWillEnter(){
   //   this.initApp();
   // }
+  touchstart($event){
+    console.log($event);
+  }
+  touchend($event){
+    console.log($event);
+  }
   initApp(){
     this._platform.ready().then(()=>{
       // this.room=JSON.parse(this._authService.getLoggedInRoom());

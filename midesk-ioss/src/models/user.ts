@@ -35,6 +35,7 @@ export class User {
         public is_notification:number,
         public fcm_token:string,
         public check: boolean = false,
+        public fullname:string,
     ) {
     }
 }

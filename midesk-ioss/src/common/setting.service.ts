@@ -6,6 +6,7 @@ export class SettingService {
     //public _baseUrl= "http://localhost:8000";
     public _baseAPIUrl = "https://webapp-api.midesk.vn/api/v1/";
     public _baseUrl= "https://webapp-api.midesk.vn/";
+    public _fileUrl= "https://cskh.midesk.vn/upload/file/";
     //Authentication
     public _api_auth_login = this._baseAPIUrl + "login";
     public _api_auth_logout = this._baseAPIUrl + "logout";
@@ -36,6 +37,7 @@ export class SettingService {
     public _api_delete_ticket = this._baseAPIUrl + ' deleteTicket/';
     public _api_get_macro = this._baseAPIUrl + 'getMacro';
     public _api_get_category_name = this._baseAPIUrl + 'getCategoryName/';
+    public _api_follow_ticket = this._baseAPIUrl + 'followTicket';
     //--
     //contact service
     public _api_contact_getList = this._baseAPIUrl + 'getListContact/';

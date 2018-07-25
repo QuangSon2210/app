@@ -57,6 +57,7 @@ import { SearchFilter } from '../pipes/search-filter.pipe';
 import { GroupByPipe } from '../pipes/group-by.pipe';
 import { HighlightPipe } from '../pipes/highlight-search.pipe';
 import { Camera } from '@ionic-native/camera';
+import { DragDropDirectiveModule} from "angular4-drag-drop";
 
 const config: SocketIoConfig = { url: 'https://socketprod.midesk.vn', options: {} };
 export function cookieServiceFactory() {
@@ -108,6 +109,7 @@ export function cookieServiceFactory() {
     ReactiveFormsModule,
     HttpModule,
     SocketIoModule.forRoot(config),
+    DragDropDirectiveModule,
   ],
   exports: [
     GetFirstCharacter,
@@ -163,6 +165,7 @@ export function cookieServiceFactory() {
     LocalNotifications,
     FCM,
     Camera,
+    DragDropDirectiveModule,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: CookieService, useFactory: cookieServiceFactory },
     { provide: RequestOptions, useClass: AuthRequestOptions },

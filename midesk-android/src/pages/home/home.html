@@ -49,8 +49,8 @@
   </div>
   </div>
   <div *ngIf="modelTicket.orderBy!='assign_agent'">
-    <ion-card *ngFor="let item of modelTicket.dataItems" (click)="clickTicket(item)">
-      <ion-item>
+    <!-- <ion-card *ngFor="let item of modelTicket.dataItems" (click)="clickTicket(item)"> -->
+      <ion-item style="border-bottom: 0.55px solid #c8c7cc;" *ngFor="let item of modelTicket.dataItems" (click)="clickTicket(item)">
           <ion-avatar item-start [ngStyle]="{'background-color':'#'+item.date}" class="box-avatar" *ngIf="item.request!==null">{{item.request | firstNlast}}
           </ion-avatar>
           <ion-avatar item-start class="box-avatar" *ngIf="item.request===null">
@@ -67,7 +67,7 @@
             <br><span *ngIf="modelTicket.orderBy!='dateupdate'">{{item.datecreate| toTime2}}</span><span *ngIf="modelTicket.orderBy=='dateupdate'">{{item.dateupdate| toTime2}}</span>
           </p>
       </ion-item>
-    </ion-card>
+    <!-- </ion-card> -->
   </div>
   </div>
   
