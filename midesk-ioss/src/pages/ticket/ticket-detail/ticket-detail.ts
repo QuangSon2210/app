@@ -11,6 +11,7 @@ import { DataService } from '../../../common/data.service';
 import { MessageService } from '../../../common/message.service';
 import { ModalProperties } from '../../../components/modal/modal-properties/modal-properties';
 import { SocketService } from '../../../common/socket.service';
+import { SelectorListContext } from '@angular/compiler';
 
 @Component({
   selector: 'page-ticket-detail',
@@ -651,6 +652,36 @@ export class TicketDetailPage {
               if(self.ticketInfo.assign_team != data['dataMacro'][key]){
                 self.ticketUpdate[key] = data['dataMacro'][key];
               }
+              break;
+            case 'category':
+              console.log(data['dataMacro']);
+              if(self.ticketDefault.category != data['dataMacro'][key]){
+                self.ticketInfo.category = data['dataMacro'][key];
+                let name = data['dataMacro']['categoryName'].substring(0,data['dataMacro']['categoryName'].length-2);
+                self.ticketInfo.parent2 = data['dataMacro']['parent2'];
+                self.ticketUpdate[key] = { id: data['dataMacro'][key], name: name };
+              }
+              else{
+                self.ticketInfo.category == data['dataMacro'][key];
+                delete self.ticketUpdate[key];
+              }
+              // if(self.ticketDefault.category != data['dataMacro'][key]){
+              //   self.ticketInfo.category = data['dataMacro'][key];
+              //   let tmp = '';
+              //   let name = '';
+              //   for(let i = 0;i < data[key]['data'].length;i++){
+              //     tmp += data[key]['data'][i]['id']+',';
+              //     name += data[key]['data'][i]['name']+' / ';
+              //   }
+              //   tmp = tmp.substring(0,tmp.length-1);
+              //   name = name.substring(0,name.length-2);
+              //   self.ticketInfo.parent2 = tmp;
+              //   self.ticketUpdate[key] = {id:data[key]['id'],name:name};
+              // }
+              // else{
+              //   self.ticketInfo.category == data[key]['id'];
+              //   delete self.ticketUpdate[key];
+              // }
               break;
           }
         });

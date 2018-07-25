@@ -83,39 +83,50 @@ export class ModalProperties{
           let content =JSON.parse(data[i].content);
           let self = this;
           Object.keys(content).forEach(function(key){
-            if(key == 'assign_agent' && content['assign_agent']['id']!=self.assign.assign_agent){
-							if(typeof self.dataUpdate['assign_agent'] != 'undefined' && self.dataUpdate['assign_agent'] != content['assign_agent']['id']){
-								self.dataUpdate['assign_agent'] = content['assign_agent']['id'];
-								self.dataUpdate['assign_team'] = content['assign_team']['id'];
-							}
-              self.assign.assign_agent = content['assign_agent']['id'];
-							self.assign.agent_name = content['assign_agent']['name'];
-            }
-            else if(key == 'assign_team' && content['assign_team']['id']!=self.assign.assign_team){
-							if(typeof self.dataUpdate['assign_team'] != 'undefined' && self.dataUpdate['assign_agent'] != content['assign_agent']['id']){
-								self.dataUpdate['assign_team'] = content['assign_team']['id'];
-							}
-              self.assign.assign_team = content['assign_team']['id'];
-              self.assign.team_name = content['assign_team']['name'];
+						switch(key){
+							case 'assign_agent':
+								if(content[key]['id'] != self.assign.assign_agent){
+									self.assign.assign_agent = content[key]['id'];
+									self.assign.agent_name = content[key]['name'];
+									if(typeof self.dataUpdate[key] != 'undefined' && self.dataUpdate[key] != content[key]['id']){
+										self.dataUpdate[key] = content[key]['id'];
+										self.dataUpdate['assign_team'] = content['assign_team']['id'];
+									}
+								}
+								break;
+							case 'assign_team':
+								if(content[key]['id'] != self.assign.assign_team){
+									self.assign.assign_team = content[key]['id'];
+									self.assign.team_name = content[key]['name'];
+									if(typeof self.dataUpdate[key] != 'undefined' && self.dataUpdate[key] != content[key]['id']){
+										self.dataUpdate[key] = content[key]['id'];
+									}
+								}
+								break;
+							case 'priority':
+								if(content[key]['id'] != self.priorityDefault.id){
+									self.priorityDefault = content[key];
+									if(typeof self.dataUpdate[key] != 'undefined' && self.dataUpdate[key] != content[key]['id']){
+										self.dataUpdate[key] = content[key]['id'];
+									}
+								}
+								break;
+							case 'title':
+								if(content[key] != self.titleDefault){
+									self.titleDefault = content[key];
+								}
+								break;
+							case 'status':
+								if(content[key]!=self.statusDefault.value){
+									self.statusDefault = self.checkStatus[content[key]];
+									if(typeof self.dataUpdate[key] != 'undefined' && self.dataUpdate[key] != content[key]){
+										self.dataUpdate[key] = content[key];
+									}
+								}
+								break;
+							case 'category':
+								break;
 						}
-            else if(key == 'priority' && content['priority']['id']!=self.priorityDefault.id){
-							if(typeof self.dataUpdate['priority'] != 'undefined' && self.dataUpdate['prirority'] != content['priority']['id']){
-								self.dataUpdate['priority'] = content['priority']['id'];
-							}
-              self.priorityDefault = content['priority'];
-            }
-            else if(key == 'title' && content['title']!=self.titleDefault){
-              self.titleDefault = content['title'];
-            }
-            else if(key == 'status' && content['status']!=self.statusDefault.value){
-							if(typeof self.dataUpdate['status'] != 'undefined' && self.dataUpdate['status'] != content['status']){
-								self.dataUpdate['status'] = content['status'];
-							}
-							self.statusDefault = self.checkStatus[content['status']];
-						}
-            // else if(key=='category'){
-						// 	if()
-            // }
 					})
 					self.name = (self.assign.agent_name!='') ? self.assign.agent_name : self.assign.team_name;
         }

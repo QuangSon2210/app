@@ -47,6 +47,14 @@
           <p>{{teamName}}</p>          
         </ion-col>
       </ion-row>
+      <ion-row no-padding *ngIf="item.type=='category'">
+        <ion-col no-padding col-6>
+          <h4 class="title">Chủ đề</h4>
+        </ion-col>
+        <ion-col no-padding text-right col-6>
+          <p *ngFor="let item of category" >- {{item.name}}</p>          
+        </ion-col>
+      </ion-row>
     </ion-item>
     <!-- <ion-item>
       <ion-row no-padding *ngIf="item.type=='status'"> 

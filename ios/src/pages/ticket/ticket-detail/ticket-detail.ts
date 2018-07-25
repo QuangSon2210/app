@@ -624,6 +624,19 @@ export class TicketDetailPage {
                 self.ticketUpdate[key] = data['dataMacro'][key];
               }
               break;
+            case 'category':
+              //console.log(data['dataMacro']);
+              if(self.ticketDefault.category != data['dataMacro'][key]){
+                self.ticketInfo.category = data['dataMacro'][key];
+                let name = data['dataMacro']['categoryName'].substring(0,data['dataMacro']['categoryName'].length-2);
+                self.ticketInfo.parent2 = data['dataMacro']['parent2'];
+                self.ticketUpdate[key] = { id: data['dataMacro'][key], name: name };
+              }
+              else{
+                self.ticketInfo.category == data['dataMacro'][key];
+                delete self.ticketUpdate[key];
+              }
+              break;
           }
         });
         self.countChange = Object.keys(self.ticketUpdate).length + Object.keys(self.ticketUpdateDetail).length; 

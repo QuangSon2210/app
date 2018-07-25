@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController, Events } from 'ionic-angular';
 import { AuthService } from '../../../../services/authentication/auth.service';
 import { UserService } from '../../../../services/user.service';
-
+import { TicketService } from '../../../../services/ticket.service';
+import { resolveNgModuleDep } from '@angular/core/src/view/ng_module';
 /**
  * Generated class for the MacroDetailPage page.
  *
@@ -20,6 +21,7 @@ export class MacroDetail {
   dataMacro:any={};
   status:any={};
   priority:any={};
+  category:any=[];
   checkStatus={
     new: { id : 1, name : 'Mở mới', value : 'new', color : '#C8C800', alias: 'n', checked: false  },
     open: { id : 2, name : 'Đang mở', value : 'open', color : '#C80000', alias: 'o', checked: false },
@@ -36,6 +38,7 @@ export class MacroDetail {
     private viewCtrl: ViewController,
     private _authService: AuthService,
     private _userService: UserService,
+    private _ticketService: TicketService,
     private _event: Events
   ) {
   }
@@ -82,6 +85,35 @@ export class MacroDetail {
           this.arrCheck.push({type:'assign_team'});
           this._userService.getUserInTeam(this.action[i]['value']).subscribe(res=>{
             this.teamName = res.info.team_name;
+          })
+          break;
+        case 'assignee':
+          let value = this.action[i]['value'];
+          value = value.split('_');
+          this.dataMacro.assign_team = value[0];
+          this.arrCheck.push({type:'assign_team'});
+          this._userService.getUserInTeam(value[0]).subscribe(res=>{
+            this.teamName = res.info.team_name;
+          })
+          if(value[1]!='0'){
+            this.dataMacro.assign_agent = value[1];
+            this.arrCheck.push({type:'assign_agent'});
+            this._userService.getUserName(value[1]).subscribe(res=>{
+              this.assignName = res.name;
+            })
+          }
+          break;
+        case 'category':
+          let categoryName = '';
+          this._ticketService.getCategoryName2(this.action[i]['value']).subscribe(res=>{
+            this.category = res.name2;
+            this.arrCheck.push({type:'category'});
+            this.dataMacro.category = this.action[i]['value'];
+            this.dataMacro.parent2 = res.parent2;
+            for(let i = 0; i< res.name2.length;i++){
+              categoryName += res.name2[i]['name']+ " / ";
+            }
+            this.dataMacro.categoryName = categoryName;
           })
           break;
       }

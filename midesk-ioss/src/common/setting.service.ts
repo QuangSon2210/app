@@ -37,6 +37,7 @@ export class SettingService {
     public _api_delete_ticket = this._baseAPIUrl + ' deleteTicket/';
     public _api_get_macro = this._baseAPIUrl + 'getMacro';
     public _api_get_category_name = this._baseAPIUrl + 'getCategoryName/';
+    public _api_get_category_name2 = this._baseAPIUrl + 'getCategoryName2/';
     public _api_follow_ticket = this._baseAPIUrl + 'followTicket';
     //--
     //contact service
