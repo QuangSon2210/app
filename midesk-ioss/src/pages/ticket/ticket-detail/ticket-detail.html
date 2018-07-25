@@ -1,5 +1,5 @@
 <ion-header>
-	<ion-navbar>
+	<ion-navbar padding>
 		<ion-title>#{{ticketInfo.ticket_id}}</ion-title>
 		<ion-buttons *ngIf="ticketInfo.is_delete==0" padding-right end><button ion-button [disabled]="countChange<=0" (click)="actionTicket()"><ion-icon class="send-icon" color="light" name="paper-plane"></ion-icon><ion-badge class="badge-count" *ngIf="countChange>0" id="send-badge">{{countChange}}</ion-badge></button></ion-buttons>
 		<ion-buttons class="padding-button" end><button ion-button (click)="openActionSheet()"><ion-icon class="send-icon" color="light" name="more"></ion-icon></button></ion-buttons>

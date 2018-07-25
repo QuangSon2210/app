@@ -1,6 +1,6 @@
 page-macro-detail {
     .send-icon{
-		font-size:2.5rem;
+		font-size:4.0rem;
     }
     ion-badge{
         line-height: 12px;
@@ -10,5 +10,8 @@ page-macro-detail {
     .title{
         margin:4px 0;
         font-weight: 500;
+    }
+    .badge-ios{
+        border-radius: 2px;
     }
 }
