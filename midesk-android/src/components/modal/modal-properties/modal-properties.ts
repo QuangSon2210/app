@@ -29,13 +29,15 @@ export class ModalProperties{
 		{ id : 1, name : 'Mở mới', value : 'new', color : '#C8C800', alias: 'n', checked: false  },
 		{ id : 2, name : 'Đang mở', value : 'open', color : '#C80000', alias: 'o', checked: false },
 		{ id : 3, name : 'Đang chờ', value : 'pending', color : '#15BDE9', alias: 'p', checked: false },
-		{ id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false }
+		{ id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false },
+		{ id : 5, name : 'Đóng', value : 'closed', color : '#CCCCCC', alias: 'c', checked: false }
 	];
 	checkStatus={
     new: { id : 1, name : 'Mở mới', value : 'new', color : '#C8C800', alias: 'n', checked: false  },
     open: { id : 2, name : 'Đang mở', value : 'open', color : '#C80000', alias: 'o', checked: false },
     pending: { id : 3, name : 'Đang chờ', value : 'pending', color : '#15BDE9', alias: 'p', checked: false },
-    solved: { id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false }
+	solved: { id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false },
+	closed: { id : 5, name : 'Đóng', value : 'closed', color : '#CCCCCC', alias: 'c', checked: false }
   };
 	constructor(
 		public navParams: NavParams,
@@ -49,7 +51,6 @@ export class ModalProperties{
 	}
 	ionViewWillLoad() {
 		let data = (this.navParams.get('data'));
-		//console.log(data);
 		this.statusDefault = data.status;
 		this.priorityDefault = data.priority;
 		this.titleDefault = data.title;
@@ -78,50 +79,72 @@ export class ModalProperties{
 	}
 	listenEventUpdateTicket(){
     this._socketService.listenEvent('NEW_UPDATE_TICKET').subscribe(data=>{
-      //console.log(data);
       let arr:any = data;
       for(let i=0;i<arr.length;i++){
-        //console.log(this.navParamsCtrl.get('data'));
         if(data[i].ticket_id==this.navParams.get('data').id){
           let content =JSON.parse(data[i].content);
-          //console.log(content);
           let self = this;
           Object.keys(content).forEach(function(key){
-            if(key == 'assign_agent' && content['assign_agent']['id']!=self.assign.assign_agent){
-							if(typeof self.dataUpdate['assign_agent'] != 'undefined' && self.dataUpdate['assign_agent'] != content['assign_agent']['id']){
-								self.dataUpdate['assign_agent'] = content['assign_agent']['id'];
-								self.dataUpdate['assign_team'] = content['assign_team']['id'];
-							}
-              self.assign.assign_agent = content['assign_agent']['id'];
-							self.assign.agent_name = content['assign_agent']['name'];
-            }
-            else if(key == 'assign_team' && content['assign_team']['id']!=self.assign.assign_team){
-							if(typeof self.dataUpdate['assign_team'] != 'undefined' && self.dataUpdate['assign_agent'] != content['assign_agent']['id']){
-								self.dataUpdate['assign_team'] = content['assign_team']['id'];
-							}
-              self.assign.assign_team = content['assign_team']['id'];
-              self.assign.team_name = content['assign_team']['name'];
+						switch(key){
+							case 'assign_agent':
+								if(content[key]['id'] != self.assign.assign_agent){
+									self.assign.assign_agent = content[key]['id'];
+									self.assign.agent_name = content[key]['name'];
+									self.name = self.assign.agent_name;
+									if(typeof self.dataUpdate[key] != 'undefined' && self.dataUpdate[key] != content[key]['id']){
+										self.dataUpdate[key] = content[key]['id'];
+										self.dataUpdate['assign_team'] = content['assign_team']['id'];
+									}
+								}
+								break;
+							case 'assign_team':
+								if(content[key]['id'] != self.assign.assign_team){
+									self.assign.assign_team = content[key]['id'];
+									self.assign.team_name = content[key]['name'];
+									if(typeof self.dataUpdate[key] != 'undefined' && self.dataUpdate[key] != content[key]['id']){
+										self.dataUpdate[key] = content[key]['id'];
+									}
+									self.name = (self.name=='') ? self.assign.team_name : self.name;
+								}
+								break;
+							case 'priority':
+								if(content[key]['id'] != self.priorityDefault.id){
+									self.priorityDefault = content[key];
+									if(typeof self.dataUpdate[key] != 'undefined' && self.dataUpdate[key] != content[key]['id']){
+										self.dataUpdate[key] = content[key]['id'];
+									}
+								}
+								break;
+							case 'title':
+								if(content[key] != self.titleDefault){
+									self.titleDefault = content[key];
+								}
+								break;
+							case 'status':
+								if(content[key] != self.statusDefault.value){
+									self.statusDefault = self.checkStatus[content[key]];
+									if(typeof self.dataUpdate[key] != 'undefined' && self.dataUpdate[key] != content[key]){
+										self.dataUpdate[key] = content[key];
+									}
+								}
+								break;
+							case 'category':
+								if(content[key] != self.categoryDefault.id){
+									// self.categoryDefault.id = content[key]['id'];
+									// self.categoryDefault.parent2 = content[key]['parent2'];
+									self.categoryDefault = content[key];
+									self._ticketService.getCategoryName(content[key]['parent2']).subscribe(res=>{
+										self.category = res;
+										if(typeof self.dataUpdate[key] != 'undefined' && self.dataUpdate[key] != content[key]){
+											self.dataUpdate[key] = content[key];
+										}
+									}) 
+								}
+								break;
 						}
-            else if(key == 'priority' && content['priority']['id']!=self.priorityDefault.id){
-							if(typeof self.dataUpdate['priority'] != 'undefined' && self.dataUpdate['prirority'] != content['priority']['id']){
-								self.dataUpdate['priority'] = content['priority']['id'];
-							}
-              self.priorityDefault = content['priority'];
-            }
-            else if(key == 'title' && content['title']!=self.titleDefault){
-              self.titleDefault = content['title'];
-            }
-            else if(key == 'status' && content['status']!=self.statusDefault.value){
-							if(typeof self.dataUpdate['status'] != 'undefined' && self.dataUpdate['status'] != content['status']){
-								self.dataUpdate['status'] = content['status'];
-							}
-							self.statusDefault = self.checkStatus[content['status']];
-						}
-            // else if(key=='category'){
-						// 	if()
-            // }
 					})
-					self.name = (self.assign.agent_name!='') ? self.assign.agent_name : self.assign.team_name;
+					// self.name = (self.assign.agent_name!='') ? self.assign.agent_name : self.assign.team_name;
+					// console.log(self.name);
         }
       }
       // if(flag){
@@ -131,7 +154,6 @@ export class ModalProperties{
     })
   }
 	closeModal(){
-		//console.log(this.dataUpdate);
   	this.viewCtrl.dismiss(this.dataUpdate);
 	}
 	changeTitle($event){
@@ -140,7 +162,7 @@ export class ModalProperties{
 		}else delete this.dataUpdate['title'];
 	}
 	changeStatus(){
-		let popoverStatus = this.popoverCtrl.create(PopoverStatus,{data:this.statusDefault.value},{cssClass:"custom-status",enableBackdropDismiss:true})
+		let popoverStatus = this.popoverCtrl.create(PopoverStatus,{data:this.statusDefault.value,action:this.navParams.get('data').action},{cssClass:"custom-status",enableBackdropDismiss:true})
 		popoverStatus.onDidDismiss(data=>{
 		  if(data!=null && typeof data!=undefined){
 			this.statusDefault = data.status;
@@ -168,8 +190,6 @@ export class ModalProperties{
 					this.category = data;
 					this.categoryDefault = tmp;
 					this.dataUpdate['category'] = {id:tmp,data:data}
-				//	console.log(this.dataUpdate);
-					//console.log(tmp);
 				}	
 			}
 		})
@@ -180,13 +200,13 @@ export class ModalProperties{
 		let contactModal = this.modalCtrl.create(ModalAssign,{data:data});
 		contactModal.onDidDismiss(data=>{
 			if(data!=null && typeof data != undefined){
-				//console.log(data);
 				if(this.assign.assign_team==data.assign_team.team_id){
 					if(data.assign_agent.id!=''){
 						this.name = data.assign_agent.name;
 						this.dataUpdate['assign'] = { agent: data.assign_agent.id, team: data.assign_team.team_id, name: this.name };
 					}else{
-						//console.log('không chọn agent');
+						this.name = data.assign_team.team_name;
+						this.dataUpdate['assign'] = { agent: 0, team: data.assign_team.team_id, name: this.name };
 					}
 				}
 				else{
@@ -199,6 +219,7 @@ export class ModalProperties{
 						this.dataUpdate['assign'] = { agent: 0, team: data.assign_team.team_id, name: this.name };
 					}
 				}
+				// console.log(this.dataUpdate);
 			}
 			//this.countChange = Object.keys(this.ticketUpdate).length;
 		})
@@ -208,7 +229,6 @@ export class ModalProperties{
 			let requesterModal = this.modalCtrl.create(ModalRequester,{data:this.requesterId});
 			requesterModal.onDidDismiss(data=>{
 				if(!data.cancel){
-					//console.log(data);
 					this.requesterName = data.requester.name;
 					this.customerName = data.customer.customer_name;
 					if(data.requester.id!=0){

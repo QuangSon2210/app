@@ -21,13 +21,15 @@ export class TicketDetailPage {
       { id : 1, name : 'Mở mới', value : 'new', color : '#C8C800', alias: 'n', checked: false  },
       { id : 2, name : 'Đang mở', value : 'open', color : '#C80000', alias: 'o', checked: false },
       { id : 3, name : 'Đang chờ', value : 'pending', color : '#15BDE9', alias: 'p', checked: false },
-      { id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false }
+      { id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false },
+      { id : 5, name : 'Đóng', value : 'closed', color : '#CCCCCC', alias: 'c', checked: false }
   ];
   checkStatus={
     new: { id : 1, name : 'Mở mới', value : 'new', color : '#C8C800', alias: 'n', checked: false  },
     open: { id : 2, name : 'Đang mở', value : 'open', color : '#C80000', alias: 'o', checked: false },
     pending: { id : 3, name : 'Đang chờ', value : 'pending', color : '#15BDE9', alias: 'p', checked: false },
-    solved: { id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false }
+    solved: { id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false },
+    closed: { id : 5, name : 'Đóng', value : 'closed', color : '#CCCCCC', alias: 'c', checked: false }
   };
   checkPriority:any;
   assign='';
@@ -71,8 +73,10 @@ export class TicketDetailPage {
   requesterName2 = '';
   loading = false;
   content = '';
-  urlFile ='';
+  //urlFile ='';
+  fileURL = '';
   contentCompact = ''; 
+  is_follow = true; 
   constructor(
     private navCtrl: NavController,
   	private _ticketService: TicketService,
@@ -88,10 +92,10 @@ export class TicketDetailPage {
     private _socketService: SocketService,
     private _platform: Platform
   	){
-    this.urlFile = this._settingService._baseUrl+'/public/upload/';
+    //this.urlFile = this._settingService._baseUrl+'/public/upload/';
+    this.fileURL = this._settingService._fileUrl+this._authService.getLoggedInUser().groupid+'/';
     _dataService.createLoading({duration:100}).present();
     this.initApp();
-    //console.log(this.navCtrl.getActive().name);
   }
   initApp(){
     this._platform.ready().then(()=>{
@@ -107,7 +111,7 @@ export class TicketDetailPage {
       this._socketService.listenEvent('NEW_UPDATE_TICKET').subscribe(data=>{
       //console.log(data);
       //let pageName = this.navCtrl.getActive().name;
-      let arr:any = data;
+      let arr:any = data; 
       for(let i=0;i<arr.length;i++){
         //console.log(this.navParamsCtrl.get('data'));
         if(data[i].ticket_id==this.navParamsCtrl.get('data').id){
@@ -194,7 +198,8 @@ export class TicketDetailPage {
       }
       if(this.navCtrl.getActive().instance instanceof TicketDetailPage){
         if(data[0]['ticket_id'] == this.navParamsCtrl.get('data').id && JSON.parse(data[0].content)['createby']['id'] != this._authService.getLoggedInUser().id){
-          this.ticketUpdate = this.ticketUpdateDetail = [];
+          this.ticketUpdate = {};
+          this.ticketUpdateDetail = {};
           this.countChange = Object.keys(this.ticketUpdateDetail).length + Object.keys(this.ticketUpdate).length;
           this._dataService.createToast('Thông tin phiếu vừa được thay đổi bởi ' + JSON.parse(data[0].content)['createby']['name']+'.',3000,'fail-toast');
         }
@@ -278,6 +283,13 @@ export class TicketDetailPage {
             this.reChoose = true;
             //chọn user trong team hiện tại
           }
+          else if(data.assign_agent.id=='' && data.assign_agent.id != this.ticketDefault.assign_agent){
+            this.ticketUpdate['assign_agent'] = 0;
+            this.assign = data.assign_team.team_name;
+            // this.ticketUpdate['assign_team']=data.assign_team.team_id;
+            this.reChoose = true;
+            this.avatar = data.assign_team.color;
+          }
         }
         else{
           if(data.assign_agent.id!=''){
@@ -297,14 +309,14 @@ export class TicketDetailPage {
             //chọn team xử lý trong team khác
           }
         }
+        // console.log(this.ticketUpdate);
       }
-      this.countChange = Object.keys(this.ticketUpdate).length;
+      this.countChange = Object.keys(this.ticketUpdate).length + Object.keys(this.ticketUpdateDetail).length;
       this.count += 1;
     })
     contactModal.present();
    }
    showMore(index,i){
-     //console.log(index);
      if(index.compactContent!=''){
        this.ticketDetail[i].showMore=!index.showMore;
      }
@@ -319,17 +331,23 @@ export class TicketDetailPage {
       action = this.actsheetCtrl.create({
         buttons: [
           {
-            text: 'Theo dõi phiếu',
+            text: (this.is_follow)?'Theo dõi phiếu':'Hủy theo dõi',
             icon: 'logo-rss',
             handler: () => {
-              this._dataService.createToast('Đã theo dõi',2000,'success-toast');
-            }
-          },
-          {
-            text: 'Hủy theo dõi',
-            icon: 'logo-rss',
-            handler: () => {
-              this._dataService.createToast('Đã theo dõi',2000,'fail-toast');
+              // let data = {
+              //   user_name: this._authService.getLoggedInUser().fullname,
+              //   groupid: this._authService.getLoggedInUser().groupid,
+              //   user_id: this._authService.getLoggedInUser().id,
+              //   is_follow: this.is_follow,
+              //   ticket_id : this.navParamsCtrl.get('data').ticket_id,
+              // }
+              if(this.is_follow) {
+                this._dataService.createToast('Đã theo dõi',2000,'success-toast');
+              }
+              else{
+                this._dataService.createToast('Hủy theo dõi',2000,'fail-toast');
+              }
+              this.is_follow = !this.is_follow;
             }
           },
           {
@@ -371,7 +389,7 @@ export class TicketDetailPage {
             icon: 'close',
             role: 'cancel',
             handler: () => {
-              //console.log('Cancel clicked');
+             // console.log('Cancel clicked');
             }
           }
         ]
@@ -392,14 +410,13 @@ export class TicketDetailPage {
          delete this.ticketUpdate['priority'];
        }
       }
-      this.countChange = Object.keys(this.ticketUpdate).length;
+      this.countChange = Object.keys(this.ticketUpdate).length + Object.keys(this.ticketUpdateDetail).length;
       this.count += 2;
     })
     popoverPriority.present();
-     
    }
    changeStatus(){
-    let popoverStatus = this.popoverCtrl.create(PopoverStatus,{data:this.ticketInfo.status},{cssClass:"custom-status",enableBackdropDismiss:true})
+    let popoverStatus = this.popoverCtrl.create(PopoverStatus,{data:this.ticketInfo.status,action:'detail'},{cssClass:"custom-status",enableBackdropDismiss:true})
     popoverStatus.onDidDismiss(data=>{
       if(data!=null && typeof data!=undefined){
        this.ticketInfo.status = data.status.value;
@@ -411,7 +428,7 @@ export class TicketDetailPage {
         delete this.ticketUpdate['status'];
        }
       }
-      this.countChange = Object.keys(this.ticketUpdate).length;
+      this.countChange = Object.keys(this.ticketUpdate).length + Object.keys(this.ticketUpdateDetail).length;
     })
     popoverStatus.present();
    }
@@ -429,7 +446,7 @@ export class TicketDetailPage {
         this.assign = this.ticketInfo.team_name;
         this.avatar = '#2979ff';
       }
-     this.countChange = Object.keys(this.ticketUpdate).length;
+      this.countChange = Object.keys(this.ticketUpdate).length + Object.keys(this.ticketUpdateDetail).length;
    }
    onComment(){
     if(this.content!=''){
@@ -441,11 +458,16 @@ export class TicketDetailPage {
     this.countChange = Object.keys(this.ticketUpdateDetail).length + Object.keys(this.ticketUpdate).length;
    }
    actionTicket(){
-     //console.log(this.ticketUpdate);
-     let ticketId = this.navParamsCtrl.get('data').id;
+    let param = {
+        ticketId: this.navParamsCtrl.get('data').id,
+        dataTicket: this.ticketUpdate,
+        dataDetail: this.ticketUpdateDetail,
+        private: this.privateNote
+    }
+    // console.log(param); 
      let loader = this._dataService.createLoading({content:this._msgService._msg_loading});
      loader.present();
-     this._ticketService.actionTicket({dataTicket:this.ticketUpdate,dataDetail:this.ticketUpdateDetail,ticketId: ticketId, private:this.privateNote}).subscribe(res=>{
+     this._ticketService.actionTicket(param).subscribe(res=>{
          loader.dismiss();
          if(res.code==200){
            this._dataService.createToast(res.message,2000,'success-toast');
@@ -472,7 +494,6 @@ export class TicketDetailPage {
   }
   trashOrResolveTicket(){
     let id = this.navParamsCtrl.get('data').id;
-    //console.log(id);
     this._ticketService.trashOrResolveTicket(id).subscribe(res=>{
       if(res.code==200){
         this.initTicketDetail();
@@ -484,6 +505,7 @@ export class TicketDetailPage {
   openModalProperties(){
     let data={
       id:this.navParamsCtrl.get('data').id,
+      action:'detail',
       status:this.statusDefault,
       priority:this.priorityDefault,
       title:this.ticketInfo.title,
@@ -530,10 +552,20 @@ export class TicketDetailPage {
               }
               break;
             case 'assign':
-              if(self.ticketDefault.assign_team != data[key]['team'])  self.ticketUpdate['assign_team'] = data[key]['team'];
-              if(self.ticketDefault.assign_agent != data[key]['agent']) self.ticketUpdate['assign_agent'] = data[key]['agent'];
+              if(self.ticketDefault.assign_team == data[key]['team']){
+                if(self.ticketDefault.assign_agent != data[key]['agent']){
+                  self.ticketUpdate['assign_team'] = data[key]['team'];
+                  self.ticketUpdate['assign_agent'] = data[key]['agent'];
+                  self.reChoose = true;
+                }
+              }
+              else{
+                self.ticketUpdate['assign_team'] = data[key]['team'];
+                self.ticketUpdate['assign_agent'] = data[key]['agent'];
+                self.reChoose = true;
+              }
               self.assign = data[key]['name'];
-              self.reChoose = true;
+              
               break;
             case 'requester':
               if(self.ticketInfo.requester != data[key][key]){
@@ -560,7 +592,7 @@ export class TicketDetailPage {
                 tmp = tmp.substring(0,tmp.length-1);
                 name = name.substring(0,name.length-2);
                 self.ticketInfo.parent2 = tmp;
-                self.ticketUpdate[key] = {id:data[key]['id'],name:name};
+                self.ticketUpdate['category'] = { id: data[key]['id'], name: name};
               }
               else{
                 self.ticketInfo.category == data[key]['id'];
@@ -570,7 +602,7 @@ export class TicketDetailPage {
           }
         })
       }
-      this.countChange = Object.keys(this.ticketUpdate).length;
+      this.countChange = Object.keys(this.ticketUpdate).length + Object.keys(this.ticketUpdateDetail).length;
     })
     modal.present();
   }
@@ -618,6 +650,19 @@ export class TicketDetailPage {
             case 'assign_team':
               if(self.ticketInfo.assign_team != data['dataMacro'][key]){
                 self.ticketUpdate[key] = data['dataMacro'][key];
+              }
+              break;
+            case 'category':
+              //console.log(data['dataMacro']);
+              if(self.ticketDefault.category != data['dataMacro'][key]){
+                self.ticketInfo.category = data['dataMacro'][key];
+                let name = data['dataMacro']['categoryName'].substring(0,data['dataMacro']['categoryName'].length-2);
+                self.ticketInfo.parent2 = data['dataMacro']['parent2'];
+                self.ticketUpdate[key] = { id: data['dataMacro'][key], name: name };
+              }
+              else{
+                self.ticketInfo.category == data['dataMacro'][key];
+                delete self.ticketUpdate[key];
               }
               break;
           }
