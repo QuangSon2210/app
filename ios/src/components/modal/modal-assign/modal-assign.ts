@@ -55,7 +55,7 @@ export class ModalAssign {
   }
   ionViewWillLoad() {
     let data = this.navParams.get('data');
-    console.log(data);
+    //console.log(data);
     this.selected_memberId = data.selected_memberId;
     this.selected_teamId = data.selected_teamId;
     this.loading = true;
