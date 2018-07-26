@@ -33,12 +33,12 @@ export class AuthService {
             localStorage.setItem('curuser',JSON.stringify({ info: this.loggedInUser.user, user_log: this.loggedInUser.user_log }));
             localStorage.setItem('room',this.loggedInUser.room);
             localStorage.setItem('data',JSON.stringify({ priority: this.loggedInUser.priority, relation: this.loggedInUser.relation }));
-            if(this.loggedInUser.user['fcm_token']== '0' || this.loggedInUser.user['fcm_token']=='' || this.loggedInUser.user['fcm_token'] == null){
-                this.initFCMToken();
-            }
-            else{
-                localStorage.setItem('fcm_token',this.loggedInUser.user['fcm_token']);
-            }
+            // if(this.loggedInUser.user['fcm_token']== '0' || this.loggedInUser.user['fcm_token']=='' || this.loggedInUser.user['fcm_token'] == null){
+            //     this.initFCMToken();
+            // }
+            // else{
+            //     localStorage.setItem('fcm_token',this.loggedInUser.user['fcm_token']);
+            // }
             localStorage.setItem('setting',JSON.stringify({ notify:this.loggedInUser.user.is_notification,vibrate:'1'}));
         } else {
             //console.log('Empty token ---');

@@ -196,7 +196,8 @@ export class TicketDetailPage {
       }
       if(this.navCtrl.getActive().instance instanceof TicketDetailPage){
         if(data[0]['ticket_id'] == this.navParamsCtrl.get('data').id && JSON.parse(data[0].content)['createby']['id'] != this._authService.getLoggedInUser().id){
-          this.ticketUpdate = this.ticketUpdateDetail = [];
+          this.ticketUpdate = {};
+          this.ticketUpdateDetail = {};
           this.countChange = Object.keys(this.ticketUpdateDetail).length + Object.keys(this.ticketUpdate).length;
           this._dataService.createToast('Thông tin phiếu vừa được thay đổi bởi ' + JSON.parse(data[0].content)['createby']['name']+'.',3000,'fail-toast');
         }
@@ -280,6 +281,13 @@ export class TicketDetailPage {
             this.reChoose = true;
             //chọn user trong team hiện tại
           }
+          else if(data.assign_agent.id=='' && data.assign_agent.id != this.ticketDefault.assign_agent){
+            this.ticketUpdate['assign_agent'] = 0;
+            this.assign = data.assign_team.team_name;
+            // this.ticketUpdate['assign_team']=data.assign_team.team_id;
+            this.reChoose = true;
+            this.avatar = data.assign_team.color;
+          }
         }
         else{
           if(data.assign_agent.id!=''){
@@ -299,6 +307,7 @@ export class TicketDetailPage {
             //chọn team xử lý trong team khác
           }
         }
+        console.log(this.ticketUpdate);
       }
       this.countChange = Object.keys(this.ticketUpdate).length;
       this.count += 1;
@@ -447,10 +456,16 @@ export class TicketDetailPage {
     this.countChange = Object.keys(this.ticketUpdateDetail).length + Object.keys(this.ticketUpdate).length;
    }
    actionTicket(){
-     let ticketId = this.navParamsCtrl.get('data').id;
+    let param = {
+        ticketId: this.navParamsCtrl.get('data').id,
+        dataTicket: this.ticketUpdate,
+        dataDetail: this.ticketUpdateDetail,
+        private: this.privateNote
+    }
+    console.log(param); 
      let loader = this._dataService.createLoading({content:this._msgService._msg_loading});
      loader.present();
-     this._ticketService.actionTicket({dataTicket:this.ticketUpdate,dataDetail:this.ticketUpdateDetail,ticketId: ticketId, private:this.privateNote}).subscribe(res=>{
+     this._ticketService.actionTicket(param).subscribe(res=>{
          loader.dismiss();
          if(res.code==200){
            this._dataService.createToast(res.message,2000,'success-toast');
@@ -534,10 +549,20 @@ export class TicketDetailPage {
               }
               break;
             case 'assign':
-              if(self.ticketDefault.assign_team != data[key]['team'])  self.ticketUpdate['assign_team'] = data[key]['team'];
-              if(self.ticketDefault.assign_agent != data[key]['agent']) self.ticketUpdate['assign_agent'] = data[key]['agent'];
+              if(self.ticketDefault.assign_team == data[key]['team']){
+                if(self.ticketDefault.assign_agent != data[key]['agent']){
+                  self.ticketUpdate['assign_team'] = data[key]['team'];
+                  self.ticketUpdate['assign_agent'] = data[key]['agent'];
+                  self.reChoose = true;
+                }
+              }
+              else{
+                self.ticketUpdate['assign_team'] = data[key]['team'];
+                self.ticketUpdate['assign_agent'] = data[key]['agent'];
+                self.reChoose = true;
+              }
               self.assign = data[key]['name'];
-              self.reChoose = true;
+              
               break;
             case 'requester':
               if(self.ticketInfo.requester != data[key][key]){
@@ -564,7 +589,7 @@ export class TicketDetailPage {
                 tmp = tmp.substring(0,tmp.length-1);
                 name = name.substring(0,name.length-2);
                 self.ticketInfo.parent2 = tmp;
-                self.ticketUpdate[key] = {id:data[key]['id'],name:name};
+                self.ticketUpdate['category'] = { id: data[key]['id'], name: name};
               }
               else{
                 self.ticketInfo.category == data[key]['id'];

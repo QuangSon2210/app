@@ -10,31 +10,51 @@ import { TicketService } from './../../../services/ticket.service';
         <ion-navbar class="navbar-category">
           <ion-grid no-padding>
             <ion-row no-padding>
-              <ion-col col-1>
-                <ion-buttons *ngIf="filterCategory.dataChoose.length>0" (click)="chooseCategory(item,$type='back')"><button ion-button><ion-icon color="dark" name="arrow-back"></ion-icon></button></ion-buttons>
-              </ion-col>
+              <ion-col style="margin-top:5px;" col-1><ion-buttons *ngIf="filterCategory.dataChoose.length>0" (click)="chooseCategory(item,$type='back')"><button ion-button><ion-icon color="dark" name="arrow-back"></ion-icon></button></ion-buttons></ion-col>
               <ion-col col-11>
-                <ion-input type="text" placeholder="Nhập tên chủ đề" [(ngModel)]="searchText"></ion-input>
+              <ion-searchbar 
+                [(ngModel)]="searchText"
+                [animated]="true">
+              </ion-searchbar>
               </ion-col>
             </ion-row>
           </ion-grid>
         </ion-navbar>
     </ion-header>
+
     <ion-content>
       <ion-spinner padding margin *ngIf="loading" name="crescent"></ion-spinner>
-      <ion-list inset *ngIf="!loading" >
+      <ion-list *ngIf="!loading" >
         <ion-item *ngFor="let item of filterCategory.dataItems | filter:searchText" (click)="chooseCategory(item,$type='choose')">
         {{item.name}}
         </ion-item>
       </ion-list>
     </ion-content>
+
     <ion-footer style="position:fixed;" no-lines>
       <ion-navbar  class="navbar-category">
         <ion-buttons end><button ion-button color="dark" *ngIf="filterCategory.dataChoose.length>0" (click)="doCategory()">Xác nhận</button></ion-buttons>
         <ion-buttons end><button ion-button color="dark" (click)="close()">Đóng</button></ion-buttons>
       </ion-navbar>
     </ion-footer>
+   
   `,
+//   <ion-footer style="position:fixed;" no-lines>
+//   <ion-navbar  class="navbar-category">
+//     <ion-buttons end><button ion-button color="dark" *ngIf="filterCategory.dataChoose.length>0" (click)="doCategory()">Xác nhận</button></ion-buttons>
+//     <ion-buttons end><button ion-button color="dark" (click)="close()">Đóng</button></ion-buttons>
+//   </ion-navbar>
+// </ion-footer>
+// <ion-grid no-padding>
+//             <ion-row no-padding>
+//               <ion-col col-1>
+//                 <ion-buttons *ngIf="filterCategory.dataChoose.length>0" (click)="chooseCategory(item,$type='back')"><button ion-button><ion-icon color="dark" name="arrow-back"></ion-icon></button></ion-buttons>
+//               </ion-col>
+//               <ion-col col-11>
+//                 <ion-input type="text" placeholder="Nhập tên chủ đề" [(ngModel)]="searchText"></ion-input>
+//               </ion-col>
+//             </ion-row>
+//           </ion-grid>
   selector:'popover-category',
 })
 

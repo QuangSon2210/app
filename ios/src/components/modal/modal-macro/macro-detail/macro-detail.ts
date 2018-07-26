@@ -102,20 +102,20 @@ export class MacroDetail {
             this.dataMacro.categoryName = categoryName;
           })
           break;
-        // case 'assign_agent':
-        //   this.dataMacro.assign_agent = this.action[i]['value'];
-        //   this.arrCheck.push({type:'assign_agent'});
-        //   this._userService.getUserName(this.action[i]['value']).subscribe(res=>{
-        //     this.assignName = res.name;
-        //   })
-        //   break;
-        // case 'assign_team':
-        //   this.dataMacro.assign_team = this.action[i]['value'];
-        //   this.arrCheck.push({type:'assign_team'});
-        //   this._userService.getUserInTeam(this.action[i]['value']).subscribe(res=>{
-        //     this.teamName = res.info.team_name;
-        //   })
-        //   break;
+        case 'assign_agent':
+          this.dataMacro.assign_agent = this.action[i]['value'];
+          this.arrCheck.push({type:'assign_agent'});
+          this._userService.getUserName(this.action[i]['value']).subscribe(res=>{
+            this.assignName = res.name;
+          })
+          break;
+        case 'assign_team':
+          this.dataMacro.assign_team = this.action[i]['value'];
+          this.arrCheck.push({type:'assign_team'});
+          this._userService.getUserInTeam(this.action[i]['value']).subscribe(res=>{
+            this.teamName = res.info.team_name;
+          })
+          break;
       }
     }
     console.log(this.dataMacro);

@@ -88,6 +88,7 @@ export class ModalProperties{
 								if(content[key]['id'] != self.assign.assign_agent){
 									self.assign.assign_agent = content[key]['id'];
 									self.assign.agent_name = content[key]['name'];
+									self.name = self.assign.agent_name;
 									if(typeof self.dataUpdate[key] != 'undefined' && self.dataUpdate[key] != content[key]['id']){
 										self.dataUpdate[key] = content[key]['id'];
 										self.dataUpdate['assign_team'] = content['assign_team']['id'];
@@ -101,6 +102,7 @@ export class ModalProperties{
 									if(typeof self.dataUpdate[key] != 'undefined' && self.dataUpdate[key] != content[key]['id']){
 										self.dataUpdate[key] = content[key]['id'];
 									}
+									self.name = (self.name=='') ? self.assign.team_name : self.name;
 								}
 								break;
 							case 'priority':
@@ -126,10 +128,11 @@ export class ModalProperties{
 								break;
 							case 'category':
 								if(content[key] != self.categoryDefault.id){
-									self.categoryDefault.id = content[key];
-									self._ticketService.getCategoryName2(content[key]).subscribe(res=>{
-										self.category = res.name2;
-										self.categoryDefault.parent2 = res.parent2;
+									// self.categoryDefault.id = content[key]['id'];
+									// self.categoryDefault.parent2 = content[key]['parent2'];
+									self.categoryDefault = content[key];
+									self._ticketService.getCategoryName(content[key]['parent2']).subscribe(res=>{
+										self.category = res;
 										if(typeof self.dataUpdate[key] != 'undefined' && self.dataUpdate[key] != content[key]){
 											self.dataUpdate[key] = content[key];
 										}
@@ -138,7 +141,8 @@ export class ModalProperties{
 								break;
 						}
 					})
-					self.name = (self.assign.agent_name!='') ? self.assign.agent_name : self.assign.team_name;
+					// self.name = (self.assign.agent_name!='') ? self.assign.agent_name : self.assign.team_name;
+					// console.log(self.name);
         }
       }
       // if(flag){
@@ -199,6 +203,8 @@ export class ModalProperties{
 						this.name = data.assign_agent.name;
 						this.dataUpdate['assign'] = { agent: data.assign_agent.id, team: data.assign_team.team_id, name: this.name };
 					}else{
+						this.name = data.assign_team.team_name;
+						this.dataUpdate['assign'] = { agent: 0, team: data.assign_team.team_id, name: this.name };
 					}
 				}
 				else{
@@ -211,6 +217,7 @@ export class ModalProperties{
 						this.dataUpdate['assign'] = { agent: 0, team: data.assign_team.team_id, name: this.name };
 					}
 				}
+				console.log(this.dataUpdate);
 			}
 			//this.countChange = Object.keys(this.ticketUpdate).length;
 		})

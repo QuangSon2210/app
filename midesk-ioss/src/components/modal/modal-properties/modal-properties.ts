@@ -117,9 +117,9 @@ export class ModalProperties{
 							}
 							self.statusDefault = self.checkStatus[content['status']];
 						}
-            // else if(key=='category'){
-						// 	if()
-            // }
+            else if(key=='category'){
+							console.log( content['category']);
+            }
 					})
 					self.name = (self.assign.agent_name!='') ? self.assign.agent_name : self.assign.team_name;
         }
