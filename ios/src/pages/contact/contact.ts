@@ -29,7 +29,7 @@ export class ContactPage {
   		public navCtrl: NavController, 
   		public navParams: NavParams,
       private _contactService: ContactService,
-      private _authService: AuthService
+      // private _authService: AuthService
     ) {
   }
 

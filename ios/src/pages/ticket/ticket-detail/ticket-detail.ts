@@ -21,13 +21,15 @@ export class TicketDetailPage {
       { id : 1, name : 'Mở mới', value : 'new', color : '#C8C800', alias: 'n', checked: false  },
       { id : 2, name : 'Đang mở', value : 'open', color : '#C80000', alias: 'o', checked: false },
       { id : 3, name : 'Đang chờ', value : 'pending', color : '#15BDE9', alias: 'p', checked: false },
-      { id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false }
+      { id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false },
+      { id : 5, name : 'Đóng', value : 'closed', color : '#CCCCCC', alias: 'c', checked: false }
   ];
   checkStatus={
     new: { id : 1, name : 'Mở mới', value : 'new', color : '#C8C800', alias: 'n', checked: false  },
     open: { id : 2, name : 'Đang mở', value : 'open', color : '#C80000', alias: 'o', checked: false },
     pending: { id : 3, name : 'Đang chờ', value : 'pending', color : '#15BDE9', alias: 'p', checked: false },
-    solved: { id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false }
+    solved: { id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false },
+    closed: { id : 5, name : 'Đóng', value : 'closed', color : '#CCCCCC', alias: 'c', checked: false }
   };
   checkPriority:any;
   assign='';
@@ -307,9 +309,9 @@ export class TicketDetailPage {
             //chọn team xử lý trong team khác
           }
         }
-        console.log(this.ticketUpdate);
+        // console.log(this.ticketUpdate);
       }
-      this.countChange = Object.keys(this.ticketUpdate).length;
+      this.countChange = Object.keys(this.ticketUpdate).length + Object.keys(this.ticketUpdateDetail).length;
       this.count += 1;
     })
     contactModal.present();
@@ -408,13 +410,13 @@ export class TicketDetailPage {
          delete this.ticketUpdate['priority'];
        }
       }
-      this.countChange = Object.keys(this.ticketUpdate).length;
+      this.countChange = Object.keys(this.ticketUpdate).length + Object.keys(this.ticketUpdateDetail).length;
       this.count += 2;
     })
     popoverPriority.present();
    }
    changeStatus(){
-    let popoverStatus = this.popoverCtrl.create(PopoverStatus,{data:this.ticketInfo.status},{cssClass:"custom-status",enableBackdropDismiss:true})
+    let popoverStatus = this.popoverCtrl.create(PopoverStatus,{data:this.ticketInfo.status,action:'detail'},{cssClass:"custom-status",enableBackdropDismiss:true})
     popoverStatus.onDidDismiss(data=>{
       if(data!=null && typeof data!=undefined){
        this.ticketInfo.status = data.status.value;
@@ -426,7 +428,7 @@ export class TicketDetailPage {
         delete this.ticketUpdate['status'];
        }
       }
-      this.countChange = Object.keys(this.ticketUpdate).length;
+      this.countChange = Object.keys(this.ticketUpdate).length + Object.keys(this.ticketUpdateDetail).length;
     })
     popoverStatus.present();
    }
@@ -444,7 +446,7 @@ export class TicketDetailPage {
         this.assign = this.ticketInfo.team_name;
         this.avatar = '#2979ff';
       }
-     this.countChange = Object.keys(this.ticketUpdate).length;
+      this.countChange = Object.keys(this.ticketUpdate).length + Object.keys(this.ticketUpdateDetail).length;
    }
    onComment(){
     if(this.content!=''){
@@ -462,7 +464,7 @@ export class TicketDetailPage {
         dataDetail: this.ticketUpdateDetail,
         private: this.privateNote
     }
-    console.log(param); 
+    // console.log(param); 
      let loader = this._dataService.createLoading({content:this._msgService._msg_loading});
      loader.present();
      this._ticketService.actionTicket(param).subscribe(res=>{
@@ -503,6 +505,7 @@ export class TicketDetailPage {
   openModalProperties(){
     let data={
       id:this.navParamsCtrl.get('data').id,
+      action:'detail',
       status:this.statusDefault,
       priority:this.priorityDefault,
       title:this.ticketInfo.title,
@@ -599,7 +602,7 @@ export class TicketDetailPage {
           }
         })
       }
-      this.countChange = Object.keys(this.ticketUpdate).length;
+      this.countChange = Object.keys(this.ticketUpdate).length + Object.keys(this.ticketUpdateDetail).length;
     })
     modal.present();
   }

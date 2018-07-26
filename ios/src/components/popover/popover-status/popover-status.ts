@@ -28,7 +28,8 @@ export class PopoverStatus {
       { id : 1, name : 'Mở mới', value : 'new', color : '#C8C800', alias: 'n', checked: false  },
       { id : 2, name : 'Đang mở', value : 'open', color : '#C80000', alias: 'o', checked: false },
       { id : 3, name : 'Đang chờ', value : 'pending', color : '#15BDE9', alias: 'p', checked: false },
-      { id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false }
+      { id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false },
+      { id : 5, name : 'Đóng', value : 'closed', color : '#CCCCCC', alias: 'c', checked: false }
   ];
   selected_status={
     id:0,
@@ -39,6 +40,12 @@ export class PopoverStatus {
   };
   selectedId:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
+    if(typeof this.navParams.get('action') !='undefined' && this.navParams.get('action')=='detail'){
+      this.status.splice(0,1);
+    }
+    else if(typeof this.navParams.get('action') != 'undefined' && this.navParams.get('action') == 'add'){
+      this.status.splice(this.status.length-1,1);
+    }
   	this.selectedId = this.navParams.get('data');
   }
 

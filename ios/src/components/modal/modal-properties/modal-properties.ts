@@ -29,13 +29,15 @@ export class ModalProperties{
 		{ id : 1, name : 'Mở mới', value : 'new', color : '#C8C800', alias: 'n', checked: false  },
 		{ id : 2, name : 'Đang mở', value : 'open', color : '#C80000', alias: 'o', checked: false },
 		{ id : 3, name : 'Đang chờ', value : 'pending', color : '#15BDE9', alias: 'p', checked: false },
-		{ id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false }
+		{ id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false },
+		{ id : 5, name : 'Đóng', value : 'closed', color : '#CCCCCC', alias: 'c', checked: false }
 	];
 	checkStatus={
     new: { id : 1, name : 'Mở mới', value : 'new', color : '#C8C800', alias: 'n', checked: false  },
     open: { id : 2, name : 'Đang mở', value : 'open', color : '#C80000', alias: 'o', checked: false },
     pending: { id : 3, name : 'Đang chờ', value : 'pending', color : '#15BDE9', alias: 'p', checked: false },
-    solved: { id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false }
+	solved: { id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false },
+	closed: { id : 5, name : 'Đóng', value : 'closed', color : '#CCCCCC', alias: 'c', checked: false }
   };
 	constructor(
 		public navParams: NavParams,
@@ -160,7 +162,7 @@ export class ModalProperties{
 		}else delete this.dataUpdate['title'];
 	}
 	changeStatus(){
-		let popoverStatus = this.popoverCtrl.create(PopoverStatus,{data:this.statusDefault.value},{cssClass:"custom-status",enableBackdropDismiss:true})
+		let popoverStatus = this.popoverCtrl.create(PopoverStatus,{data:this.statusDefault.value,action:this.navParams.get('data').action},{cssClass:"custom-status",enableBackdropDismiss:true})
 		popoverStatus.onDidDismiss(data=>{
 		  if(data!=null && typeof data!=undefined){
 			this.statusDefault = data.status;
@@ -217,7 +219,7 @@ export class ModalProperties{
 						this.dataUpdate['assign'] = { agent: 0, team: data.assign_team.team_id, name: this.name };
 					}
 				}
-				console.log(this.dataUpdate);
+				// console.log(this.dataUpdate);
 			}
 			//this.countChange = Object.keys(this.ticketUpdate).length;
 		})

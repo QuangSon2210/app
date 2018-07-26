@@ -64,18 +64,6 @@ export class ModalAssign {
         this.loading = false;
     });
   }
-  // requesterChange(event: { component: SelectSearchable, value: any }) {
-  //       console.log('port:', event.value);
-  // }
-  // doInfinite(event: { component: SelectSearchable, infiniteScroll: InfiniteScroll }){
-  // 	this.page += 1;
-  // 	this._userService.getMoreRequester(this.page).subscribe(res=>{
-  // 		if(res.data!==null){
-  // 			this.requesters.push(...res.data);
-  // 		}
-  // 		event.infiniteScroll.complete();
-  // 	})
-  // }
   selectTeam(index){
     this.selected_team= index;
     this.selected_member={

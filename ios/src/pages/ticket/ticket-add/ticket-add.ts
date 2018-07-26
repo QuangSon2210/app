@@ -13,7 +13,6 @@ import { ModalMacro } from '../../../components/modal/modal-macro/modal-macro';
 import { DataService } from '../../../common/data.service';
 import { MessageService } from '../../../common/message.service';
 
-
 @Component({
   selector: 'page-ticket-add',
   templateUrl: 'ticket-add.html'
@@ -44,7 +43,8 @@ export class TicketAddPage {
     new: { id : 1, name : 'Mở mới', value : 'new', color : '#C8C800', alias: 'n', checked: false  },
     open: { id : 2, name : 'Đang mở', value : 'open', color : '#C80000', alias: 'o', checked: false },
     pending: { id : 3, name : 'Đang chờ', value : 'pending', color : '#15BDE9', alias: 'p', checked: false },
-    solved: { id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false }
+    solved: { id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false },
+    closed: { id : 5, name : 'Đóng', value : 'closed', color : '#CCCCCC', alias: 'c', checked: false }
   };
   privateNote:any = 0;
   priority:any={};
@@ -59,6 +59,7 @@ export class TicketAddPage {
   fileName='';
   submitCreate = false;
   avatar='';
+  parent2='';
   constructor(
   	public navCtrl: NavController,
     private navParams: NavParams,
@@ -127,7 +128,7 @@ export class TicketAddPage {
     contactModal.present();
  	}
   openPopoverStatus(){
-    let popoverStatus = this.popoverCtrl.create(PopoverStatus,{data:this.ticketParams.status},{cssClass:"custom-status",enableBackdropDismiss:true})
+    let popoverStatus = this.popoverCtrl.create(PopoverStatus,{data:this.ticketParams.status,action:'add'},{cssClass:"custom-status",enableBackdropDismiss:true})
     popoverStatus.onDidDismiss(data=>{
       if(data!=null && typeof data!=undefined){
         this.ticketParams.status = data.status.value;
@@ -165,12 +166,14 @@ export class TicketAddPage {
   openModalProperties(){
     let data={
       id:0,
+      action:'add',
       status:(this.ticketParams.status!='')?this.checkStatus[this.ticketParams.status]:'',
       priority:(this.ticketParams.priority!='')?this.checkPriority[parseInt(this.ticketParams.priority)-1]:'',
       title:this.ticketParams.title,
       requester:(this.requesterName!='')?{'name':this.requesterName,'id':this.ticketParams.requester}:'',
       customer:(this.customerName!='')?{'customer_id':this.ticketParams.requester_customer_id,'customer_name':this.customerName}:'',
-      assign:(this.assign!='')?{'name':this.assign,'assign_team':this.ticketParams.assign_team,'assign_agent':this.ticketParams.assign_agent}:''
+      assign:(this.assign!='')?{'name':this.assign,'assign_team':this.ticketParams.assign_team,'assign_agent':this.ticketParams.assign_agent}:'',
+      category: {id:this.ticketParams.category,parent2:this.parent2}
     }
     //let modal = this.modalCtrl.create(ModalProperties,{data});
     let propertiesModal = this.modalCtrl.create(ModalProperties,{data:data});
@@ -309,15 +312,26 @@ export class TicketAddPage {
         switch(key){
           case 'private' || 'public':
             self.privateNote = data['dataMacro'][key];
-            self.ticketParams[key] = data['dataMacro'][key]
+            self.ticketParams[key] = data['dataMacro'][key];
+            self.ticketParams.content = data['dataMacro']['content'];
             break;
           case 'status':
-            self.ticketParams[key] = data['dataMacro'][key]
+            self.ticketParams[key] = data['dataMacro'][key];
             self.status = self.checkStatus[data['dataMacro'][key]];
             break;
           case 'priority':
-            self.ticketParams[key] = data['dataMacro'][key]
+            self.ticketParams[key] = data['dataMacro'][key];
             self.priority = self.checkPriority[data['dataMacro'][key]-1];
+            break;
+          case 'assign_agent':
+            self.ticketParams[key] = data['dataMacro'][key];
+            break;
+          case 'assign_team':
+            self.ticketParams[key] = data['dataMacro'][key];
+            break;
+          case 'category':
+            self.ticketParams[key] = data['dataMacro'][key];
+            self.parent2 = data['dataMacro']['parent2'];
             break;
         }
       });   

@@ -25,7 +25,8 @@ export class MacroDetail {
     new: { id : 1, name : 'Mở mới', value : 'new', color : '#C8C800', alias: 'n', checked: false  },
     open: { id : 2, name : 'Đang mở', value : 'open', color : '#C80000', alias: 'o', checked: false },
     pending: { id : 3, name : 'Đang chờ', value : 'pending', color : '#15BDE9', alias: 'p', checked: false },
-    solved: { id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false }
+    solved: { id : 4, name : 'Đã xử lý', value : 'solved', color : '#CCCCCC', alias: 's', checked: false },
+    closed: { id : 5, name : 'Đóng', value : 'closed', color : '#CCCCCC', alias: 'c', checked: false } 
   };
   checkPriority:any;
   arrCheck:any=[];
@@ -46,7 +47,7 @@ export class MacroDetail {
   ionViewDidLoad() {
     this.checkPriority = this._authService.getPriority();
     this.macro = this.navParams.get('data');
-    console.log(this.macro);
+    // console.log(this.macro);
     this.initDetail();
   }
   initDetail(){
@@ -80,12 +81,14 @@ export class MacroDetail {
           this.arrCheck.push({type:'assign_team'});
           this._userService.getUserInTeam(value[0]).subscribe(res=>{
             this.teamName = res.info.team_name;
+            this.dataMacro.teamName = this.teamName;
           })
           if(value[1]!='0'){
             this.dataMacro.assign_agent = value[1];
             this.arrCheck.push({type:'assign_agent'});
             this._userService.getUserName(value[1]).subscribe(res=>{
               this.assignName = res.name;
+              this.dataMacro.agentName = this.assignName;
             })
           }
           break;
@@ -107,6 +110,7 @@ export class MacroDetail {
           this.arrCheck.push({type:'assign_agent'});
           this._userService.getUserName(this.action[i]['value']).subscribe(res=>{
             this.assignName = res.name;
+            this.dataMacro.assignName =this.assignName;
           })
           break;
         case 'assign_team':
@@ -114,11 +118,12 @@ export class MacroDetail {
           this.arrCheck.push({type:'assign_team'});
           this._userService.getUserInTeam(this.action[i]['value']).subscribe(res=>{
             this.teamName = res.info.team_name;
+            this.dataMacro.teamName = this.teamName;
           })
           break;
       }
     }
-    console.log(this.dataMacro);
+    //console.log(this.dataMacro);
   }
   actionDetail(){
     this._event.publish('MACRO',{dataMacro:this.dataMacro,assignName:this.assignName,teamName: this.teamName});

@@ -46,48 +46,6 @@ export class ModalMacro {
   closeModal(){
       this.viewCtrl.dismiss();
   }
-  // initDetail(){
-  //   this.action = JSON.parse(this.macro.action);
-  //   for(let i = 0; i < this.action.length;i++){
-  //     switch(this.action[i]['type']){
-  //       case 'priority': 
-  //         this.dataMacro.priority = this.action[i]['value'];
-  //         this.priority = this.checkPriority[this.action[i]['value']-1];
-  //         this.arrCheck.push({type:'priority'}); 
-  //         break;
-  //       case 'status': 
-  //         this.dataMacro.status = this.action[i]['value'];
-  //         this.status = this.checkStatus[this.action[i]['value']];
-  //         this.arrCheck.push({type:'status'}); 
-  //         break;
-  //       case 'public_reply': 
-  //         this.dataMacro.content = this.action[i]['value']; 
-  //         this.dataMacro.private = 0; 
-  //         this.arrCheck.push({type:'content'}); 
-  //         break;
-  //       case 'private_reply':
-  //         this.dataMacro.content = this.action[i]['value']; 
-  //         this.dataMacro.private = 1; 
-  //         this.arrCheck.push({type:'content'});  
-  //         break; 
-  //       case 'assign_agent':
-  //         this.dataMacro.assign_agent = this.action[i]['value'];
-  //         this.arrCheck.push({type:'assign_agent'});
-  //         this._userService.getUserName(this.action[i]['value']).subscribe(res=>{
-  //           this.assignName = res.name;
-  //         })
-  //         break;
-  //       case 'assign_team':
-  //         this.dataMacro.assign_team = this.action[i]['value'];
-  //         this.arrCheck.push({type:'assign_team'});
-  //         this._userService.getUserInTeam(this.action[i]['value']).subscribe(res=>{
-  //           this.teamName = res.info.team_name;
-  //         })
-  //         break;
-  //     }
-  //   }
-  //   console.log(this.dataMacro);
-  // }
   actionMacro(index){
     // let modalDetail = this.modalCtrl.create(MacroDetail);
     this.navCtrl.push(MacroDetail,{data:index});
