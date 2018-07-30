@@ -21,7 +21,9 @@
 </ion-header>
 
 <ion-content no-padding>
-  
+  <div>
+    <audio preload="auto" controls="" src="/assets/man-not-hot.mp3">Your browser does not support the audio element.</audio>
+  </div>
   <ion-spinner padding margin class="loading-search" *ngIf="modelTicket.dataLoading"  name="crescent"></ion-spinner>
   <ion-list no-padding class="list-ticket">
   <div *ngIf="modelTicket.dataItems.length>0">
