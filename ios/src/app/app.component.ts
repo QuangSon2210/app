@@ -76,11 +76,11 @@ export class MyApp {
   checkLogin(){
     if(this._authService.isUserLoggedIn()){
       this.connectSocket();
-      // this.initFCMToken();
+      this.initFCMToken();
       this.listenEventNewNotifi();
       this.listenEventUpdate();
-      // this.handleNotification();
-      // this.receiveNotification();
+      this.handleNotification();
+      this.receiveNotification();
       this.checkTokenExpired();
       this._notifyService.countNewNotifications().subscribe(res => { this.countNotify = res;});
       this.loggedInUser = this._authService.getLoggedInUser();
