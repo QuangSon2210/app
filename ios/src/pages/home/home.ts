@@ -216,4 +216,10 @@ export class HomePage {
       this.initListTicket();
     })
   }
+  typeOf(val){
+    if(typeof val !== 'undefined'){
+      return true;
+    }
+    else return false;
+  }
 }

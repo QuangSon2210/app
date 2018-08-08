@@ -7,7 +7,7 @@
       <ion-row no-padding color="light">
         <ion-col class="filter" col-9>
           <ion-select *ngIf="modelTicket.dataLoading==false" [selectOptions]="filterOption" interface="popover" no-padding (ionChange)="doFilter()" [(ngModel)]="modelTicket.filterBy">
-            <ion-option *ngFor="let item of arrayFilter"  [value]="item.value">{{item.name+' ('+countList[item.id]+')'}}</ion-option>
+            <ion-option *ngFor="let item of arrayFilter"  [value]="item.value">{{item.name}}<span *ngIf="typeOf(countList[item.id])">{{' ('+countList[item.id]+')'}}</span></ion-option>
           </ion-select>
         </ion-col>
         <ion-col col-3>
@@ -21,9 +21,9 @@
 </ion-header>
 
 <ion-content no-padding>
-  <div>
+  <!-- <div>
     <audio preload="auto" controls="" src="http://www.brainybetty.com/FacebookFans/Feb112010/strings.wav" type="audio/mpeg">Your browser does not support the audio element.</audio>
-  </div>
+  </div> -->
   <ion-spinner padding margin class="loading-search" *ngIf="modelTicket.dataLoading"  name="crescent"></ion-spinner>
   <ion-list no-padding class="list-ticket">
   <div *ngIf="modelTicket.dataItems.length>0">
